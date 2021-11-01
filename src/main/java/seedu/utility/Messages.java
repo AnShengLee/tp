@@ -7,9 +7,9 @@ public class Messages {
     public static final String INVALID_COMMAND_MESSAGE =
             "Invalid command. Use \"help\" to show the list of possible commands.";
     public static final String NON_NUMERIC_AMOUNT_MESSAGE = "Only numeric inputs are allowed for amount.";
-    public static final String N0N_NUMERIC_INDEX_MESSAGE = "Only numeric inputs are allowed for index.";
+    public static final String N0N_INTEGER_INDEX_MESSAGE = "Index given is either out of range or not an integer!";
     public static final String NON_POSITIVE_AMOUNT_MESSAGE = "Only positive values are allowed for amount.";
-    public static final String NON_POSITIVE_INDEX_MESSAGE = "Only positive values are allowed for index.";
+    public static final String NON_POSITIVE_INTEGER_INDEX_MESSAGE = "Only positive integers are allowed for index.";
     public static final String BLANK_AMOUNT_MESSAGE = "No amount inputted!";
     public static final String UNABLE_TO_DELETE_MESSAGE = "Entry not deleted because entry not found!";
     public static final String BLANK_DESCRIPTION_MESSAGE = "Your description is empty!";

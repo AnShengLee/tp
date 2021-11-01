@@ -146,6 +146,36 @@ Below is a sequence diagram of the Budget component when `handleBudget` is execu
 
 _------Work in Progress------_
 
+### Graphing Component
+In the following section all coordinates will be in the form of (Row from the top, Column from the left) and coordinates mark with X is a don't care.
+
+Description of graphing component
+1. The graphing component consists mainly of the StonksGraph class which contains a 20 by 100 2d array.
+2. When first initialised, the StonksGraph constructor will call setBorder() which will loop through the 2d array and set
+all border characters as the given border character 'x' while keeping the others as the char blank.
+3. It then calculates the balance of the financial tracker using the calculateBalance() method and write the value with its descriptor starting from coordinate (2,4).
+4. Next it calls the drawReport() method, first it writes the title "Your Yearly Report" at coordinate (5,4).
+Then it writes the separator at (6,X), followed by a legend at (2,75) the top right. It also writes the x-axis with its month labels.
+5. It then calls the getMonthlyIncomeBreakdown(currentYear()) and getMonthlyExpenseBreakdown(currentYear()) methods to retrieve all total expenses and total incomes
+for the current year when the user is using the app.
+6. Using this 24 data set in total (12months for both expenses and incomes) it will calculate the scale for each bar unit
+7. Then it plots the bar graph based on whichever column it looped through using the drawBar() method.
+
+Below is a sequential diagram for the drawReport() method of StonksGraph.
+
+
+_------Work in Progress------_
+
+
+
+
+
+
+
+
+
+
+
 ### Data Saving Component
 The saving and loading of data is handled by the `DataManager` class. Data will be saved and loaded from 
 `StonksXD_Entries.csv` and `StonksXD_Budget.csv`, which are located in the same directory as the program. 

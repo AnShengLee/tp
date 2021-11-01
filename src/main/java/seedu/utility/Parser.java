@@ -49,6 +49,7 @@ import seedu.exceptions.InvalidIncomeDescriptionException;
 import seedu.exceptions.InvalidIncomeIndexException;
 import seedu.exceptions.InvalidInputAmountValueException;
 import seedu.exceptions.InvalidSettingsDataException;
+import seedu.exceptions.InvalidThresholdValueException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -164,9 +165,9 @@ public class Parser {
             = Pattern.compile("I" + DATA_SEPARATOR + "(?<description>.+)" + DATA_SEPARATOR
             + "(?<amount>.+)" + DATA_SEPARATOR + "(?<category>.+)" + DATA_SEPARATOR + "(?<date>.+)");
     private static final Pattern SETTINGS_DATA_FORMAT = Pattern.compile("(?<currency>.+)" + DATA_SEPARATOR
-            + "(?<food>.+)" + DATA_SEPARATOR + "(?<transport>.+)" + DATA_SEPARATOR + "(?<medical>.+)"
-            + DATA_SEPARATOR + "(?<bills>.+)" + DATA_SEPARATOR + "(?<entertainment>.+)" + DATA_SEPARATOR
-            + "(?<misc>.+)" + DATA_SEPARATOR + "(?<overall>.+)");
+            + "(?<threshold>.+)" + DATA_SEPARATOR + "(?<food>.+)" + DATA_SEPARATOR + "(?<transport>.+)" 
+            + DATA_SEPARATOR + "(?<medical>.+)" + DATA_SEPARATOR + "(?<bills>.+)" + DATA_SEPARATOR 
+            + "(?<entertainment>.+)" + DATA_SEPARATOR + "(?<misc>.+)" + DATA_SEPARATOR + "(?<overall>.+)");
 
     private static final String DATE_FORMAT = "dd/MM/yyyy";
     private static final double INPUT_AMOUNT_LIMIT = 1000000000;
@@ -191,7 +192,6 @@ public class Parser {
         if (multiplePartCommands.contains(commandWord) && arguments.isEmpty()) {
             return new InvalidCommand(Messages.MISSING_PARAMETERS_MESSAGE);
         }
-        
         
         if (isExpenseRelatedCommand(commandWord)) {
             return prepareExpenseRelatedCommand(commandWord, arguments);
@@ -705,6 +705,26 @@ public class Parser {
         }
         return deleteIncomeIndex;
     }
+    
+    private double parseThresholdValue(String userGivenThreshold) throws InvalidThresholdValueException {
+        double thresholdValue;
+        try {
+            thresholdValue = Double.parseDouble(userGivenThreshold);
+        } catch (NumberFormatException e) {
+            throw new InvalidThresholdValueException(Messages.NON_NUMERIC_AMOUNT_MESSAGE);
+        }
+        if ((thresholdValue < 0) | (thresholdValue > 1)) {
+            throw new InvalidThresholdValueException(Messages.INVALID_THRESHOLD_MESSAGE);
+        } else if (Double.isNaN(thresholdValue) || Double.isInfinite(thresholdValue)) {
+            throw new InvalidThresholdValueException(Messages.NON_NUMERIC_AMOUNT_MESSAGE);
+        }
+        return thresholdValue;
+    }
+    
+    private double extractThresholdValue(Matcher matcher) throws InvalidThresholdValueException {
+        String userGivenThreshold = matcher.group("threshold").trim();
+        return parseThresholdValue(userGivenThreshold);
+    }
 
     public String convertExpenseToData(Expense expense) {
         return "E" + DATA_SEPARATOR + expense.getDescription() + DATA_SEPARATOR + expense.getValue() + DATA_SEPARATOR
@@ -840,26 +860,20 @@ public class Parser {
             return new InvalidCommand(Messages.INVALID_COMMAND_MESSAGE);
         }
 
-        String thresholdString = matcher.group("threshold").trim();
         double thresholdValue;
         try {
-            thresholdValue = Double.parseDouble(thresholdString);
-        } catch (NumberFormatException e) {
-            return new InvalidCommand(Messages.NON_NUMERIC_AMOUNT_MESSAGE);
+            thresholdValue = extractThresholdValue(matcher);
+        } catch (InvalidThresholdValueException e) {
+            return new InvalidCommand(e.getMessage());
         }
-        if ((thresholdValue < 0) | (thresholdValue > 1)) {
-            return new InvalidCommand(Messages.INVALID_THRESHOLD_MESSAGE);
-        } else if (Double.isNaN(thresholdValue) || Double.isInfinite(thresholdValue)) {
-            return new InvalidCommand(Messages.NON_NUMERIC_AMOUNT_MESSAGE);
-        }
-
+        
         return new SetThresholdCommand(thresholdValue);
     }
-
+    
     public String convertSettingsToData(FinancialTracker financialTracker, BudgetManager budgetManager) {
         CurrencyType currency = financialTracker.getCurrency();
         StringBuilder data = new StringBuilder(currency.toString() + ",");
-
+        data.append(budgetManager.getThreshold()).append(",");
         for (ExpenseCategory category : ExpenseCategory.values()) {
             // NULL is the category after OVERALL. We do not expect NULL to have a value thus we break here.
             if (category == ExpenseCategory.OVERALL) {
@@ -897,5 +911,14 @@ public class Parser {
         }
         throw new InvalidSettingsDataException();
 
+    }
+    
+    public double convertDataToThresholdSetting(String data) throws InvalidThresholdValueException, 
+            InvalidSettingsDataException {
+        final Matcher matcher = SETTINGS_DATA_FORMAT.matcher(data.trim());
+        if (matcher.matches()) {
+            return extractThresholdValue(matcher);
+        }
+        throw new InvalidSettingsDataException();
     }
 }

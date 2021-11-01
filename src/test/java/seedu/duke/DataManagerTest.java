@@ -23,7 +23,7 @@ public class DataManagerTest {
     public static final String DATE_FORMAT = "dd/MM/yyyy";
 
     @Test
-    public void saveEntries_validEntries_correctDataFileContent() 
+    public void saveEntries_validEntries_correctDataFileContent()
             throws ExpenseOverflowException, IncomeOverflowException {
         FinancialTracker financialTracker = new FinancialTracker();
         LocalDate date = LocalDate.parse("11/11/2121", DateTimeFormatter.ofPattern(DATE_FORMAT));
@@ -39,7 +39,7 @@ public class DataManagerTest {
     }
 
     @Test
-    public void loadEntries_validDataFileContent_correctEntries() 
+    public void loadEntries_validDataFileContent_correctEntries()
             throws ExpenseOverflowException, IncomeOverflowException {
         saveEntries_validEntries_correctDataFileContent();
         Parser parser = new Parser();
@@ -63,7 +63,7 @@ public class DataManagerTest {
     }
 
     @Test
-    public void loadEntries_invalidDataFileContent_detectInvalidDataEntriesAndOutputWarningMessages() 
+    public void loadEntries_invalidDataFileContent_detectInvalidDataEntriesAndOutputWarningMessages()
             throws ExpenseOverflowException, IncomeOverflowException {
         FinancialTracker financialTracker = new FinancialTracker();
         LocalDate date = LocalDate.parse("11/11/2121", DateTimeFormatter.ofPattern(DATE_FORMAT));
@@ -93,14 +93,15 @@ public class DataManagerTest {
             budgetManager.setBudget(i, category);
             i += 1;
         }
+        budgetManager.setThreshold(0.5);
         dataManager.saveAll();
         String testData = parser.convertSettingsToData(financialTracker, budgetManager);
-        String expectedData = "SGD,0.0,1.0,2.0,3.0,4.0,5.0,6.0";
+        String expectedData = "SGD,0.5,0.0,1.0,2.0,3.0,4.0,5.0,6.0";
         assertEquals(expectedData, testData);
     }
 
     @Test
-    public void loadBudget_validBudgetData_validBudgets() {
+    public void loadAll_validBudgetData_validBudgets() {
         saveSettings_validSettings_validSettingData();
         FinancialTracker financialTracker = new FinancialTracker();
         Ui ui = new Ui();

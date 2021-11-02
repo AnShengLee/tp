@@ -55,8 +55,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -84,7 +82,7 @@ public class Parser {
             Pattern.compile("d/(?<description>[^/]+)"
                     + " a/(?<amount>[^/]+)"
                     + " c/(?<category>[^/]+)"
-                    + " da/(?<date>.+)");
+                    + " D/(?<date>.+)");
 
     /**
      * This was adapted from addressbook-level2 source code here:
@@ -99,7 +97,7 @@ public class Parser {
             Pattern.compile("d/(?<description>[^/]+)"
                     + " a/(?<amount>[^/]+)"
                     + " c/(?<category>[^/]+)"
-                    + " da/(?<date>.+)");
+                    + " D/(?<date>.+)");
     /**
      * This was adapted from addressbook-level2 source code here:
      * https://github.com/se-edu/addressbook-level2/blob/master/src/seedu/addressbook/parser/Parser.java
@@ -116,11 +114,11 @@ public class Parser {
 
     private static final Pattern DATE_RANGE_ARGUMENT_FORMAT =
             Pattern.compile("s/(?<start>.+)"
-                    + "e/(?<end>.+)");
+                    + " e/(?<end>.+)");
 
     private static final Pattern SET_BUDGET_ARGUMENT_FORMAT =
             Pattern.compile("c/(?<category>[^/]+)"
-                    + "a/(?<amount>[^/]+)");
+                    + " a/(?<amount>[^/]+)");
 
     private static final Pattern CHECK_BUDGET_ARGUMENT_FORMAT =
             Pattern.compile("c/(?<category>[^/]+)");
@@ -152,10 +150,6 @@ public class Parser {
     private static final String SET_THRESHOLD_KEYWORD = "set_threshold";
     private static final String CONVERT_CURRENCY_KEYWORD = "set_curr";
     private static final String CHECK_CURRENT_CURRENCY_KEYWORD = "check_curr";
-
-    public static final List<String> multiplePartCommands = Arrays.asList(ADD_EXPENSE_KEYWORD, ADD_INCOME_KEYWORD,
-            DELETE_EXPENSE_KEYWORD, DELETE_INCOME_KEYWORD, FIND_KEYWORD, EXPENSE_RANGE_KEYWORD, INCOME_RANGE_KEYWORD,
-            SET_BUDGET_KEYWORD, SET_THRESHOLD_KEYWORD, CONVERT_CURRENCY_KEYWORD, CHECK_BUDGET_KEYWORD);
     
     private static final String DATA_SEPARATOR = ",";
     private static final Pattern EXPENSE_DATA_FORMAT
@@ -188,10 +182,6 @@ public class Parser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments").trim();
-
-        if (multiplePartCommands.contains(commandWord) && arguments.isEmpty()) {
-            return new InvalidCommand(Messages.MISSING_PARAMETERS_MESSAGE);
-        }
         
         if (isExpenseRelatedCommand(commandWord)) {
             return prepareExpenseRelatedCommand(commandWord, arguments);
@@ -236,11 +226,11 @@ public class Parser {
             final Matcher matcherWithoutDate = ADD_EXPENSE_ARGUMENT_FORMAT.matcher(arguments);
             final Matcher matcherWithDate = ADD_EXPENSE_ARGUMENT_FORMAT_WITH_DATE.matcher(arguments);
             if (matcherWithoutDate.matches()) {
-                return prepareAddExpense(matcherWithoutDate);
+                return prepareAddExpenseWithoutDate(matcherWithoutDate);
             } else if (matcherWithDate.matches()) {
                 return prepareAddExpenseWithDate(matcherWithDate);
             } else {
-                return new InvalidCommand(Messages.INVALID_COMMAND_MESSAGE);
+                return new InvalidCommand(Messages.PARAMETERS_ERROR_MESSAGE);
             }
         case DELETE_EXPENSE_KEYWORD:
             return prepareDeleteExpense(arguments);
@@ -261,11 +251,11 @@ public class Parser {
             final Matcher matcherWithoutDate = ADD_INCOME_ARGUMENT_FORMAT.matcher(arguments);
             final Matcher matcherWithDate = ADD_INCOME_ARGUMENT_FORMAT_WITH_DATE.matcher(arguments);
             if (matcherWithoutDate.matches()) {
-                return prepareAddIncome(matcherWithoutDate);
+                return prepareAddIncomeWithoutDate(matcherWithoutDate);
             } else if (matcherWithDate.matches()) {
                 return prepareAddIncomeWithDate(matcherWithDate);
             } else {
-                return new InvalidCommand(Messages.INVALID_COMMAND_MESSAGE);
+                return new InvalidCommand(Messages.PARAMETERS_ERROR_MESSAGE);
             }
         case DELETE_INCOME_KEYWORD:
             return prepareDeleteIncome(arguments);
@@ -319,7 +309,7 @@ public class Parser {
     private Command prepareIncomeRange(String arguments) {
         final Matcher matcher = DATE_RANGE_ARGUMENT_FORMAT.matcher(arguments);
         if (!matcher.matches()) {
-            return new InvalidCommand(Messages.INVALID_COMMAND_MESSAGE);
+            return new InvalidCommand(Messages.PARAMETERS_ERROR_MESSAGE);
         }
         try {
             String start = matcher.group("start").trim();
@@ -338,7 +328,7 @@ public class Parser {
     private Command prepareExpenseRange(String arguments) {
         final Matcher matcher = DATE_RANGE_ARGUMENT_FORMAT.matcher(arguments);
         if (!matcher.matches()) {
-            return new InvalidCommand(Messages.INVALID_COMMAND_MESSAGE);
+            return new InvalidCommand(Messages.PARAMETERS_ERROR_MESSAGE);
         }
         try {
             String start = matcher.group("start").trim();
@@ -378,7 +368,7 @@ public class Parser {
                 return new InvalidCommand(e.getMessage());
             }
         }
-        return new InvalidCommand(Messages.INVALID_COMMAND_MESSAGE);
+        return new InvalidCommand(Messages.PARAMETERS_ERROR_MESSAGE);
     }
 
     private CurrencyType extractCurrencyType(Matcher matcher)
@@ -408,7 +398,7 @@ public class Parser {
      * This was adapted from addressbook-level2 source code here:
      * https://github.com/se-edu/addressbook-level2/blob/master/src/seedu/addressbook/parser/Parser.java
      */
-    private Command prepareAddExpense(Matcher matcher) {
+    private Command prepareAddExpenseWithoutDate(Matcher matcher) {
         try {
             double expenseAmount = extractExpenseAmount(matcher);
             String expenseDescription = extractExpenseDescription(matcher);
@@ -432,6 +422,8 @@ public class Parser {
             return new AddExpenseCommand(expense);
         } catch (InputException e) {
             return new InvalidCommand(e.getMessage());
+        } catch (DateTimeParseException de) {
+            return new InvalidCommand(Messages.INVALID_DATE_FORMAT);
         }
     }
 
@@ -482,7 +474,7 @@ public class Parser {
         return expenseAmount;
     }
 
-    private Command prepareAddIncome(Matcher matcher) {
+    private Command prepareAddIncomeWithoutDate(Matcher matcher) {
         try {
             double incomeAmount = extractIncomeAmount(matcher);
             String incomeDescription = extractIncomeDescription(matcher);
@@ -506,6 +498,8 @@ public class Parser {
             return new AddIncomeCommand(income);
         } catch (InputException e) {
             return new InvalidCommand(e.getMessage());
+        } catch (DateTimeParseException de) {
+            return new InvalidCommand(Messages.INVALID_DATE_FORMAT);
         }
     }
 
@@ -555,7 +549,7 @@ public class Parser {
     private Command prepareDeleteExpense(String arguments) {
         final Matcher matcher = DELETE_EXPENSE_ARGUMENT_FORMAT.matcher(arguments);
         if (!matcher.matches()) {
-            return new InvalidCommand(Messages.INVALID_COMMAND_MESSAGE);
+            return new InvalidCommand(Messages.PARAMETERS_ERROR_MESSAGE);
         }
 
         String userGivenIndex = matcher.group("index").trim();
@@ -577,7 +571,7 @@ public class Parser {
     private Command prepareDeleteIncome(String arguments) {
         final Matcher matcher = DELETE_INCOME_ARGUMENT_FORMAT.matcher(arguments);
         if (!matcher.matches()) {
-            return new InvalidCommand(Messages.INVALID_COMMAND_MESSAGE);
+            return new InvalidCommand(Messages.PARAMETERS_ERROR_MESSAGE);
         }
 
         String userGivenIndex = matcher.group("index").trim();
@@ -711,12 +705,12 @@ public class Parser {
         try {
             thresholdValue = Double.parseDouble(userGivenThreshold);
         } catch (NumberFormatException e) {
-            throw new InvalidThresholdValueException(Messages.NON_NUMERIC_AMOUNT_MESSAGE);
+            throw new InvalidThresholdValueException(Messages.NON_NUMERIC_THRESHOLD_MESSAGE);
         }
         if ((thresholdValue < 0) | (thresholdValue > 1)) {
             throw new InvalidThresholdValueException(Messages.INVALID_THRESHOLD_MESSAGE);
         } else if (Double.isNaN(thresholdValue) || Double.isInfinite(thresholdValue)) {
-            throw new InvalidThresholdValueException(Messages.NON_NUMERIC_AMOUNT_MESSAGE);
+            throw new InvalidThresholdValueException(Messages.NON_NUMERIC_THRESHOLD_MESSAGE);
         }
         return thresholdValue;
     }
@@ -783,7 +777,7 @@ public class Parser {
     private Command prepareSetBudget(String arguments) {
         final Matcher matcher = SET_BUDGET_ARGUMENT_FORMAT.matcher(arguments.trim());
         if (!matcher.matches()) {
-            return new InvalidCommand(Messages.INVALID_COMMAND_MESSAGE);
+            return new InvalidCommand(Messages.PARAMETERS_ERROR_MESSAGE);
         }
 
         String dataAmount = matcher.group("amount").trim();
@@ -826,7 +820,7 @@ public class Parser {
     private Command prepareCheckBudget(String arguments) {
         final Matcher matcher = CHECK_BUDGET_ARGUMENT_FORMAT.matcher(arguments.trim());
         if (!matcher.matches()) {
-            return new InvalidCommand(Messages.INVALID_COMMAND_MESSAGE);
+            return new InvalidCommand(Messages.PARAMETERS_ERROR_MESSAGE);
         }
 
         String expenseCategory = matcher.group("category").trim().toUpperCase();
@@ -857,7 +851,7 @@ public class Parser {
     private Command prepareSetThreshold(String arguments) {
         final Matcher matcher = SET_THRESHOLD_ARGUMENT_FORMAT.matcher(arguments.trim());
         if (!matcher.matches()) {
-            return new InvalidCommand(Messages.INVALID_COMMAND_MESSAGE);
+            return new InvalidCommand(Messages.PARAMETERS_ERROR_MESSAGE);
         }
 
         double thresholdValue;

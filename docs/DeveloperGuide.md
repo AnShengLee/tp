@@ -161,10 +161,10 @@ for the current year when the user is using the app.
 6. Using this 24 data set in total (12months for both expenses and incomes) it will calculate the scale for each bar unit
 7. Then it plots the bar graph based on whichever column it looped through using the drawBar() method.
 
-Below is a sequential diagram for the drawReport() method of StonksGraph.
+Below is a sequential diagram for the constructor of StonksGraph.
 
+![](SequenceDiagramForStonksGraph.png)
 
-_------Work in Progress------_
 
 
 

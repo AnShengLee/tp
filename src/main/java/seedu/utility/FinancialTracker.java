@@ -42,7 +42,13 @@ public class FinancialTracker {
     public double calculateBalance() {
         return getTotalIncome() - getTotalExpense();
     }
-    
+
+    /**
+     * Adds an Expense object into the expenses ArrayList of FinancialTracker.
+     *
+     * @param expense Expense object we want to add into the ArrayList.
+     * @throws ExpenseOverflowException Thrown if the sum of expense exceeds a fixed limit. 
+     */
     public void addExpense(Expense expense) throws ExpenseOverflowException {
         int expenseSize = 0;
         assert (expenseSize = expenses.size()) >= 0;
@@ -54,10 +60,16 @@ public class FinancialTracker {
         assert expenses.size() > expenseSize;
     }
 
-    private boolean isOverflowedExpense(Expense expense) throws ExpenseOverflowException {
+    private boolean isOverflowedExpense(Expense expense) {
         return expense.getValue() + getTotalExpense() > TOTAL_EXPENSE_LIMIT;
     }
 
+    /**
+     * Adds an Income object into the income ArrayList of FinancialTracker.
+     * 
+     * @param income Income object we want to add into the ArrayList.
+     * @throws IncomeOverflowException Thrown if the sum of income exceeds a fixed limit.
+     */
     public void addIncome(Income income) throws IncomeOverflowException {
         int incomeSize = 0;
         assert (incomeSize = incomes.size()) >= 0;
@@ -69,7 +81,7 @@ public class FinancialTracker {
         assert incomes.size() > incomeSize;
     }
 
-    private boolean isOverflowedIncome(Income income) throws IncomeOverflowException {
+    private boolean isOverflowedIncome(Income income) {
         return income.getValue() + getTotalIncome() > TOTAL_INCOME_LIMIT;
     }
 
@@ -77,6 +89,13 @@ public class FinancialTracker {
         return index - 1;
     }
 
+    /**
+     * Removes an expense entry based on its index.
+     *
+     * @param expenseIndex Index of deleted expense entry.
+     * @return Deleted expense object.
+     * @throws ExpenseEntryNotFoundException Thrown if no entry can be found in the given index.
+     */
     public Expense removeExpense(int expenseIndex) throws ExpenseEntryNotFoundException {
         try {
             Expense removedExpense =  expenses.remove(indexOffset(expenseIndex));
@@ -86,6 +105,13 @@ public class FinancialTracker {
         }
     }
 
+    /**
+     * Removes an income entry based on its index.
+     * 
+     * @param incomeIndex Index of deleted income entry.
+     * @return Deleted income object.
+     * @throws IncomeEntryNotFoundException Thrown if no entry can be found in the given index.
+     */
     public Income removeIncome(int incomeIndex) throws IncomeEntryNotFoundException {
         try {
             Income removedIncome = incomes.remove(indexOffset(incomeIndex));
@@ -95,11 +121,21 @@ public class FinancialTracker {
         }
     }
 
+    /**
+     * Returns an ArrayList called expenses from FinancialTracker.
+     * 
+     * @return Returns ArrayList with only expense entries inside.
+     */
     public ArrayList<Expense> getExpenses() {
         assert expenses != null;
         return expenses;
     }
 
+    /**
+     * Returns an ArrayList called incomes from FinancialTracker.
+     *
+     * @return Returns ArrayList with only income entries inside.
+     */
     public ArrayList<Income> getIncomes() {
         assert incomes != null;
         return incomes;
@@ -117,6 +153,7 @@ public class FinancialTracker {
         return entries;
     }
 
+    
     public CurrencyType getCurrency() {
         assert currency != null;
         return currency;
@@ -185,9 +222,7 @@ public class FinancialTracker {
                 .collect(Collectors.toList());
         return getTotalExpense(accumulatedExpense);
     }
-
-
-    //returns the total expense in the month. Used for data visualisation
+    
     private double getMonthlyExpense(int inputMonth, List<Expense> yearlyExpense) {
         List<Expense> monthlyAccumulatedExpense = yearlyExpense.stream()
                 .filter(DateOperator.sameEntryMonth(inputMonth))
@@ -195,8 +230,12 @@ public class FinancialTracker {
         return getTotalExpense(monthlyAccumulatedExpense);
     }
 
-    //returns a list of total expense each month for the entire year. Used to plot on graph
-
+    /**
+     * Returns an ArrayList of size 12, where each element stores the total expense of that month in the given year.
+     *
+     * @param inputYear Year which the monthly breakdown is based on.
+     * @return ArrayList of elements representing total expense in each month.
+     */
     public ArrayList<Double> getMonthlyExpenseBreakdown(int inputYear) {
         List<Expense> yearlyAccumulatedExpense = expenses.stream()
                 .filter(DateOperator.sameEntryYear(inputYear))
@@ -221,8 +260,7 @@ public class FinancialTracker {
                 .collect(Collectors.toList());
         return getTotalIncome(accumulatedIncome);
     }
-        
-    //returns the total expense in the month. Used for data visualisation
+    
     private double getMonthlyIncome(int inputMonth, List<Income> yearlyIncome) {
         List<Income> monthlyAccumulatedIncome = yearlyIncome.stream()
                 .filter(DateOperator.sameEntryMonth(inputMonth))
@@ -230,7 +268,12 @@ public class FinancialTracker {
         return getTotalIncome(monthlyAccumulatedIncome);
     }
 
-    //returns a list of total expense each month for the entire year. Used to plot on graph
+    /**
+     * Returns an ArrayList of size 12, where each element stores the total income of that month in the given year.
+     *
+     * @param inputYear Year which the monthly breakdown is based on.
+     * @return ArrayList of elements representing total income in each month.
+     */
     public ArrayList<Double> getMonthlyIncomeBreakdown(int inputYear) {
         List<Income> yearlyAccumulatedIncome = incomes.stream()
                 .filter(DateOperator.sameEntryYear(inputYear))

@@ -1,5 +1,7 @@
 entry_type,entry_description,amount,category,date
 E,qwe,12.5,FOOD,11/11/2121
 E,qwe,0.5,FOOD,11/11/2121
+E,mcdonalds dinner,7.5,FOOD,20/10/2021
 I,qwe,12.5,SALARY,11/11/2121
 I,qwe,12.5,ALLOWANCE,11/11/2121
+I,december's bonus,5000.0,SALARY,26/12/2021

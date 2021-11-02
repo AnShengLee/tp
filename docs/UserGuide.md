@@ -94,8 +94,8 @@ to show all available commands and their format.)
 
 - Words in `UPPER_CASE` are the parameters to be supplied by you, the user.
   e.g. in add `a/AMOUNT`, `AMOUNT` is a parameter which can be typed as `a/12.30`.
-
-
+- Parameters surrounded with `[` and `]` are optional parameters which you might consider including to your input.
+  e.g. in the add expense/income feature, an optional date parameter `[D/DATE]` may be added which can be typed as `D/19/10/2021` 
 - Most features below have a collapsible section that allows you to see the run time output. Do check them out if you want to visualize what the product looks like!
 
 ---
@@ -149,11 +149,12 @@ To Terminate The Program: end
 ### Create expense entry: `add_ex`
 This command adds an expense entry to your list. Use this to keep track of your daily expenses!
 
-Format: `add_ex d/DESCRIPTION a/AMOUNT c/CATEGORY`
+Format: `add_ex d/DESCRIPTION a/AMOUNT c/CATEGORY [D/DATE]`
 
 - `DESCRIPTION` has to be non-empty.
 - `AMOUNT` has to be a positive amount.
 - `CATEGORY` has to be either `food`, `transport`, `bills`, `medical`, `entertainment`, or `misc`.
+- `DATE` is an optional input you can add which specifies when the entry is made. It must be in the DD/MM/YYYY format.
 
 Note:
 
@@ -164,13 +165,19 @@ Note:
 Examples:
 
 - `add_ex d/KFC lunch a/10.20 c/food` Adds an expense entry regarding lunch that costs $10.20.
-
+- `add_ex d/McDonalds dinner a/7.50 c/food D/20/10/2021` Adds a dinner expense entry that costs $7.50 that is made on 20th October 2021.
 <details>
 <summary> ▼ Expected output in run window </summary>
 <pre>
 -----------------------------------------------------------------------------------------------------
 Your most recent spending: 
 [E] KFC lunch - $10.20 (19/10/2021)
+-----------------------------------------------------------------------------------------------------
+</pre>
+<pre>
+-----------------------------------------------------------------------------------------------------
+Your most recent spending: 
+[E] McDonalds dinner - $7.20 (20/10/2021)
 -----------------------------------------------------------------------------------------------------
 </pre>
 
@@ -240,11 +247,12 @@ After deletion, we see that the list has removed the previous first entry!
 
 This adds an income entry to your list. Use this to keep track of your income!
 
-Format: `add_in d/DESCRIPTION a/AMOUNT c/CATEGORY`
+Format: `add_in d/DESCRIPTION a/AMOUNT c/CATEGORY [D/DATE]`
 
 - `DESCRIPTION` has to be non-empty.
 - `AMOUNT` has to be a positive amount.
 - `CATEGORY` has to be either `salary`, `allowance`, `others` or `adhoc`.
+- `DATE` is an optional input you can add which specifies when the entry is made. It must be in the DD/MM/YYYY format.
 
 Note:
 
@@ -254,7 +262,8 @@ Note:
 
 Examples:
 
-- `add_in d/lunch money a/1000 c/allowance` Adds an income entry regarding an allowance of $1000.
+- `add_in d/lunch money a/1000 c/allowance` Adds an income entry regarding a lunch allowance of $1000.
+- `add_in d/december's bonus a/5000 c/salary D/26/12/2021` Adds an income entry regarding a salary bonus of $5000 for 26th December 2021.
 
 <details>
   <summary> ▼ Expected output in run window </summary>
@@ -262,6 +271,12 @@ Examples:
 -----------------------------------------------------------------------------------------------------
 Your most recent earning: 
 [I] lunch money - $1000.00 (19/10/2021)
+-----------------------------------------------------------------------------------------------------
+</pre>
+<pre>
+-----------------------------------------------------------------------------------------------------
+Your most recent earning: 
+[I] december's bonus - $5000.00 (26/12/2021)
 -----------------------------------------------------------------------------------------------------
 </pre>
 
@@ -372,6 +387,10 @@ This is great for giving you a quick snapshot of how much you've spent!
 
 Format: `total_ex`
 
+Note:
+
+- `total_in` command is only able to print values less than 100,000,000,000 (100Billion).
+
 <details>
 <summary> ▼ Expected output in run window </summary>
 <br>
@@ -396,11 +415,16 @@ Your total expense is: $600.50
 
 ### View total income: `total_in`
 
-This displays the total amount of all income entries in your list.
+This displays the sum of all income entries in you have made in your list.
 This is great for giving you a quick snapshot of how much you've earned!
 
 
 Format: `total_in`
+
+Note:
+
+- `total_in` command is only able to print values less than 100,000,000,000 (100Billion).
+
 <details>
 <summary> ▼ Expected output in run window </summary>
 <br>
@@ -441,18 +465,17 @@ Your current balance is: $-87654891720.20
 
 ### Show total expense between 2 dates: `btw_ex`
 
-This shows the total expense you had accumulated between a given time period.
-This is great for checking your weekly or monthly expenses!
+This shows the sum of all the expense you had accumulated between a given date range.
+This is great for checking your total weekly, monthly, or yearly expenses!
 
 Format: `btw_ex s/START_DATE e/END_DATE`
 
 - `START_DATE` & `END_DATE` must be in the DD/MM/YYYY format.
-- `START_DATE` & `END_DATE` have to be valid and non-empty
-- `START_DATE` must be before or the same as `END_DATE`
+- `START_DATE` & `END_DATE` have to be valid and non-empty.
+- `START_DATE` must be before or the same as `END_DATE`.
 
 Examples:
-- <code>btw_ex s/06/12/1987 e/21/11/1999</code> will return the total income of all entries between and inclusive of
-  the given dates.
+- <code>btw_ex s/06/12/1987 e/21/11/1999</code> will return the sum of all expense entries between and inclusive of 6th December 1987 to 21st November 1999.
 <details>
 <summary> ▼ Expected output in run window </summary>
 <br>
@@ -469,18 +492,17 @@ Your total expense between 10 Jul 2021 and 23 Oct 2021 is : $2300.00
 
 ### Show total income between 2 dates: `btw_in`
 
-This shows the total income you have accumulated between a given time period.
-This is great for checking your weekly or monthly income!
+This shows the total income you have accumulated between a given date range.
+This is great for checking your total weekly, monthly, or yearly expenses!
 
 Format: `btw_in s/START_DATE e/END_DATE`
 
 - `START_DATE` & `END_DATE` must be in the DD/MM/YYYY format.
-- `START_DATE` & `END_DATE` have to be valid and non-empty
-- `START_DATE` must be before or the same as `END_DATE`
+- `START_DATE` & `END_DATE` have to be valid and non-empty.
+- `START_DATE` must be before or the same as `END_DATE`.
 
 Examples:
-<ul><li><code>btw_in s/06/12/1987 e/21/11/1999</code> will return the sum of all income entries between and inclusive of
-the given dates.</li></ul>
+<ul><li><code>btw_in s/06/12/1987 e/21/11/1999</code> will return the sum of all income entries between and inclusive of 6th December 1987 to 21st November 1999.</li></ul>
 <details>
 <summary> ▼ Expected output in run window </summary>
 <br>
@@ -787,7 +809,7 @@ All your entries have been cleared!
 
 ### Terminate program: `end`
 
-This exits the program when you are done using it.
+This exits the program when you are done using it. A random tip will be shown along with the "BYE" message shown below.
 
 Format: `end`
 <details>
@@ -799,6 +821,7 @@ Format: `end`
 ██████    ████   █████           ██ 
 ██   ██    ██    ██          ██  ██ 
 ██████     ██    ███████        ██ 
+Here's our tip for the day: Try using the 50/30/20 rule to budget. 50% for needs, 30% for wants and 20% for savings
 -----------------------------------------------------------------------------------------------------
 </pre>
 </details>

@@ -9,7 +9,7 @@ public class Messages {
     public static final String NON_NUMERIC_AMOUNT_MESSAGE = "Only numeric inputs are allowed for amount.";
     public static final String NON_NUMERIC_THRESHOLD_MESSAGE = "Threshold value given is either out of range or " 
             + "non-numeric. Please try again.";
-    public static final String N0N_INTEGER_INDEX_MESSAGE = "Index given is either out of range or not an integer!";
+    public static final String NON_NUMERIC_INDEX_MESSAGE = "Only numeric inputs are allowed for index";
     public static final String NON_POSITIVE_AMOUNT_MESSAGE = "Only positive values are allowed for amount.";
     public static final String NON_POSITIVE_INTEGER_INDEX_MESSAGE = "Only positive integers are allowed for index.";
     public static final String BLANK_AMOUNT_MESSAGE = "No amount inputted!";
@@ -41,9 +41,11 @@ public class Messages {
     public static final String INVALID_BUDGET_CATEGORY_MESSAGE = "Input only 1 of these 6 categories: Food, "
             + "Transport, Bills, Medical, Entertainment or Overall";
     public static final String INVALID_THRESHOLD_MESSAGE = "Threshold value should between 0 and 1.";
-    public static final String INVALID_CURRENCY_TYPE_MESSAGE = "Please enter a valid currency for conversion";
+    public static final String INVALID_CURRENCY_TYPE_MESSAGE = "Please enter a valid currency for conversion!";
     public static final String BLANK_CURRENCY_TYPE_MESSAGE = "You have not entered any currency type!";
     public static final String SAME_CURRENCY_TYPE_MESSAGE = "Your lists are already in the requested currency type!";
+    public static final String AVAILABLE_CURRENCIES_MESSAGE
+            = "Here is a list of available currencies you can convert to!";
 
     public static final String SEPARATOR_MESSAGE = "----------------------------------------------------------------"
             + "-------------------------------------";

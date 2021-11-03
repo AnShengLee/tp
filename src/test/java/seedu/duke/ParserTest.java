@@ -10,7 +10,7 @@ import seedu.commands.Command;
 import seedu.commands.budget.SetThresholdCommand;
 import seedu.commands.expense.AddExpenseCommand;
 import seedu.commands.general.ClearAllEntriesCommand;
-import seedu.commands.general.CurrencyType;
+import seedu.commands.currency.CurrencyType;
 import seedu.commands.general.ShowGraphCommand;
 import seedu.commands.income.AddIncomeCommand;
 import seedu.commands.income.DeleteIncomeCommand;
@@ -32,6 +32,7 @@ import seedu.exceptions.InvalidIncomeAmountException;
 import seedu.exceptions.InvalidIncomeDataFormatException;
 import seedu.exceptions.InvalidSettingsDataException;
 import seedu.utility.BudgetManager;
+import seedu.utility.CurrencyManager;
 import seedu.utility.FinancialTracker;
 import seedu.utility.Parser;
 
@@ -113,7 +114,7 @@ public class ParserTest {
         Parser testParser = new Parser();
         Command underTest = testParser.parseCommand("del_ex      i/12a              ");
         InvalidCommand test = (InvalidCommand) underTest; 
-        assertSame("Index given is either out of range or not an integer!", test.getMessage());
+        assertSame("Only numeric inputs are allowed for index", test.getMessage());
     }
 
     @Test
@@ -157,7 +158,7 @@ public class ParserTest {
         Parser testParser = new Parser();
         Command underTest = testParser.parseCommand("del_in i/aa");
         InvalidCommand test = (InvalidCommand) underTest;
-        assertSame("Index given is either out of range or not an integer!", test.getMessage());
+        assertSame("Only numeric inputs are allowed for index", test.getMessage());
     }
 
     @Test
@@ -269,7 +270,8 @@ public class ParserTest {
         testBudgetManager.setThreshold(0.2);
         Parser testParser = new Parser();
         FinancialTracker financialTracker = new FinancialTracker();
-        String testData = testParser.convertSettingsToData(financialTracker, testBudgetManager);
+        CurrencyManager currencyManager = new CurrencyManager();
+        String testData = testParser.convertSettingsToData(financialTracker, testBudgetManager, currencyManager);
         assertEquals("SGD,0.2,12.0,12.0,12.0,12.0,12.0,12.0,12.0", testData);
         
     }

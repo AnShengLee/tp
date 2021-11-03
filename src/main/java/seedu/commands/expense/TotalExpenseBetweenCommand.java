@@ -3,6 +3,7 @@ package seedu.commands.expense;
 import seedu.commands.Command;
 import seedu.entry.Expense;
 import seedu.utility.BudgetManager;
+import seedu.utility.CurrencyManager;
 import seedu.utility.FinancialTracker;
 import seedu.utility.Ui;
 
@@ -19,7 +20,8 @@ public class TotalExpenseBetweenCommand extends Command {
     }
     
     @Override
-    public void execute(FinancialTracker finances, Ui ui, BudgetManager budgetManager) {
+    public void execute(FinancialTracker finances, Ui ui, BudgetManager budgetManager,
+                        CurrencyManager currencyManager) {
         double totalExpenseBetween = finances.getExpenseBetween(start,end);
         ui.printTotalExpenseBetween(totalExpenseBetween,start,end);
     }

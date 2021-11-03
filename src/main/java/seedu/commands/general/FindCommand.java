@@ -5,6 +5,7 @@ import seedu.entry.Entry;
 import seedu.utility.BudgetManager;
 import seedu.entry.ExpenseCategory;
 import seedu.entry.IncomeCategory;
+import seedu.utility.CurrencyManager;
 import seedu.utility.FinancialTracker;
 import seedu.utility.Ui;
 
@@ -29,7 +30,8 @@ public class FindCommand extends Command {
      * @param ui The user interface which provide feedback to the user.
      * @param budgetManager The budgeting manager that manages all the budget related operations.
      */
-    public void execute(FinancialTracker finances, Ui ui, BudgetManager budgetManager) {
+    public void execute(FinancialTracker finances, Ui ui, BudgetManager budgetManager,
+                        CurrencyManager currencyManager) {
         ArrayList<Entry> entries = finances.getEntries();
         ArrayList<Entry> filteredEntries = new ArrayList<>();
         

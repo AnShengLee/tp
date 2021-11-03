@@ -31,10 +31,12 @@ public class CommandFormat {
             = "To change entries into a different currency: set_curr c/CURRENCY";
     private static final String CHECK_CURRENCY_FORMAT
             = "To check the currency that entries are currently in: check_curr";
+    private static final String LIST_CURRENCY_TYPES_FORMAT
+            =  "Lists available currency types for conversion: list_curr";
     
     public static final List<String> commands = Arrays.asList(HELP_FORMAT, ADD_EXPENSE_FORMAT, DEL_EXPENSE_FORMAT,
         ADD_INCOME_FORMAT, DEL_INCOME_FORMAT, LIST_EXPENSE_FORMAT, LIST_INCOME_FORMAT, TOTAL_EXPENSE_FORMAT,
         TOTAL_INCOME_FORMAT, BALANCE_FORMAT, EXPENSE_BETWEEN_FORMAT, INCOME_BETWEEN_FORMAT, FIND_FORMAT,
         SET_BUDGET_FORMAT, CHECK_BUDGET_FORMAT, SET_THRESHOLD_FORMAT, CONVERT_CURRENCY_FORMAT, CHECK_CURRENCY_FORMAT,
-        GRAPH_FORMAT, CLEAR_FORMAT, END_FORMAT);
+            LIST_CURRENCY_TYPES_FORMAT, GRAPH_FORMAT, CLEAR_FORMAT, END_FORMAT);
 }

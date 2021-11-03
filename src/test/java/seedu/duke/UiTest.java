@@ -11,6 +11,7 @@ import seedu.entry.ExpenseCategory;
 import seedu.entry.Expense;
 import seedu.exceptions.ExpenseOverflowException;
 import seedu.exceptions.IncomeOverflowException;
+import seedu.utility.CurrencyManager;
 import seedu.utility.FinancialTracker;
 import seedu.utility.Messages;
 import seedu.utility.StonksGraph;
@@ -53,7 +54,7 @@ public class UiTest {
     private final Ui testUI = new Ui();
     private final FinancialTracker financialTracker = new FinancialTracker();
     private BudgetManager budgetManager = new BudgetManager();
-
+    private CurrencyManager currencyManager = new CurrencyManager();
 
     public void initialiseFinancialTracker() throws IncomeOverflowException, ExpenseOverflowException {
         financialTracker.addIncome(new Income("Paycheck August", 25.0, IncomeCategory.SALARY));
@@ -431,7 +432,7 @@ public class UiTest {
             throws ExpenseOverflowException, IncomeOverflowException {
         FindCommand testFindCommand = new FindCommand("food");
         initialiseFinancialTracker();
-        testFindCommand.execute(financialTracker, testUI, budgetManager);
+        testFindCommand.execute(financialTracker, testUI, budgetManager, currencyManager);
         String expectedOutput = SEPARATOR_LINE + newLine
                 + "Below is a list of all your findings!" + newLine
                 + SEPARATOR_LINE + newLine
@@ -447,7 +448,7 @@ public class UiTest {
             throws ExpenseOverflowException, IncomeOverflowException {
         FindCommand testFindCommand = new FindCommand("FOod");
         initialiseFinancialTracker();
-        testFindCommand.execute(financialTracker, testUI, budgetManager);
+        testFindCommand.execute(financialTracker, testUI, budgetManager, currencyManager);
         String expectedOutput = SEPARATOR_LINE + newLine
                 + "Below is a list of all your findings!" + newLine
                 + SEPARATOR_LINE + newLine
@@ -467,7 +468,7 @@ public class UiTest {
         LocalDate date = LocalDate.parse("11/11/2121", DateTimeFormatter.ofPattern(DATE_FORMAT));
         Income incomeWithDiffDate = new Income("Paycheck August", 25.0, IncomeCategory.SALARY, date);
         financialTracker.addIncome(incomeWithDiffDate);
-        testFindCommand.execute(financialTracker, testUI, budgetManager);
+        testFindCommand.execute(financialTracker, testUI, budgetManager, currencyManager);
         String expectedOutput = SEPARATOR_LINE + newLine
                 + "Below is a list of all your findings!" + newLine
                 + SEPARATOR_LINE + newLine
@@ -486,7 +487,7 @@ public class UiTest {
             throws ExpenseOverflowException, IncomeOverflowException {
         FindCommand testFindCommand = new FindCommand("25/10/2099");
         initialiseFinancialTracker();
-        testFindCommand.execute(financialTracker, testUI, budgetManager);
+        testFindCommand.execute(financialTracker, testUI, budgetManager, currencyManager);
         String expectedOutput = SEPARATOR_LINE + newLine
                 + "Your search did not match any of the entries!" + newLine
                 + SEPARATOR_LINE;
@@ -498,7 +499,7 @@ public class UiTest {
             throws ExpenseOverflowException, IncomeOverflowException {
         FindCommand testFindCommand = new FindCommand("game");
         initialiseFinancialTracker();
-        testFindCommand.execute(financialTracker, testUI, budgetManager);
+        testFindCommand.execute(financialTracker, testUI, budgetManager, currencyManager);
         String expectedOutput = SEPARATOR_LINE + newLine
                 + "Below is a list of all your findings!" + newLine
                 + SEPARATOR_LINE + newLine
@@ -512,7 +513,7 @@ public class UiTest {
             throws ExpenseOverflowException, IncomeOverflowException {
         FindCommand testFindCommand = new FindCommand("19.73");
         initialiseFinancialTracker();
-        testFindCommand.execute(financialTracker, testUI, budgetManager);
+        testFindCommand.execute(financialTracker, testUI, budgetManager, currencyManager);
         String expectedOutput = SEPARATOR_LINE + newLine
                 + "Below is a list of all your findings!" + newLine
                 + SEPARATOR_LINE + newLine

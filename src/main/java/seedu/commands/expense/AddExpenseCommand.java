@@ -4,6 +4,7 @@ import seedu.commands.Command;
 import seedu.entry.Expense;
 import seedu.exceptions.ExpenseOverflowException;
 import seedu.utility.BudgetManager;
+import seedu.utility.CurrencyManager;
 import seedu.utility.FinancialTracker;
 import seedu.utility.Ui;
 
@@ -15,7 +16,8 @@ public class AddExpenseCommand extends Command {
     }
 
     @Override
-    public void execute(FinancialTracker finances, Ui ui, BudgetManager budgetManager) {
+    public void execute(FinancialTracker finances, Ui ui, BudgetManager budgetManager,
+                        CurrencyManager currencyManager) {
         try {
             finances.addExpense(expense);
             ui.printExpenseAdded(expense);
@@ -23,6 +25,5 @@ public class AddExpenseCommand extends Command {
         } catch (ExpenseOverflowException e) {
             ui.printError(e.getMessage());
         }
-        
     }
 }

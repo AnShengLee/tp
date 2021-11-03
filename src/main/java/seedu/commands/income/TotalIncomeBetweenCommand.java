@@ -4,6 +4,7 @@ import seedu.commands.Command;
 import seedu.entry.Expense;
 import seedu.entry.Income;
 import seedu.utility.BudgetManager;
+import seedu.utility.CurrencyManager;
 import seedu.utility.FinancialTracker;
 import seedu.utility.Ui;
 
@@ -20,7 +21,8 @@ public class TotalIncomeBetweenCommand extends Command {
     }
     
     @Override
-    public void execute(FinancialTracker finances, Ui ui, BudgetManager budgetManager) {
+    public void execute(FinancialTracker finances, Ui ui, BudgetManager budgetManager,
+                        CurrencyManager currencyManager) {
         double totalIncomeBetween = finances.getIncomeBetween(start,end);
         ui.printTotalIncomeBetween(totalIncomeBetween,start,end);
     }

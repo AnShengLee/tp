@@ -1,6 +1,6 @@
 package seedu.utility;
 
-import seedu.commands.general.CurrencyType;
+import seedu.commands.currency.CurrencyType;
 import seedu.entry.Expense;
 import seedu.entry.ExpenseCategory;
 import seedu.entry.Income;
@@ -38,8 +38,9 @@ public class DataManager {
     private static final String SETTINGS_CSV_HEADER = "currency,threshold,food,transport,medical,bills,entertainment," 
             + "misc,overall";
     private final Parser parser;
-    private final FinancialTracker financialTracker;
     private final Ui ui;
+    private final FinancialTracker financialTracker;
+    private final CurrencyManager currencyManager;
     private final BudgetManager budgetManager;
 
     /**
@@ -51,11 +52,13 @@ public class DataManager {
      * @param ui The ui will be used to print out any warnings or messages to the user.
      * @param budgetManager The budgetManager will provide all the budget settings to be saved / loaded.
      */
-    public DataManager(Parser parser, FinancialTracker financialTracker, Ui ui, BudgetManager budgetManager) {
+    public DataManager(Parser parser, FinancialTracker financialTracker, Ui ui, BudgetManager budgetManager,
+                       CurrencyManager currencyManager) {
         this.parser = parser;
         this.financialTracker = financialTracker;
         this.ui = ui;
         this.budgetManager = budgetManager;
+        this.currencyManager = currencyManager;
     }
 
     /**
@@ -213,7 +216,7 @@ public class DataManager {
 
     private void writeSettings(BufferedWriter buffer) throws IOException {
         String data;
-        data = parser.convertSettingsToData(financialTracker, budgetManager);
+        data = parser.convertSettingsToData(financialTracker, budgetManager, currencyManager);
         buffer.write(data);
     }
 
@@ -249,7 +252,7 @@ public class DataManager {
     }
 
     private void loadCurrencySetting(CurrencyType currency) {
-        financialTracker.setCurrency(currency);
+        currencyManager.setCurrency(currency);
     }
 
     private void loadBudgetSettings(ArrayList<Double> budgetSettings) {

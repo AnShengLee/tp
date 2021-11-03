@@ -1,9 +1,9 @@
 package seedu.utility;
 
-import seedu.commands.general.CurrencyType;
 import seedu.entry.Entry;
 import seedu.entry.Expense;
 import seedu.entry.Income;
+import seedu.commands.currency.CurrencyType;
 import seedu.exceptions.ExpenseEntryNotFoundException;
 import seedu.exceptions.ExpenseOverflowException;
 import seedu.exceptions.IncomeEntryNotFoundException;
@@ -24,7 +24,6 @@ public class FinancialTracker {
     private static final double TOTAL_INCOME_LIMIT = 100000000000.00;
     private ArrayList<Expense> expenses;
     private ArrayList<Income> incomes;
-    private CurrencyType currency = CurrencyType.SGD;
 
     /**
      * Constructor for financial tracker initialises two empty ArrayList, one for expenses and one for incomes.
@@ -151,16 +150,6 @@ public class FinancialTracker {
         entries.addAll(getExpenses());
         entries.addAll(getIncomes());
         return entries;
-    }
-
-    
-    public CurrencyType getCurrency() {
-        assert currency != null;
-        return currency;
-    }
-
-    public void setCurrency(CurrencyType currency) {
-        this.currency = currency;
     }
 
     /**

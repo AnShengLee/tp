@@ -1,6 +1,6 @@
 package seedu.utility;
 
-import seedu.commands.general.CurrencyType;
+import seedu.commands.currency.CurrencyType;
 import seedu.entry.Entry;
 import seedu.entry.Expense;
 import seedu.entry.ExpenseCategory;
@@ -482,13 +482,24 @@ public class Ui {
 
     public void printSameCurrencyTypeMessage(CurrencyType currency) {
         printLine();
-        System.out.println(Messages.SAME_CURRENCY_TYPE_MESSAGE + ": " + currency);
+        System.out.println(Messages.SAME_CURRENCY_TYPE_MESSAGE + "- " + currency);
         printLine();
     }
 
     public void printCurrentCurrency(CurrencyType currency) {
         printLine();
         System.out.println(Messages.CURRENT_CURRENCY_MESSAGE + currency.toString());
+        printLine();
+    }
+
+    public void printCurrencyTypes(ArrayList<CurrencyType> currencyTypes) {
+        printLine();
+        System.out.println(Messages.AVAILABLE_CURRENCIES_MESSAGE);
+        int i = 0;
+        for (CurrencyType currencyType : currencyTypes) {
+            System.out.println(i + 1 + ". " + currencyType);
+            i++;
+        }
         printLine();
     }
 }

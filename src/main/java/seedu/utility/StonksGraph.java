@@ -28,6 +28,11 @@ public class StonksGraph {
         setBalance(finances.calculateBalance());
         drawReport(finances);
     }
+
+    @Override
+    public String toString() {
+        return convertGridToString();
+    }
     
     private void setBorder() {
         for (int x = 0; x < ROWS; x++) {
@@ -72,7 +77,7 @@ public class StonksGraph {
      *
      * @return A string which represents the 2D grid in 1D form.
      */
-    public String convertGridToString() {
+    private String convertGridToString() {
         StringBuilder convertedString = new StringBuilder();
         for (int x = 0; x < ROWS; x++) {
             for (int y = 0; y < COLS; y++) {
@@ -83,11 +88,6 @@ public class StonksGraph {
         return convertedString.toString();
     }
     
-    
-    @Override
-    public String toString() {
-        return convertGridToString();
-    }
 
     /**
      * Returns month as an int based on which column it is at.
@@ -271,8 +271,9 @@ public class StonksGraph {
         values.addAll(monthlyExpenseBreakdowns);
         values.addAll(monthlyIncomeBreakdowns);
         double max = Collections.max(values);
-        int barValue = (int)(max / 10);
+        assert (max <= 100000000000.00);
 
+        double barValue = determineBarValue(max);
 
         drawCurrentMonth(monthlyIncomeBreakdowns, monthlyExpenseBreakdowns);
         for (int x = 0; x < ROWS; x++) {
@@ -285,5 +286,28 @@ public class StonksGraph {
         }
     }
 
-
+    private double determineBarValue(double totalValue) {
+        boolean isBetweenZeroPointOneAndOne = totalValue >= 0.1 && totalValue < 1;
+        boolean isSmallerThanZeroPointOne = totalValue < 0.1;
+        
+        if (isBetweenZeroPointOneAndOne) {
+            writeToGraph(5, 75, "Unit: 0.1");
+            return 0.1;
+        } else if (isSmallerThanZeroPointOne) {
+            writeToGraph(5, 75, "Unit: 0.01");
+            return 0.01;
+        }
+        
+        int noOfDigits = 0;
+        while (totalValue >= 1) {
+            totalValue = totalValue /= 10;
+            noOfDigits++;
+        }
+        double barValue = Math.pow(10, noOfDigits - 1);
+        
+        
+        writeToGraph(5, 75, "Unit: " + barValue);
+        return barValue;
+    }
+    
 }

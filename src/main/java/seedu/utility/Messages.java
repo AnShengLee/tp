@@ -80,5 +80,11 @@ public class Messages {
             + "Are you sure you have spent this much?";
     public static final String INCOME_OVERFLOW_ERROR = "Your total income will exceed $100000000000. "
             + "Are you sure you have gotten this much?";
+    public static final String ERROR_SAVING_ENTRIES_MESSAGE = "There is trouble saving entries into " 
+            + "StonksXD_Entries.csv, some or all entries maybe lost.";
+    public static final String ERROR_SAVING_SETTINGS_MESSAGE = "There is trouble saving entries into "
+            + "StonksXD_Settings.csv, some or all settings maybe lost.";
+    public static final String TOO_MANY_DP_MESSAGE = "Only 2 or less decimal places are allowed!";
     public static final String INVALID_DATE_FORMAT = "Your date format is invalid. Please use DD/MM/YYYY";
+
 }

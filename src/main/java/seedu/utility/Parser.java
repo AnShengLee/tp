@@ -649,7 +649,9 @@ public class Parser {
         } catch (NumberFormatException e) {
             throw new InvalidExpenseAmountException(Messages.NON_NUMERIC_AMOUNT_MESSAGE);
         }
-        if (expenseAmount < 0.01) {
+        if (hasMoreThanTwoDecimalPlaces(userGivenAmount)) {
+            throw new InvalidExpenseAmountException(Messages.TOO_MANY_DP_MESSAGE);
+        } else if (expenseAmount <= 0) {
             throw new InvalidExpenseAmountException(Messages.NON_POSITIVE_AMOUNT_MESSAGE);
         } else if (Double.isNaN(expenseAmount) || Double.isInfinite(expenseAmount)) {
             throw new InvalidExpenseAmountException(Messages.NON_NUMERIC_AMOUNT_MESSAGE);
@@ -665,13 +667,27 @@ public class Parser {
         } catch (NumberFormatException e) {
             throw new InvalidIncomeAmountException(Messages.NON_NUMERIC_AMOUNT_MESSAGE);
         }
-        if (incomeAmount < 0.01) {
+        if (hasMoreThanTwoDecimalPlaces(userGivenAmount)) {
+            throw new InvalidIncomeAmountException(Messages.TOO_MANY_DP_MESSAGE);
+        } else if (incomeAmount <= 0) {
             throw new InvalidIncomeAmountException(Messages.NON_POSITIVE_AMOUNT_MESSAGE);
         } else if (Double.isNaN(incomeAmount) || Double.isInfinite(incomeAmount)) {
             throw new InvalidIncomeAmountException(Messages.NON_NUMERIC_AMOUNT_MESSAGE);
         }
         assert incomeAmount > 0;
         return incomeAmount;
+    }
+    
+    private boolean hasMoreThanTwoDecimalPlaces(String userGivenAmount) {
+        boolean hasDecimal = userGivenAmount.contains(".");
+        if (hasDecimal) {
+            int indexOfDecimal = userGivenAmount.indexOf(".");
+            String decimals = userGivenAmount.substring(indexOfDecimal + 1);
+            int numOfDecimalPlaces = decimals.length();
+            return numOfDecimalPlaces > 2;
+        } else {
+            return false;
+        }
     }
 
     private int parseExpenseIndex(String userGivenIndex) throws InvalidExpenseIndexException {

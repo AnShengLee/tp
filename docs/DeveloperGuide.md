@@ -91,22 +91,20 @@ It interacts with `FinancialTracker` and `BudgetManager` and receives commands f
 
 The sections below provide more information on the respective components.
 
+---
+
 ### Ui Component
 Ui contains a Scanner object that takes in user inputs from the command line.
 The Ui’s main role is to provide feedback whenever the user enters a command through the form of messages. It also 
 handles the indexing of each element in the listing methods before printing out to the standard output for users to see.
-
-The image below shows how the Ui uses printing and separators to provide user feedback for listing commands.
-
-
-![img_1](https://user-images.githubusercontent.com/69465661/138105673-1d21722d-0f77-4dcf-86d6-d38bffc08a40.png)
-
 
 The image below illustrates the sequence diagram in the context of listing methods
 which includes listExpense, listIncome and listFind.
 
 
 ![Untitled Diagram drawio (2)](https://user-images.githubusercontent.com/69465661/138629733-63b2a115-5405-4af5-8a74-4d18f51c8f96.png)
+
+---
 
 ### Command Component
 
@@ -146,34 +144,45 @@ Below is a sequence diagram of the Budget component when `handleBudget` is execu
 
 _------Work in Progress------_
 
+---
+
 ### Graphing Component
+Below is a class diagram to show the classes that interacts with StonksGraph. When the ShowGraphCommand is called it would call the execute method
+which calls the constructor of StonksGraph to generate a graph based on current year values, these values are calculated based on the data in FinancialTracker.
+The constructed StonksGraph will then be printed out by the Ui class through the printGraph method.
+
+#### Class Diagram
+
+![](ClassDiagramForGraph.png)
+
 In the following section all coordinates will be in the form of (Row from the top, Column from the left) and coordinates mark with X is a don't care.
 
 Description of graphing component
 1. The graphing component consists mainly of the StonksGraph class which contains a 20 by 100 2d array.
 2. When first initialised, the StonksGraph constructor will call setBorder() which will loop through the 2d array and set
-all border characters as the given border character 'x' while keeping the others as the char blank.
+   all border characters as the given border character 'x' while keeping the others as the char blank.
 3. It then calculates the balance of the financial tracker using the calculateBalance() method and write the value with its descriptor starting from coordinate (2,4).
 4. Next it calls the drawReport() method, first it writes the title "Your Yearly Report" at coordinate (5,4).
-Then it writes the separator at (6,X), followed by a legend at (2,75) the top right. It also writes the x-axis with its month labels.
+   Then it writes the separator at (6,X), followed by a legend at (2,75) the top right. It also writes the x-axis with its month labels.
 5. It then calls the getMonthlyIncomeBreakdown(currentYear()) and getMonthlyExpenseBreakdown(currentYear()) methods to retrieve all total expenses and total incomes
-for the current year when the user is using the app.
+   for the current year when the user is using the app.
 6. Using this 24 data set in total (12months for both expenses and incomes) it will calculate the scale for each bar unit
 7. Then it plots the bar graph based on whichever column it looped through using the drawBar() method.
 
-Below is a sequential diagram for the constructor of StonksGraph.
-
-![](SequenceDiagramForStonksGraph.png)
+---
 
 
-
+Below is a sequential diagram for the constructor of StonksGraph that shows the different method calls when a new StonksGraph object is instantiated.
 
 
 
+#### Sequential Diagram
 
 
 
+![](SequenceDiagramForGraphConstructor.png)
 
+---
 
 
 ### Data Saving Component

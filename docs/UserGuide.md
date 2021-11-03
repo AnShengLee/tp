@@ -21,8 +21,10 @@ Before you learn how to use the app, take a look at the [quickstart](#quick-star
 ---
 
 ## Table of Contents
-1. [Quick Start](#quick-start)
-2. [Features](#features)
+1. [Quick Start](#1-quick-start)
+
+
+2. [Features](#2-features)
 
    2.1 Help 
    * [View all possible commands: `help`](#view-all-possible-commands-help)
@@ -67,8 +69,10 @@ Before you learn how to use the app, take a look at the [quickstart](#quick-star
    2.10 Saving of Data
    * [Saving of data](#saving-of-data)
    
-4. [FAQ](#faq)
-5. [Command Summary](#command-summary)
+3. [FAQ](#3-faq)
+
+
+4. [Command Summary](#4-command-summary)
 
 ---
 
@@ -389,24 +393,35 @@ Format: `total_ex`
 
 Note:
 
-- `total_in` command is only able to print values less than 100,000,000,000 (100Billion).
+- `total_ex` command is only able to print values less than 100,000,000,000 (100Billion).
 
+Examples:
+<ol>
+<li>
+Let's say you have made expense entries consistently for a couple of months since you downloaded the application and you want to know the total expense you have logged.
+</li>
+</ol>
 <details>
 <summary> ▼ Expected output in run window </summary>
 <br>
-Here we have a simple expense list with three items:
+These are the expense entries you have made in the past couple of months. 
 <pre>
 -----------------------------------------------------------------------------------------------------
-1: [E] bought cookies - $100.00 (18/01/2021)
-2: [E] bought home - $200.50 (18/07/2021)
-3: [E] bought car - $300.00 (18/06/2021)
+1: [E] Lunch with Friends - $22.00 (02/01/2021)
+2: [E] Movie date - $50.00 (07/01/2021)
+3: [E] ORD PARTY!! - $150.00 (12/01/2021)
+4: [E] Top up my bus card for the month of Feb - $150.00 (02/02/2021)
+5: [E] Roses - $30.00 (14/02/2021)
+6: [E] Dinner with Friends - $37.00 (24/02/2021)
+7: [E] Mum's birthday treat - $120.00 (07/03/2021)
+8: [E] Grab food delivery - $45.00 (24/03/2021)
 -----------------------------------------------------------------------------------------------------
 </pre>
 <br>
-If we give the command <code>total_ex</code>, it will display the total expenditure:
+Simply type in the command <code>total_ex</code>, and the program will display the total expense entries you have made:
 <pre>
 -----------------------------------------------------------------------------------------------------
-Your total expense is: $600.50
+Your total income is: $604.00
 -----------------------------------------------------------------------------------------------------
 </pre>
 </details>
@@ -415,7 +430,7 @@ Your total expense is: $600.50
 
 ### View total income: `total_in`
 
-This displays the sum of all income entries in you have made in your list.
+This will give you the sum of all income entries in you have made in your list.
 This is great for giving you a quick snapshot of how much you've earned!
 
 
@@ -425,22 +440,34 @@ Note:
 
 - `total_in` command is only able to print values less than 100,000,000,000 (100Billion).
 
+Examples:
+<ol>
+<li>
+Let's say you have made income entries consistently for a couple of months since you downloaded the application and you want to know the total income you have logged.
+</li>
+</ol>
 <details>
 <summary> ▼ Expected output in run window </summary>
 <br>
-Here we have a simple income list with three items:
+These are the income entries you have made in the past couple of months. 
 <pre>
 -----------------------------------------------------------------------------------------------------
-1: [I] rob a church - $300.00 (18/11/2021)
-2: [I] rob a car - $400.00 (18/12/2021)
-3: [I] rob a home - $500.00 (18/09/2021)
+1: [I] Allowance for the month of Jan - $250.00 (02/01/2021)
+2: [I] Allowance for the month of Feb - $250.00 (04/02/2021)
+3: [I] Money from teaching tuition  - $800.00 (07/03/2021)
+4: [I] Part time job - $1000.00 (20/04/2021)
+5: [I] Part time job - $1000.00 (20/05/2021)
+6: [I] Part time job - $1000.00 (20/06/2021)
+7: [I] Part time job - $1000.00 (20/07/2021)
+8: [I] Allowance for the month of Aug - $350.00 (01/08/2021)
+9: [I] Allowance for the month of Sept - $350.00 (11/09/2021)
 -----------------------------------------------------------------------------------------------------
 </pre>
 <br>
-If we give the command <code>total_in</code>, it will display the total income:
+Simply type in the command <code>total_in</code>, and the program will display the total income entries you have made:
 <pre>
 -----------------------------------------------------------------------------------------------------
-Your total income is: $2800.00
+Your total income is: $6000.00
 -----------------------------------------------------------------------------------------------------
 </pre>
 </details>
@@ -475,16 +502,28 @@ Format: `btw_ex s/START_DATE e/END_DATE`
 - `START_DATE` must be before or the same as `END_DATE`.
 
 Examples:
-- <code>btw_ex s/06/12/1987 e/21/11/1999</code> will return the sum of all expense entries between and inclusive of 6th December 1987 to 21st November 1999.
+<ol><li>Let's you have have made a bunch of expense entries in the past 2 weeks, from  10th August 2021 and 23rd August 2021, and you want to find out how much you have spent during this time period.</li>
+<br><li>Simply key in two dates using the command format<code>btw_ex s/10/08/2021 e/23/08/2021</code> to get the total you have spent in those 2 weeks! </li></ol>
 <details>
 <summary> ▼ Expected output in run window </summary>
 <br>
-If you wish to find your income between 10th Aug 2021 and 23rd Oct 2021
-<br>
-<ul><li>Give the command <code>btw_ex s/10/07/2021 e/23/10/2021</code></li></ul>
+These are the expense entries you have made in the past couple of months. 
 <pre>
 -----------------------------------------------------------------------------------------------------
-Your total expense between 10 Jul 2021 and 23 Oct 2021 is : $2300.00
+1: [E] Lunch with Friends - $22.00 (09/07/2021)
+2: [E] Movie date - $50.00 (20/07/2021)
+3: [E] ORD PARTY!! - $150.00 (12/08/2021)
+4: [E] Top up my bus card for the month of Aug - $150.00 (15/08/2021)
+5: [E] Hostel fees - $1873.00 (15/08/2021)
+6: [E] Dinner with Friends - $37.00 (17/08/2021)
+7: [E] Mum's birthday treat - $120.00 (23/08/2021)
+8: [E] Grab food delivery - $45.00 (23/08/2021)
+-----------------------------------------------------------------------------------------------------
+</pre>
+Your total expense that you have logged for the past 2 weeks will be shown:
+<pre>
+-----------------------------------------------------------------------------------------------------
+Your total expense between 10 Aug 2021 and 23 Aug 2021 is : $2375.00
 -----------------------------------------------------------------------------------------------------
 </pre>
 </details>
@@ -502,15 +541,26 @@ Format: `btw_in s/START_DATE e/END_DATE`
 - `START_DATE` must be before or the same as `END_DATE`.
 
 Examples:
-<ul><li><code>btw_in s/06/12/1987 e/21/11/1999</code> will return the sum of all income entries between and inclusive of 6th December 1987 to 21st November 1999.</li></ul>
+<ol><li>Let's you have have made a bunch of income entries in the past 2 weeks, from  10th August 2021 and 23rd August 2021, and you want to find out how much you have received during this time period.</li>
+<br><li>Simply key in two dates using the command format<code>btw_in s/10/08/2021 e/23/08/2021</code> to get the total income you have gotten in those 2 weeks! </li></ol>
 <details>
 <summary> ▼ Expected output in run window </summary>
 <br>
-If you wish to find your income between 10th Aug 2021 and 23rd Oct 2021
-<ul><li>Give the command <code>btw_in s/10/07/2021 e/23/10/2021</code></li></ul>
+These are the income entries you have made in the past couple of months. 
 <pre>
 -----------------------------------------------------------------------------------------------------
-Your total income between 10 Jul 2021 and 23 Oct 2021 is : $2300.00
+1: [I] Allowance for the month of Jul - $350.00 (02/07/2021)
+2: [I] Allowance for the month of Aug - $350.00 (04/08/2021)
+3: [I] Money from teaching tuition  - $800.00 (11/08/2021)
+4: [I] Part time job - $1000.00 (15/08/2021)
+5: [I] Friend finally paid me back for lunch last week -.-" - $23.00 (15/08/2021)
+6: [I] Mahjong ZMMT :) - $50.00 (20/08/2021)
+-----------------------------------------------------------------------------------------------------
+</pre>
+Your total income that you have logged for the past 2 weeks will be shown:
+<pre> 
+-----------------------------------------------------------------------------------------------------
+Your total income between 10 Aug 2021 and 23 Aug 2021 is : $1873.00
 -----------------------------------------------------------------------------------------------------
 </pre>
 </details>
@@ -747,6 +797,14 @@ This shows the monthly breakdown of the finances in a Yearly Report which also
 includes current month spending and earnings.
 We recommend using this function after your daily logging of expenses for a one-stop check-in on the state of your finances!
 
+
+#### Note
+1. The graph scales according to your largest monthly total, the scale currently used by the graph will be shown to you on the top right. 1.0E9 for example would mean 1,000,000,000, E stands for exponential.
+
+
+2. It would be ideal not to have entries with big differences as the Stonks XD app is meant for daily logging.
+
+
 Format: `show_graph`
 
 <details>
@@ -756,21 +814,21 @@ show_graph
 -----------------------------------------------------------------------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 x                                                                                                  x
-x   Account Balance: $-398.2                                               Legend:                 x
-x   Current month (OCTOBER) total expense: $410.20                               # is Expense      x
-x   Current month (OCTOBER) total income: $0.00                                  o is Income       x
-x   Your Yearly Report                                                                             x
+x   Account Balance: $-449.50                                              Legend:                 x
+x   Current month (NOVEMBER) total expense: $5454.00                             # is Expense      x
+x   Current month (NOVEMBER) total income: $0.00                                 o is Income       x
+x   Your Yearly Report                                                     Unit: 1000.0            x
 x ------------------------------------------------------------------------------------------------ x
 x                                                                                                  x
 x                                                                                                  x
 x                                                                                                  x
 x                                                                                                  x
 x                                                                                                  x
-x                                                                                                  x
-x                                                                                                  x
-x                                                                                                  x
-x                                                                           #                      x
-x                                                                           #                      x
+x                                                                                   #        o     x
+x                                                                                   #        o     x
+x                                                                                   #        o     x
+x                                                                                   #        o     x
+x                                                                                   #        o     x
 x ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ x
 x   Jan     Feb     Mar     Apr     May     Jun     Jul     Aug     Sept    Oct     Nov     Dec    x
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -834,25 +892,54 @@ Here's our tip for the day: Try using the 50/30/20 rule to budget. 50% for needs
 
 Stonks XD will save / load data from `StonksXD_Entries.csv` and `StonksXD_Settings.csv`. 
 
-- `StonksXD_Entries.csv` will store all the expense and income entries StonksXD is currently tracking.
-- `StonksXD_Settings.csv` will store all the budget values as well as the currency setting.
+- `StonksXD_Entries.csv` will store all the expense and income entries Stonks XD is currently tracking.
+- `StonksXD_Settings.csv` will store all the budget values, the currency setting and the threshold value.
 
 The reason for data files to be in `.csv` format is so that you can have an easier time editing those data in Excel 
 when not using the program.
 
-#### Note
+#### When editing csv files
 
-1. Stonks XD expects the dates in `StonksXD_Entries.csv` to be in `dd/MM/yyyy` format i.e., `11/12/2021` when loading data. 
-When opening `StonksXD_Entries.csv` in Excel, Excel might change the format of the dates. Do ensure Excel's date format 
-is in `dd/MM/yyyy` when dealing with `StonksXD_Entries.csv`. Entries with a different date format will be considered 
-corrupted and not be loaded into Stonks XD.
-2. Changing the currency setting in `StonksXD_Settings.csv` is almost never recommended. This is because this will 
-cause all your entries and budgets to be recognised as a different currency. 
-3. `.csv` files should not be open concurrently while Stonks XD is running. This would cause the data to not be accurately saved. 
+- `.csv` files should not be open concurrently while Stonks XD is running. In other words, never have two programs 
+writing / reading the `.csv` files at the same time. This will very likely cause a saving error and lost of data.
+- Restrictions and rules for different variables are the same as how you would enter them in the CLI, as specified 
+above.
+  - For example, when editing an expense entry in `StonksXD_Entries.csv`, `entry_description` should not be blank.
+  - Another example, when editing an income entry in `StonksXD_Entries.csv`, `amount` has to be a positive number and 
+  less than 1000000000.
+  - Another example, when editing `threshold` in `StonksXD_Settings.csv`, ensure it is between 0 and 1. 
+  - Another example, when editing an expense entry in `StonksXD_Entries.csv`, category should be the ones available and 
+  specified ealier on in the user guide.
+- Do not alter / delete the headers of `.csv` files. Stonks XD is able to minimise the damage if you do so but to 
+ensure your data is saved / loaded properly, please do not edit anything unexpected.
+- Stonks XD expects the dates in `StonksXD_Entries.csv` to be in `DD/MM/YYYY` format i.e., `11/12/2021` when loading 
+data.
+  When opening `StonksXD_Entries.csv` in Excel, Excel might change the format of the dates. Do ensure Excel's date 
+format is in `DD/MM/YYYY` when dealing with `StonksXD_Entries.csv`. Entries with a different date format will be 
+considered corrupted and not be loaded into Stonks XD.
+- Changing the currency setting in `StonksXD_Settings.csv` is not recommended. This is because it will
+  cause all your entries and budgets to be recognised as a different currency.
+- Do not edit the amount of your expenses / incomes drastically such that they exceed the limit per entry or the 
+total limit of 100000000000 for expense / income. Entries that cause you to exceed either limit will be considered 
+corrupted.
+
+
+#### In the event of corrupted data
+
+When you run Stonks XD, it will immediately start to load all the data from both `.csv` files. You might run into 
+messages telling you that there are corrupted data, and they will not be loaded. This is likely because you have 
+edited things you are not suppose to, or you have edited wrongly. There is a way to minimise this damage (This is 
+optional, and you do not have to do this if you are fine with losing data). 
+Here are the steps:
+1. When you ended Stonks XD already but wants to edit the `.csv` files, make a copy of them first.
+2. When you run Stonks XD and receive corruption errors, end the program.
+3. Copy and paste the contents from your copies back into `StonksXD_Entries.csv` and `StonksXD_Settings.csv`. This 
+means all your edits are gone. But this pretty much ensures that there will be no corrupted data. 
+
 
 ---
 
-## 4. FAQ
+## 3. FAQ
 
 **Q**: How do I transfer my data to another computer? 
 
@@ -864,7 +951,7 @@ cause all your entries and budgets to be recognised as a different currency.
 
 ---
 
-## 5. Command Summary
+## 4. Command Summary
 
 | Action | Format | Examples |
 | ------------ | ------------- | ------------- |
@@ -887,5 +974,6 @@ cause all your entries and budgets to be recognised as a different currency.
 | Set currency | `set_curr c/CURRENCY` | `set_curr c/usd` |
 | Check current currency | `check_curr` | - |
 | To terminate program | `end` | - |
+
 
 

@@ -26,7 +26,7 @@ import java.util.Scanner;
 
 /**
  * Saves entries (expenses and incomes) Stonks XD is tracking into a csv file.
- * Also saves Stonks XD settings into another csv file. Settings include: currency state, amount for each budget 
+ * Also saves Stonks XD settings into another csv file. Settings include: currency state, amount for each budget
  * category and the reminder threshold value.
  */
 public class DataManager {
@@ -35,7 +35,7 @@ public class DataManager {
     private static final String ENTRIES_FILE_NAME = "./StonksXD_Entries.csv";
     private static final String ENTRIES_CSV_HEADER = "entry_type,entry_description,amount,category,date";
     private static final String SETTINGS_FILE_NAME = "./StonksXD_Settings.csv";
-    private static final String SETTINGS_CSV_HEADER = "currency,threshold,food,transport,medical,bills,entertainment," 
+    private static final String SETTINGS_CSV_HEADER = "currency,threshold,food,transport,medical,bills,entertainment,"
             + "misc,overall";
     private final Parser parser;
     private final Ui ui;
@@ -45,12 +45,12 @@ public class DataManager {
 
     /**
      * Constructs a instance of DataManager.
-     * 
-     * @param parser The parser will be used to convert settings and entries to data, vice verse.
-     * @param financialTracker The finantialTracker will provide all the entries Stonks XD is tracking currently as 
-     *                         well as the currency setting.
-     * @param ui The ui will be used to print out any warnings or messages to the user.
-     * @param budgetManager The budgetManager will provide all the budget settings to be saved / loaded.
+     *
+     * @param parser           The parser will be used to convert settings and entries to data, vice verse.
+     * @param financialTracker The finantialTracker will provide all the entries Stonks XD is tracking currently.
+     * @param ui               The ui will be used to print out any warnings or messages to the user.
+     * @param budgetManager    The budgetManager will provide all the budget settings to be saved / loaded.
+     * @param currencyManager  The currencyManager will provide the currency setting.
      */
     public DataManager(Parser parser, FinancialTracker financialTracker, Ui ui, BudgetManager budgetManager,
                        CurrencyManager currencyManager) {
@@ -62,7 +62,7 @@ public class DataManager {
     }
 
     /**
-     * Saves all entries and settings. 
+     * Saves all entries and settings.
      * This method will be used more frequently as we typically want to save both entries and settings together.
      */
     public void saveAll() {
@@ -75,8 +75,8 @@ public class DataManager {
      * This method will be used more frequently as we typically want to load both entries and settings together.
      */
     public void loadAll() {
-        loadEntries();
         loadSettings();
+        loadEntries();
     }
 
     /**
@@ -87,7 +87,7 @@ public class DataManager {
         try {
             FileWriter writer = new FileWriter(ENTRIES_FILE_NAME);
             BufferedWriter buffer = new BufferedWriter(writer);
-            
+
             buffer.write(ENTRIES_CSV_HEADER);
             buffer.write(NEWLINE);
             writeExpenses(buffer);
@@ -140,11 +140,11 @@ public class DataManager {
             }
             try {
                 loadAsExpense(data);
-            } catch (InputException | InvalidExpenseDataFormatException | DateTimeParseException 
+            } catch (InputException | InvalidExpenseDataFormatException | DateTimeParseException
                     | ExpenseOverflowException e) {
                 try {
                     loadAsIncome(data);
-                } catch (InputException | InvalidIncomeDataFormatException | DateTimeParseException 
+                } catch (InputException | InvalidIncomeDataFormatException | DateTimeParseException
                         | IncomeOverflowException ie) {
                     hasCorruptedLines = true;
                 }
@@ -155,13 +155,13 @@ public class DataManager {
         }
     }
 
-    private void loadAsIncome(String data) throws InputException, InvalidIncomeDataFormatException, 
+    private void loadAsIncome(String data) throws InputException, InvalidIncomeDataFormatException,
             IncomeOverflowException {
         Income income = parser.convertDataToIncome(data);
         financialTracker.addIncome(income);
     }
 
-    private void loadAsExpense(String data) throws InputException, InvalidExpenseDataFormatException, 
+    private void loadAsExpense(String data) throws InputException, InvalidExpenseDataFormatException,
             ExpenseOverflowException {
         Expense expense = parser.convertDataToExpense(data);
         financialTracker.addExpense(expense);
@@ -175,7 +175,7 @@ public class DataManager {
             ui.printLoadingError(Messages.INCOMPLETE_ENTRIES_CSV_HEADER_MESSAGE);
             return;
         }
-        
+
         if (!data.equals(ENTRIES_CSV_HEADER)) {
             ui.printLoadingError(Messages.INCOMPLETE_ENTRIES_CSV_HEADER_MESSAGE);
         }
@@ -203,7 +203,7 @@ public class DataManager {
         try {
             FileWriter writer = new FileWriter(SETTINGS_FILE_NAME);
             BufferedWriter buffer = new BufferedWriter(writer);
-            
+
             buffer.write(SETTINGS_CSV_HEADER);
             buffer.write(NEWLINE);
             writeSettings(buffer);
@@ -216,13 +216,13 @@ public class DataManager {
 
     private void writeSettings(BufferedWriter buffer) throws IOException {
         String data;
-        data = parser.convertSettingsToData(financialTracker, budgetManager, currencyManager);
+        data = parser.convertSettingsToData(budgetManager, currencyManager);
         buffer.write(data);
     }
 
     /**
      * Loads all settings from StonksXD_Settings.csv into StonksXD.
-     * This allows users to not lose all their settings when the previous instance of 
+     * This allows users to not lose all their settings when the previous instance of
      * StonksXD closed.
      */
     private void loadSettings() {
@@ -238,14 +238,14 @@ public class DataManager {
         try {
             checkForSettingsFileHeader(sc);
             String data = sc.nextLine();
-            ArrayList<Double> budgetSettings = parser.convertDataToBudgetSettings(data);
-            loadBudgetSettings(budgetSettings);
             CurrencyType currency = parser.convertDataToCurrencySetting(data);
             loadCurrencySetting(currency);
             double thresholdValue = parser.convertDataToThresholdSetting(data);
             loadThresholdSettings(thresholdValue);
-        } catch (NullPointerException | NumberFormatException | InvalidSettingsDataException 
-                | InvalidCurrencyTypeException | BlankCurrencyTypeException | NoSuchElementException 
+            ArrayList<Double> budgetSettings = parser.convertDataToBudgetSettings(data);
+            loadBudgetSettings(budgetSettings);
+        } catch (NullPointerException | NumberFormatException | InvalidSettingsDataException
+                | InvalidCurrencyTypeException | BlankCurrencyTypeException | NoSuchElementException
                 | InvalidThresholdValueException e) {
             ui.printLoadingError(Messages.HAS_CORRUPTED_SETTINGS);
         }
@@ -266,7 +266,7 @@ public class DataManager {
             budgetIndex += 1;
         }
     }
-    
+
     private void loadThresholdSettings(double thresholdValue) {
         budgetManager.setThreshold(thresholdValue);
     }

@@ -421,9 +421,10 @@ public class UiTest {
     @Test
     public void printThresholdConfirmation_validThreshold_printThresholdMsg() {
         String expectedOutput = SEPARATOR_LINE + newLine
-                + "Threshold for budget reminders set to 58.71" + newLine
+                + "Threshold for budget reminders set to 0.58" + newLine
+                + "We'll warn you when you spend 58.0% of your budget!" + newLine
                 + SEPARATOR_LINE;
-        testUI.printThresholdConfirmation(58.71);
+        testUI.printThresholdConfirmation(0.58);
         assertEquals(expectedOutput, outputStreamCaptor.toString().trim());
     }
 

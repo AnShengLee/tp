@@ -711,6 +711,8 @@ public class Parser {
             throw new InvalidThresholdValueException(Messages.INVALID_THRESHOLD_MESSAGE);
         } else if (Double.isNaN(thresholdValue) || Double.isInfinite(thresholdValue)) {
             throw new InvalidThresholdValueException(Messages.NON_NUMERIC_THRESHOLD_MESSAGE);
+        } else if (hasMoreThanTwoDecimalPlaces(userGivenThreshold)) {
+            throw new InvalidThresholdValueException(Messages.TOO_MANY_DP_MESSAGE);
         }
         return thresholdValue;
     }

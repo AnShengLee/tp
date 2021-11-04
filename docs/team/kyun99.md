@@ -1,6 +1,6 @@
 # Lim Kay Yun's Project Portfolio Page
 
-## Project: AddressBook Level 3
+## Project: StonksXD
 
 Stonks XD - It is an expense managing software that aims to simplify the process of keeping track of ones' s finances.
 The target users for this app are computing students that travels frequently and prefer logging their finances.
@@ -42,30 +42,29 @@ Given below are my contributions to the project.
 
 
 - **Project management**:
-  - Managed releases v2.0 on GitHub
+  - Managed release v2.0 on GitHub
+  - Ensured forking workflow
+  - Brainstormed for features and ideas as a project
 
 
 - **Enhancements to existing features**: (TO BE UPDATED)
-  - Updated the GUI color scheme (Pull requests #33, #34)
-  - Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests #36, #38)
-
+  - Fixed PE-D bugs. [#195](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/195/files), [#200](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/200/files)
+  - Wrote additional tests for existing features. [#166](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/116), [#202](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/202)
+  - Added Categories and Date fields to Expense and Income.[#56](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/56)
+  - Added method to get data for printing in graph command. [#66](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/66)
+  - Refactored financial tracker class to use 2 array list instead of 1, making the code cleaner and more readable. [#45](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/45) 
+  - Refactored parser code to use exceptions. [#97](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/97)
 
 - **Documentation**: (TO BE UPDATED)
   - User Guide:
-    - Added documentation for the features delete and find #72
-    - Did cosmetic tweaks to existing documentation of features clear, exit: #74
+    - Supplemented total_in, total_ex, btw_in, btw_ex commands. [#217](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/217)
+    - Supplemented add_in, add_ex commands. [#208](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/208)
+    - Added FAQ. [#105](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/105)
   - Developer Guide:
-    - Added implementation details of the delete feature.
+    
 
 
-- **Community**: (TO BE UPDATED)
-  - PRs reviewed (with non-trivial review comments): #12, #32, #19, #42
-  - Contributed to forum discussions (examples: 1, 2, 3, 4)
-  - Reported bugs and suggestions for other teams in the class (examples: 1, 2, 3)
-  - Some parts of the history feature I added was adopted by several other class mates (1, 2)
-
-
-- **Tools**: (TO BE UPDATED)
-  - Integrated a third party library (Natty) to the project (#42)
-  - Integrated a new Github plugin (CircleCI) to the team repo
+- **Community**: 
+  - PRs reviewed including but not limited to: [#49](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/49), [213](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/213), [#64](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/64)
+  
 

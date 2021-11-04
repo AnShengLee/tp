@@ -471,6 +471,8 @@ public class Ui {
     public void printThresholdConfirmation(double threshold) {
         printLine();
         System.out.println("Threshold for budget reminders set to " + threshold);
+        System.out.printf("We'll warn you when you spend %.1f%% of your budget!", threshold * 100);
+        System.out.print(NEW_LINE);
         printLine();
     }
 

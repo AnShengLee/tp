@@ -49,8 +49,8 @@ public class BudgetManagerTest {
 
     @Test
     public void setThreshold_validEntry_correctThreshold() {
-        budgetManager.setThreshold(0.15);
-        assertEquals(0.15, budgetManager.getThreshold());
+        budgetManager.setThreshold(0.85);
+        assertEquals(0.85, budgetManager.getThreshold());
     }
 
 
@@ -59,7 +59,7 @@ public class BudgetManagerTest {
             throws ExpenseOverflowException {
         budgetManager.setBudget(20, ExpenseCategory.OVERALL);
         budgetManager.setBudget(12, ExpenseCategory.FOOD);
-        budgetManager.setThreshold(0.1);
+        budgetManager.setThreshold(0.9);
         finances.addExpense(new Expense("mcdonalds", 5, ExpenseCategory.FOOD));
         Expense testExpense = new Expense("dinner", 6, ExpenseCategory.FOOD);
         finances.addExpense(testExpense);
@@ -77,7 +77,7 @@ public class BudgetManagerTest {
             throws ExpenseOverflowException {
         budgetManager.setBudget(12, ExpenseCategory.OVERALL);
         budgetManager.setBudget(4, ExpenseCategory.FOOD);
-        budgetManager.setThreshold(0.1);
+        budgetManager.setThreshold(0.9);
         Expense testExpense = new Expense("breakfast", 10, ExpenseCategory.FOOD);
         finances.addExpense(testExpense);
         budgetManager.handleBudget(testExpense, finances.getExpenses(), testUi);

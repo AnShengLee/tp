@@ -25,7 +25,7 @@ public class BudgetManager {
     MiscBudget miscBudget = new MiscBudget(0);
 
     public BudgetManager() {
-        this.threshold = 0.1;
+        this.threshold = 0.9;
     }
 
     public void handleBudget(Expense expense, ArrayList<Expense> expenses, Ui ui) {
@@ -46,8 +46,8 @@ public class BudgetManager {
             double limit = overallBudget.getLimit();
             assert limit >= 0;
             double diff = limit - currAmount;
-            double thresholdLimit = threshold * limit;
-            boolean isNearingLimit = (diff > 0) & (diff < thresholdLimit);
+            double thresholdLimit = (1 - threshold) * limit;
+            boolean isNearingLimit = (diff > 0) & (diff <= thresholdLimit);
             boolean isExceededLimit = diff <= 0;
             if (isNearingLimit) {
                 ui.printOverallBudgetWarning(month, currAmount, limit);
@@ -72,8 +72,8 @@ public class BudgetManager {
             double limit = budget.getLimit();
             assert limit >= 0;
             double diff = limit - currAmount;
-            double thresholdLimit = threshold * limit;
-            boolean isNearingLimit = (diff > 0) & (diff < thresholdLimit);
+            double thresholdLimit = (1 - threshold) * limit;
+            boolean isNearingLimit = (diff > 0) & (diff <= thresholdLimit);
             boolean isExceededLimit = diff <= 0;
             if (isOverallExceeded) {
                 if (isNearingLimit) {

@@ -11,7 +11,10 @@ import seedu.utility.FinancialAdvisor;
 import seedu.utility.Parser;
 import seedu.utility.Ui;
 
-
+/**
+ * A command line interfaced program that can store your financial entries and provide other insights and analytical 
+ * services.
+ */
 public class StonksXD {
     private Ui ui;
     private FinancialTracker finances;
@@ -22,6 +25,10 @@ public class StonksXD {
     private FinancialAdvisor financialAdvisor;
     private String advice;
 
+    /**
+     * Constructor for StonksXD. It instantiates all the components used and are crucial to the functioning of the 
+     * program.
+     */
     public StonksXD() {
         this.ui = new Ui();
         this.finances = new FinancialTracker();
@@ -32,10 +39,14 @@ public class StonksXD {
         this.dataManager = new DataManager(parser, finances, ui, budgetManager, currencyManager);
         dataManager.loadAll();
         
-        this.financialAdvisor = new FinancialAdvisor();
+        this.financialAdvisor = FinancialAdvisor.getInstance();
         this.advice = financialAdvisor.getRandomAdvice();
     }
-    
+
+    /**
+     * This method handles the lifecycle and the general logic of the program. It reads users input and performs actions
+     * based on it.
+     */
     public void run() {
         ui.printWelcome();
         boolean isNonTerminatingCommand = true;
@@ -51,8 +62,11 @@ public class StonksXD {
         //ui.printBye(advice);
     }
 
-    
-
+    /**
+     * Point of entry for the program.
+     * 
+     * @param args No input parameters is expected.
+     */
     public static void main(String[] args) {
         new StonksXD().run();
     }

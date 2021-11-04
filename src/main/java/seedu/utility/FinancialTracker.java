@@ -20,8 +20,8 @@ import java.util.stream.Collectors;
  * A Financial tracker that contains 2 separate list of income and expense entries and a net balance.
  */
 public class FinancialTracker {
-    private static final double TOTAL_EXPENSE_LIMIT = 100000000000.00;
-    private static final double TOTAL_INCOME_LIMIT = 100000000000.00;
+    public static final double TOTAL_EXPENSE_LIMIT = 100000000000.00;
+    public static final double TOTAL_INCOME_LIMIT = 100000000000.00;
     private ArrayList<Expense> expenses;
     private ArrayList<Income> incomes;
 
@@ -98,6 +98,7 @@ public class FinancialTracker {
     public Expense removeExpense(int expenseIndex) throws ExpenseEntryNotFoundException {
         try {
             Expense removedExpense =  expenses.remove(indexOffset(expenseIndex));
+            assert expenses.stream().noneMatch(expense -> expense.equals(removedExpense));
             return removedExpense;
         } catch (IndexOutOfBoundsException e) {
             throw new ExpenseEntryNotFoundException(Messages.UNABLE_TO_DELETE_MESSAGE);
@@ -114,6 +115,7 @@ public class FinancialTracker {
     public Income removeIncome(int incomeIndex) throws IncomeEntryNotFoundException {
         try {
             Income removedIncome = incomes.remove(indexOffset(incomeIndex));
+            assert incomes.stream().noneMatch(expense -> expense.equals(removedIncome));
             return removedIncome;
         } catch (IndexOutOfBoundsException e) {
             throw new IncomeEntryNotFoundException(Messages.UNABLE_TO_DELETE_MESSAGE);
@@ -164,6 +166,7 @@ public class FinancialTracker {
             totalExpense += expense.getValue();
         }
         assert totalExpense >= 0;
+        assert totalExpense < TOTAL_EXPENSE_LIMIT;
         return totalExpense;
     }
 
@@ -172,6 +175,7 @@ public class FinancialTracker {
         for (Expense expense: accumulatedExpense) {
             totalExpense += expense.getValue();
         }
+        assert totalExpense < TOTAL_EXPENSE_LIMIT;
         return totalExpense;
     }
 
@@ -187,6 +191,7 @@ public class FinancialTracker {
             totalIncome += income.getValue();
         }
         assert totalIncome >= 0;
+        assert totalIncome < TOTAL_INCOME_LIMIT;
         return totalIncome;
     }
 
@@ -195,6 +200,7 @@ public class FinancialTracker {
         for (Income income: accumulatedIncome) {
             totalIncome += income.getValue();
         }
+        assert totalIncome < TOTAL_INCOME_LIMIT;
         return totalIncome;
     }
 
@@ -229,9 +235,14 @@ public class FinancialTracker {
         List<Expense> yearlyAccumulatedExpense = expenses.stream()
                 .filter(DateOperator.sameEntryYear(inputYear))
                 .collect(Collectors.toList());
+        return sortExpenseByMonth(yearlyAccumulatedExpense);
+    }
+
+    private ArrayList<Double> sortExpenseByMonth(List<Expense> yearlyAccumulatedExpense) {
         ArrayList<Double> monthlyBreakdown = new ArrayList<>();
         for (int i = 1; i <= 12; i++) {
-            monthlyBreakdown.add(getMonthlyExpense(i,yearlyAccumulatedExpense));
+            double expenseForTheMonth = getMonthlyExpense(i, yearlyAccumulatedExpense);
+            monthlyBreakdown.add(expenseForTheMonth);
         }
         return monthlyBreakdown;
     }
@@ -267,9 +278,14 @@ public class FinancialTracker {
         List<Income> yearlyAccumulatedIncome = incomes.stream()
                 .filter(DateOperator.sameEntryYear(inputYear))
                 .collect(Collectors.toList());
+        return sortIncomeByMonth(yearlyAccumulatedIncome);
+    }
+
+    private ArrayList<Double> sortIncomeByMonth(List<Income> yearlyAccumulatedIncome) {
         ArrayList<Double> monthlyBreakdown = new ArrayList<>();
         for (int i = 1; i <= 12; i++) {
-            monthlyBreakdown.add(getMonthlyIncome(i, yearlyAccumulatedIncome));
+            double incomeForTheMonth = getMonthlyIncome(i, yearlyAccumulatedIncome);
+            monthlyBreakdown.add(incomeForTheMonth);
         }
         return monthlyBreakdown;
     }

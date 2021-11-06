@@ -24,8 +24,8 @@ import static seedu.utility.tools.FinancialCalculator.sortEntriesByMonth;
  */
 public class FinancialTracker {
     public static final double TOTAL_ENTRIES_LIMIT = 100000000000.00;
-    private ArrayList<Expense> expenses;
-    private ArrayList<Income> incomes;
+    private final ArrayList<Expense> expenses;
+    private final ArrayList<Income> incomes;
 
     /**
      * Constructor for financial tracker initialises two empty ArrayList, one for expenses and one for incomes.

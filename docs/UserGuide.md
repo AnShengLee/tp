@@ -41,11 +41,11 @@ Before you learn how to use the app, take a look at the [quickstart](#quick-star
    * [View total expense: `total_ex`](#view-total-expense-total_ex)
    * [View total income: `total_in`](#view-total-income-total_in)
    * [View total balance: `balance`](#view-total-balance-balance)
-   * [Show total expense between 2 dates: `btw_ex s/START_DATE e/END_DATE`](#show-total-expense-between-2-dates-btw_ex)
-   * [Show total income between 2 dates: `btw_in s/START_DATE e/END_DATE`](#show-total-income-between-2-dates-btw_in)
+   * [Show total expense between 2 dates: `btw_ex`](#show-total-expense-between-2-dates-btw_ex)
+   * [Show total income between 2 dates: `btw_in `](#show-total-income-between-2-dates-btw_in)
 
    2.4 Finding Entries
-   * [Find entry using date: `find DD/MM/YYYY`](#find-entry-using-date-find-ddmmyyyy)
+   * [Find entry using date: `find DATE`](#find-entry-using-date-find-ddmmyyyy)
    * [Find entry using keyword: `find KEYWORD`](#find-entry-using-keyword-find-keyword)
 
    2.5 Budget Setting 
@@ -83,12 +83,16 @@ Before you learn how to use the app, take a look at the [quickstart](#quick-star
 3. Copy the file to the folder you want to use as the home folder for your `Stonks XD`.
 4. Open the Command-Line interface (CLI) and navigate to the directory where you saved the `.jar` file and run 
 `java -jar StonksXD.jar` in the command line. `Stonks XD` will start up.
-5. In `Stonks XD`, type the command in the CLI and press `Enter` on your keyboard to execute it. (Tip: type `help` 
+
+5. The image shown below is what the program should look like for first time users like yourself!   
+![image](https://user-images.githubusercontent.com/69465661/140613991-7848997a-e97b-4c65-825a-1e126590b6a0.png)
+
+6. In `Stonks XD`, type the command in the CLI and press `Enter` on your keyboard to execute it. (Tip: type `help` 
 to show all available commands and their format.)
-6. Use the format `add_ex d/DESCRIPTION a/AMOUNT c/CATEGORY` to add expense entries to `Stonks XD`.
-7. Use the format `add_in d/DESCRIPTION a/AMOUNT c/CATEGORY` to add income entries to `Stonks XD`.
-8. Type `balance` to view your net saving or type `show_graph` to see an overview of your finances!
-9. Refer to the [Features](#features) below for details of each command.
+7. Use the format `add_ex d/DESCRIPTION a/AMOUNT c/CATEGORY` to add expense entries to `Stonks XD`.
+8. Use the format `add_in d/DESCRIPTION a/AMOUNT c/CATEGORY` to add income entries to `Stonks XD`.
+9. Type `balance` to view your net saving or type `show_graph` to see an overview of your finances!
+10. Refer to the [Features](#features) below for details of each command.
 
 ---
 
@@ -156,15 +160,15 @@ This command adds an expense entry to your list. Use this to keep track of your 
 Format: `add_ex d/DESCRIPTION a/AMOUNT c/CATEGORY [D/DATE]`
 
 - `DESCRIPTION` has to be non-empty.
-- `AMOUNT` has to be a positive amount.
+- `AMOUNT` has to be a positive amount that has a maximum of 2 decimal points.
 - `CATEGORY` has to be either `food`, `transport`, `bills`, `medical`, `entertainment`, or `misc`.
 - `DATE` is an optional input you can add which specifies when the entry is made. It must be in the DD/MM/YYYY format.
 
 Note:
 
 - The default date of the added expense will be the date in which the expense is added.
-- Each expense entry can only have a maximum value of 1,000,000,000 (1Billion).
-- The sum of all your entries cannot be more than 100,000,000,000 (100Billion).
+- Each expense entry can only have a maximum value of 1,000,000 (1 Million).
+- The sum of all your entries cannot be more than 100,000,000,000 (100 Billion).
 
 Examples:
 
@@ -181,7 +185,7 @@ Your most recent spending:
 <pre>
 -----------------------------------------------------------------------------------------------------
 Your most recent spending: 
-[E] McDonalds dinner - $7.20 (20/10/2021)
+[E] McDonalds dinner - $7.50 (20/10/2021)
 -----------------------------------------------------------------------------------------------------
 </pre>
 
@@ -202,7 +206,7 @@ You can directly increase your OCTOBER FOOD budget up to $32.00!
 
 ### Delete expense entry: `del_ex`
 
-This deletes an unwanted expense entry by providing the index of said entry. 
+You can delete an incorrect expense entry by providing the index of said entry. 
 Index can be found via the `list_ex` command below.
 
 Format: `del_ex i/INDEX`
@@ -261,8 +265,8 @@ Format: `add_in d/DESCRIPTION a/AMOUNT c/CATEGORY [D/DATE]`
 Note:
 
 - The default date of the added income will be the date in which the income is added.
-- Each income entry can only have a maximum value of 1,000,000,000 (1Billion).
-- The sum of all your entries cannot be more than 100,000,000,000 (100Billion).
+- Each income entry can only have a maximum value of 1,000,000 (1 Million).
+- The sum of all your entries cannot be more than 100,000,000,000 (100 Billion).
 
 Examples:
 
@@ -289,7 +293,7 @@ Your most recent earning:
 
 ### Delete income entry: `del_in`
 
-This deletes an unwanted income entries by providing the index of said entry.
+You can delete an incorrect income entry by providing the index of said entry.
 The index can be found using the `list_in` command found below.
 
 Format: `del_in i/INDEX`

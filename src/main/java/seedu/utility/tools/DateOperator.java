@@ -3,6 +3,7 @@ package seedu.utility.tools;
 import seedu.entry.Entry;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
@@ -102,4 +103,15 @@ public abstract class DateOperator {
     public static Predicate<Entry> sameEntryYear(int inputYear) {
         return item -> isSameYear(inputYear, item);
     }
+
+    public static int currentMonthInIndex() {
+        LocalDate currentDate = LocalDate.now();
+        return currentDate.getMonthValue() - 1;
+    }
+
+    public static Month currentMonth() {
+        LocalDate currentDate = LocalDate.now();
+        return currentDate.getMonth();
+    }
+    
 }

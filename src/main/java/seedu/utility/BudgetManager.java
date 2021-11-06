@@ -16,13 +16,13 @@ import java.util.ArrayList;
 
 public class BudgetManager {
     private double threshold;
-    OverallBudget overallBudget = new OverallBudget(0);
-    FoodBudget foodBudget = new FoodBudget(0);
-    TransportBudget transportBudget = new TransportBudget(0);
-    MedicalBudget medicalBudget = new MedicalBudget(0);
-    BillsBudget billsBudget = new BillsBudget(0);
-    EntertainmentBudget entertainmentBudget = new EntertainmentBudget(0);
-    MiscBudget miscBudget = new MiscBudget(0);
+    private OverallBudget overallBudget = new OverallBudget(0);
+    private FoodBudget foodBudget = new FoodBudget(0);
+    private TransportBudget transportBudget = new TransportBudget(0);
+    private MedicalBudget medicalBudget = new MedicalBudget(0);
+    private BillsBudget billsBudget = new BillsBudget(0);
+    private EntertainmentBudget entertainmentBudget = new EntertainmentBudget(0);
+    private MiscBudget miscBudget = new MiscBudget(0);
 
     public BudgetManager() {
         this.threshold = 0.9;

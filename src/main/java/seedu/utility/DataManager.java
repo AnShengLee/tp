@@ -136,6 +136,7 @@ public class DataManager {
         while (sc.hasNextLine()) {
             String data = sc.nextLine();
             if (data.isBlank()) {
+                hasCorruptedLines = true;
                 continue;
             }
             try {

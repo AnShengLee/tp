@@ -3,27 +3,28 @@ package seedu.utility;
 import seedu.commands.currency.ListCurrencyTypesCommand;
 import seedu.commands.expense.AddExpenseCommand;
 import seedu.commands.currency.CheckCurrentCurrencyCommand;
+import seedu.commands.general.ClearAllEntriesCommand;
+import seedu.commands.general.ExitCommand;
+import seedu.commands.general.FindCommand;
+import seedu.commands.general.HelpCommand;
+import seedu.commands.general.ShowGraphByYearCommand;
+import seedu.commands.general.ShowGraphCommand;
 import seedu.commands.income.AddIncomeCommand;
 import seedu.commands.budget.CheckBudgetCommand;
-import seedu.commands.general.ClearAllEntriesCommand;
 import seedu.commands.Command;
 import seedu.commands.currency.CurrencyConversionCommand;
 import seedu.commands.currency.CurrencyType;
 import seedu.commands.expense.DeleteExpenseCommand;
 import seedu.commands.income.DeleteIncomeCommand;
-import seedu.commands.general.ExitCommand;
-import seedu.commands.general.HelpCommand;
 import seedu.commands.InvalidCommand;
 import seedu.commands.expense.ListExpenseCommand;
 import seedu.commands.income.ListIncomeCommand;
 import seedu.commands.budget.SetBudgetCommand;
 import seedu.commands.budget.SetThresholdCommand;
-import seedu.commands.general.ShowGraphCommand;
 import seedu.commands.expense.TotalExpenseBetweenCommand;
 import seedu.commands.expense.TotalExpenseCommand;
 import seedu.commands.income.TotalIncomeBetweenCommand;
 import seedu.commands.income.TotalIncomeCommand;
-import seedu.commands.general.FindCommand;
 import seedu.commands.budget.BalanceCommand;
 import seedu.entry.Expense;
 import seedu.entry.ExpenseCategory;
@@ -55,7 +56,8 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static seedu.utility.datetools.DateOperator.isValidDateRange;
+import static seedu.utility.tools.DateOperator.getYearFormat;
+import static seedu.utility.tools.DateOperator.isValidDateRange;
 
 public class Parser {
 
@@ -125,6 +127,9 @@ public class Parser {
 
     private static final Pattern CURRENCY_CONVERSION_FORMAT =
             Pattern.compile("c/(?<currency>.+)");
+
+    private static final Pattern SHOW_GRAPH_BY_YEAR_FORMAT =
+            Pattern.compile("Y/(?<year>.+)");
 
     private static final String HELP_COMMAND_KEYWORD = "help";
     private static final String ADD_EXPENSE_KEYWORD = "add_ex";
@@ -609,8 +614,21 @@ public class Parser {
         if (arguments.isBlank()) {
             return new ShowGraphCommand();
         }
+        final Matcher matcher = SHOW_GRAPH_BY_YEAR_FORMAT.matcher(arguments);
+        if (matcher.matches()) {
+            try {
+                DateTimeFormatter yearFormat = getYearFormat();
+                String userGivenYear = matcher.group("year").trim();
+                LocalDate year = LocalDate.parse(userGivenYear, yearFormat);
+                return new ShowGraphByYearCommand(year);
+            } catch (DateTimeParseException e) {
+                return new InvalidCommand(Messages.INVALID_YEAR_MESSAGE);
+            }
+        }
         return new InvalidCommand(Messages.INVALID_COMMAND_MESSAGE);
     }
+
+    
 
     private Command prepareCheckCurrentCurrency(String arguments) {
         if (arguments.isBlank()) {

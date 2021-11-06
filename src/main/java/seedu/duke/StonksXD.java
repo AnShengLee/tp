@@ -6,7 +6,6 @@ import seedu.utility.BudgetManager;
 import seedu.utility.CurrencyManager;
 import seedu.utility.DataManager;
 import seedu.utility.FinancialTracker;
-import seedu.utility.FinancialAdvisor;
 
 import seedu.utility.Parser;
 import seedu.utility.Ui;
@@ -22,8 +21,6 @@ public class StonksXD {
     private DataManager dataManager;
     private BudgetManager budgetManager;
     private CurrencyManager currencyManager;
-    private FinancialAdvisor financialAdvisor;
-    private String advice;
 
     /**
      * Constructor for StonksXD. It instantiates all the components used and are crucial to the functioning of the 
@@ -38,9 +35,6 @@ public class StonksXD {
         
         this.dataManager = new DataManager(parser, finances, ui, budgetManager, currencyManager);
         dataManager.loadAll();
-        
-        this.financialAdvisor = FinancialAdvisor.getInstance();
-        this.advice = financialAdvisor.getRandomAdvice();
     }
 
     /**
@@ -59,7 +53,7 @@ public class StonksXD {
             }
             dataManager.saveAll();
         }
-        //ui.printBye(advice);
+        //ui.printBye(getRandomAdvice());
     }
 
     /**

@@ -182,8 +182,8 @@ Description of graphing component
 3. It then calculates the balance of the financial tracker using the calculateBalance() method and write the value with its descriptor starting from coordinate (2,4).
 4. Next it calls the drawReport() method, first it writes the title "Your Yearly Report" at coordinate (5,4).
    Then it writes the separator at (6,X), followed by a legend at (2,75) the top right. It also writes the x-axis with its month labels.
-5. It then calls the getMonthlyIncomeBreakdown(currentYear()) and getMonthlyExpenseBreakdown(currentYear()) methods to retrieve all total expenses and total incomes
-   for the current year when the user is using the app.
+5. It then calls the getMonthlyIncomeBreakdown(year) and getMonthlyExpenseBreakdown(year) methods to retrieve all total expenses and total incomes
+   for input year when the user is using the app. The user can choose between showing the current year or the year of their choice.
 6. Using this 24 data set in total (12months for both expenses and incomes) it will calculate the scale for each bar unit
 7. Then it plots the bar graph based on whichever column it looped through using the drawBar() method.
 

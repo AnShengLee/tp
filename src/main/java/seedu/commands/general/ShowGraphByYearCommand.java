@@ -1,4 +1,3 @@
-
 package seedu.commands.general;
 
 import seedu.commands.Command;
@@ -10,20 +9,14 @@ import seedu.utility.Ui;
 
 import java.time.LocalDate;
 
-public class ShowGraphCommand extends Command {
+public class ShowGraphByYearCommand extends Command {
+
     private int year;
-
-    public ShowGraphCommand() {
-        this.year = currentYear();
-    }
-
-    //@@author KZQ1999
-    private int currentYear() {
-        LocalDate currentDate = LocalDate.now();
-        return currentDate.getYear();
-    }
-    //@@author KZQ1999
     
+    public ShowGraphByYearCommand(LocalDate year) {
+        this.year = year.getYear();
+    }
+
     @Override
     public void execute(FinancialTracker finances, Ui ui, BudgetManager budgetManager,
                         CurrencyManager currencyManager) {
@@ -31,5 +24,3 @@ public class ShowGraphCommand extends Command {
         ui.printGraph(stonksGraph);
     }
 }
-
-

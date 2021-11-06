@@ -11,6 +11,7 @@ import seedu.commands.budget.SetThresholdCommand;
 import seedu.commands.expense.AddExpenseCommand;
 import seedu.commands.general.ClearAllEntriesCommand;
 import seedu.commands.currency.CurrencyType;
+import seedu.commands.general.ShowGraphByYearCommand;
 import seedu.commands.general.ShowGraphCommand;
 import seedu.commands.income.AddIncomeCommand;
 import seedu.commands.income.DeleteIncomeCommand;
@@ -34,6 +35,7 @@ import seedu.exceptions.InvalidSettingsDataException;
 import seedu.utility.BudgetManager;
 import seedu.utility.CurrencyManager;
 import seedu.utility.FinancialTracker;
+import seedu.utility.Messages;
 import seedu.utility.Parser;
 
 import java.time.DateTimeException;
@@ -360,6 +362,20 @@ public class ParserTest {
         Parser testParser = new Parser();
         Command underTest = testParser.parseCommand("show_graph");
         assertSame(ShowGraphCommand.class, underTest.getClass());
+    }
+
+    @Test
+    public void parseCommand_validYearInputShowGraphCommand_correctCommand() {
+        Parser testParser = new Parser();
+        Command underTest = testParser.parseCommand("show_graph Y/   2021    ");
+        assertSame(ShowGraphByYearCommand.class, underTest.getClass());
+    }
+
+    @Test
+    public void parseCommand_invalidYearInputShowGraphCommand_correctCommand() {
+        Parser testParser = new Parser();
+        Command underTest = testParser.parseCommand("show_graph Y/2023 12as d v ");
+        assertEquals(Messages.INVALID_YEAR_MESSAGE,((InvalidCommand)underTest).getMessage());
     }
     
 }

@@ -23,10 +23,10 @@ public class StonksGraph {
     /**
      * Constructor for the StonksGraph which firsts sets the border, then the balance and finally the report itself.
      */
-    public StonksGraph(FinancialTracker finances) {
+    public StonksGraph(FinancialTracker finances, int year) {
         setBorder();
         setBalance(finances.calculateBalance());
-        drawReport(finances);
+        drawReport(finances, year);
     }
 
     @Override
@@ -235,11 +235,6 @@ public class StonksGraph {
         return currentDate.getMonth();
     }
 
-    private int currentYear() {
-        LocalDate currentDate = LocalDate.now();
-        return currentDate.getYear();
-    }
-
     private void drawBar(int x, int y, int noOfIncomeBar, int noOfExpenseBar) {
         if (isWithinRowsConsistingOfBarGraph(x)) {
             if (isExpenseBar(y)) {
@@ -258,14 +253,14 @@ public class StonksGraph {
      *
      * @param finances The financial tracker with all the various entries.
      */
-    private void drawReport(FinancialTracker finances) {
+    private void drawReport(FinancialTracker finances, int year) {
         writeToGraph(5,4, "Your Yearly Report");
         drawSeparator();
         drawLegend();
         drawXAxisLabels();
         drawXAxis();
-        ArrayList<Double> monthlyIncomeBreakdowns = finances.getMonthlyIncomeBreakdown(currentYear());
-        ArrayList<Double> monthlyExpenseBreakdowns = finances.getMonthlyExpenseBreakdown(currentYear());
+        ArrayList<Double> monthlyIncomeBreakdowns = finances.getMonthlyIncomeBreakdown(year);
+        ArrayList<Double> monthlyExpenseBreakdowns = finances.getMonthlyExpenseBreakdown(year);
         
         ArrayList<Double> values = new ArrayList<>();
         values.addAll(monthlyExpenseBreakdowns);

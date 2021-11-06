@@ -118,9 +118,9 @@ Format: `help`
 This is a list of commands and their format!
 -----------------------------------------------------------------------------------------------------
 List Out All Commands: help
-Adding Expense: add_ex d/DESCRIPTION a/AMOUNT c/CATEGORY
+Adding Expense (Date Format: DD/MM/YYYY): add_ex d/DESCRIPTION a/AMOUNT c/CATEGORY [D/DATE]
 Deleting Expense: del_ex i/INDEX
-Adding Income: add_in d/DESCRIPTION a/AMOUNT c/CATEGORY
+Adding Income (Date Format: DD/MM/YYYY): add_in d/DESCRIPTION a/AMOUNT c/CATEGORY [D/DATE]
 Deleting Income: del_in i/INDEX
 Listing Expense: list_ex
 Listing Income: list_in
@@ -136,7 +136,7 @@ To Check Budgets: check_budget c/CATEGORY
 To Set Threshold Value for Reminders: set_threshold t/THRESHOLD
 To change entries into a different currency: set_curr c/CURRENCY
 To check the currency that entries are currently in: check_curr
-To View Your Yearly Report: show_graph
+To View Your Yearly Report (Year Format: YYYY): show_graph [Y/YEAR]
 To Clear All Expense And Income Entries: clear_all_entries
 To Terminate The Program: end
 -----------------------------------------------------------------------------------------------------
@@ -804,8 +804,9 @@ We recommend using this function after your daily logging of expenses for a one-
 
 2. It would be ideal not to have entries with big differences as the Stonks XD app is meant for daily logging.
 
+Format: `show_graph [Y/YEAR]`
 
-Format: `show_graph`
+- `YEAR` is an optional input which you may include. It will show the graph that corresponds to the given year. It must be in the YYYY format
 
 <details>
 <summary> ▼ Expected output in run window </summary>

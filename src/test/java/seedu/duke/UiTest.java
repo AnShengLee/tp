@@ -286,7 +286,7 @@ public class UiTest {
     @Test
     public void printGraph_validStonksGraph_printCorrectGraph() {
         //empty financialtracker
-        StonksGraph stonksGraph = new StonksGraph(financialTracker);
+        StonksGraph stonksGraph = new StonksGraph(financialTracker,LocalDate.now().getYear());
         String expectedOutput = SEPARATOR_LINE
                 + "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
                 + "x                                                                                                  x"

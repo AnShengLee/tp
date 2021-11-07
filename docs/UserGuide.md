@@ -31,8 +31,10 @@ Before you learn how to use the app, take a look at the [quickstart](#quick-star
  
    2.2 Add / Delete Entries
    * [Create expense entry: `add_ex`](#create-expense-entry-add_ex)
+   * [Create expense entry with date: `add_ex_d`](#create-expense-entry-with-date-add_ex_d)
    * [Delete expense entry: `del_ex`](#delete-expense-entry-del_ex)
    * [Create income entry: `add_in`](#create-income-entry-add_in)
+   * [Create income entry with date: `add_in_d`](#create-income-entry-with-date-add_in_d)
    * [Delete income entry: `del_in`](#delete-income-entry-del_in)
 
    2.3 List / View information
@@ -125,9 +127,11 @@ Format: `help`
 This is a list of commands and their format!
 -----------------------------------------------------------------------------------------------------
 List Out All Commands: help
-Adding Expense (Date Format: DD/MM/YYYY): add_ex d/DESCRIPTION a/AMOUNT c/CATEGORY [D/DATE]
+Adding Expense: add_ex d/DESCRIPTION a/AMOUNT c/CATEGORY
+Adding Expense With Date (Date Format: DD/MM/YYYY): add_ex_d d/DESCRIPTION a/AMOUNT c/CATEGORY D/DATE
 Deleting Expense: del_ex i/INDEX
-Adding Income (Date Format: DD/MM/YYYY): add_in d/DESCRIPTION a/AMOUNT c/CATEGORY [D/DATE]
+Adding Income: add_in d/DESCRIPTION a/AMOUNT c/CATEGORY
+Adding Income With Date (Date Format: DD/MM/YYYY): add_in_d d/DESCRIPTION a/AMOUNT c/CATEGORY D/DATE
 Deleting Income: del_in i/INDEX
 Listing Expense: list_ex
 Listing Income: list_in
@@ -143,7 +147,8 @@ To Check Budgets: check_budget c/CATEGORY
 To Set Threshold Value for Reminders: set_threshold t/THRESHOLD
 To change entries into a different currency: set_curr c/CURRENCY
 To check the currency that entries are currently in: check_curr
-To View Your Yearly Report (Year Format: YYYY): show_graph [Y/YEAR]
+Lists available currency types for conversion: list_curr
+To View Your Yearly Report (Year format: YYYY): show_graph [Y/YEAR]
 To Clear All Expense And Income Entries: clear_all_entries
 To Terminate The Program: end
 -----------------------------------------------------------------------------------------------------
@@ -160,12 +165,11 @@ To Terminate The Program: end
 ### Create expense entry: `add_ex`
 This command adds an expense entry to your list. Use this to keep track of your daily expenses!
 
-Format: `add_ex d/DESCRIPTION a/AMOUNT c/CATEGORY [D/DATE]`
+Format: `add_ex d/DESCRIPTION a/AMOUNT c/CATEGORY`
 
 - `DESCRIPTION` has to be non-empty.
 - `AMOUNT` has to be a positive amount that has a maximum of 2 decimal points.
 - `CATEGORY` has to be either `food`, `transport`, `bills`, `medical`, `entertainment`, or `misc`.
-- `DATE` is an optional input you can add which specifies when the entry is made. It must be in the DD/MM/YYYY format.
 
 Note:
 
@@ -176,7 +180,6 @@ Note:
 Examples:
 
 - `add_ex d/KFC lunch a/10.20 c/food` Adds an expense entry regarding lunch that costs $10.20.
-- `add_ex d/McDonalds dinner a/7.50 c/food D/20/10/2021` Adds a dinner expense entry that costs $7.50 that is made on 20th October 2021.
 <details>
 <summary> ▼ Expected output in run window </summary>
 <pre>
@@ -185,12 +188,7 @@ Your most recent spending:
 [E] KFC lunch - $10.20 (19/10/2021)
 -----------------------------------------------------------------------------------------------------
 </pre>
-<pre>
------------------------------------------------------------------------------------------------------
-Your most recent spending: 
-[E] McDonalds dinner - $7.50 (20/10/2021)
------------------------------------------------------------------------------------------------------
-</pre>
+
 
 Note: Budget reminders of different kinds might also appear when expenses are added! 
 They might look something like this.
@@ -206,6 +204,52 @@ You can directly increase your OCTOBER FOOD budget up to $32.00!
 </pre>
 </details>
 <br>
+
+
+### Create expense entry with date: `add_ex_d`
+This command adds an expense entry to your list with a date of your choice!
+
+Format: `add_ex_d d/DESCRIPTION a/AMOUNT c/CATEGORY D/DATE`
+
+- `DESCRIPTION` has to be non-empty.
+- `AMOUNT` has to be a positive amount that has a maximum of 2 decimal points.
+- `CATEGORY` has to be either `food`, `transport`, `bills`, `medical`, `entertainment`, or `misc`.
+- `DATE` must be in the DD/MM/YYYY format.
+
+
+Note:
+
+- Each expense entry can only have a maximum value of 1,000,000 (1 Million).
+- The sum of all your entries cannot be more than 100,000,000,000 (100 Billion).
+
+Examples:
+
+- `add_ex_d d/McDonalds dinner a/7.50 c/food D/20/10/2021` Adds a dinner expense entry that costs $7.50 that is made on 20th October 2021.
+<details>
+<summary> ▼ Expected output in run window </summary>
+<pre>
+-----------------------------------------------------------------------------------------------------
+Your most recent spending: 
+[E] McDonalds dinner - $7.50 (20/10/2021)
+-----------------------------------------------------------------------------------------------------
+</pre>
+
+Note: Budget reminders of different kinds might also appear when expenses are added!
+They might look something like this.
+
+<pre>-----------------------------------------------------------------------------------------------------
+You are almost reaching the OCTOBER OVERALL budget: $48.40/$50.00
+Consider readjusting your OCTOBER OVERALL budget!
+-----------------------------------------------------------------------------------------------------
+You have exceeded the OCTOBER FOOD budget: $30.40/$30.00
+Since you have not yet exceeded your OCTOBER OVERALL budget: $48.40/$50.00
+You can directly increase your OCTOBER FOOD budget up to $32.00!
+-----------------------------------------------------------------------------------------------------
+</pre>
+</details>
+<br>
+
+
 
 ### Delete expense entry: `del_ex`
 
@@ -258,12 +302,11 @@ After deletion, we see that the list has removed the previous first entry!
 
 This adds an income entry to your list. Use this to keep track of your income!
 
-Format: `add_in d/DESCRIPTION a/AMOUNT c/CATEGORY [D/DATE]`
+Format: `add_in d/DESCRIPTION a/AMOUNT c/CATEGORY`
 
 - `DESCRIPTION` has to be non-empty.
-- `AMOUNT` has to be a positive amount.
+- `AMOUNT` has to be a positive amount that has a maximum of 2 decimal points.
 - `CATEGORY` has to be either `salary`, `allowance`, `others` or `adhoc`.
-- `DATE` is an optional input you can add which specifies when the entry is made. It must be in the DD/MM/YYYY format.
 
 Note:
 
@@ -274,7 +317,6 @@ Note:
 Examples:
 
 - `add_in d/lunch money a/1000 c/allowance` Adds an income entry regarding a lunch allowance of $1000.
-- `add_in d/december's bonus a/5000 c/salary D/26/12/2021` Adds an income entry regarding a salary bonus of $5000 for 26th December 2021.
 
 <details>
   <summary> ▼ Expected output in run window </summary>
@@ -284,6 +326,31 @@ Your most recent earning:
 [I] lunch money - $1000.00 (19/10/2021)
 -----------------------------------------------------------------------------------------------------
 </pre>
+
+</details>
+<br>
+
+### Create income entry with date: `add_in_d`
+This command adds an income entry to your list with a date of your choice!
+
+Format: `add_in_d d/DESCRIPTION a/AMOUNT c/CATEGORY D/DATE`
+
+- `DESCRIPTION` has to be non-empty.
+- `AMOUNT` has to be a positive amount that has a maximum of 2 decimal points.
+- `CATEGORY` has to be either `salary`, `allowance`, `others` or `adhoc`.
+- `DATE` must be in the DD/MM/YYYY format.
+
+
+Note:
+
+- Each income entry can only have a maximum value of 1,000,000 (1 Million).
+- The sum of all your entries cannot be more than 100,000,000,000 (100 Billion).
+
+Examples:
+
+- `add_in_d/december's bonus a/5000 c/salary D/26/12/2021` Adds an income entry regarding a salary bonus of $5000 for 26th December 2021.
+<details>
+<summary> ▼ Expected output in run window </summary>
 <pre>
 -----------------------------------------------------------------------------------------------------
 Your most recent earning: 
@@ -291,8 +358,22 @@ Your most recent earning:
 -----------------------------------------------------------------------------------------------------
 </pre>
 
+Note: Budget reminders of different kinds might also appear when expenses are added!
+They might look something like this.
+
+<pre>-----------------------------------------------------------------------------------------------------
+You are almost reaching the OCTOBER OVERALL budget: $48.40/$50.00
+Consider readjusting your OCTOBER OVERALL budget!
+-----------------------------------------------------------------------------------------------------
+You have exceeded the OCTOBER FOOD budget: $30.40/$30.00
+Since you have not yet exceeded your OCTOBER OVERALL budget: $48.40/$50.00
+You can directly increase your OCTOBER FOOD budget up to $32.00!
+-----------------------------------------------------------------------------------------------------
+</pre>
 </details>
 <br>
+
+
 
 ### Delete income entry: `del_in`
 
@@ -976,10 +1057,12 @@ means all your edits are gone. But this pretty much ensures that there will be n
 | ------------ | ------------- | ------------- |
 | View all possible commands | `help` | - |
 | Create expense entry | `add_ex d/DESCRIPTION a/AMOUNT c/CATEGORY`  |  `add_ex d/KFC lunch a/10.20 c/food` |
+| Create expense entry with date | `add_ex_d d/DESCRIPTION a/AMOUNT c/CATEGORY D/DATE`  |  `add_ex_d d/KFC lunch a/10.20 c/food D/20/08/2021` |
 | Delete expense entry | `del_ex i/INDEX` | `del_ex i/3` |
 | List all expense entries | `list_ex` | - |
 | View total expense | `total_ex` | - |
 | Create income entry | `add_in d/DESCRIPTION a/AMOUNT c/CATEGORY`  | `add_in d/work a/3200 c/salary` |
+| Create income entry with date | `add_in_d d/DESCRIPTION a/AMOUNT c/CATEGORY D/DATE`  |  `add_in_d d/work a/10.20 c/salary D/20/08/2021` |
 | Delete income entry | `del_in i/INDEX` | `del_in i/2` |
 | List all income entries | `list_in` | - |
 | View total income | `total_in` | - |
@@ -990,6 +1073,7 @@ means all your edits are gone. But this pretty much ensures that there will be n
 | Show total income between 2 dates | `btw_in s/START_DATE e/END_DATE` | `btw_in s/10/07/2021 e/23/10/2021`  |
 | Clear all entries | `clear_all_entries` | - |
 | View Yearly Report | `show_graph` | - |
+| View Input Year Report|`show_graph Y/YYYY`|`show_graph Y/2023`|
 | Set currency | `set_curr c/CURRENCY` | `set_curr c/usd` |
 | Check current currency | `check_curr` | - |
 | To terminate program | `end` | - |

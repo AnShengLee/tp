@@ -1,9 +1,11 @@
 package seedu.utility.tools;
 
+import seedu.commands.InvalidCommand;
 import seedu.entry.ExpenseCategory;
 import seedu.entry.IncomeCategory;
 import seedu.exceptions.BlankExpenseCategoryException;
 import seedu.exceptions.BlankIncomeCategoryException;
+import seedu.exceptions.InvalidBudgetAmountException;
 import seedu.exceptions.InvalidDescriptionException;
 import seedu.exceptions.InvalidAmountException;
 import seedu.exceptions.InvalidExpenseCategoryException;
@@ -17,7 +19,8 @@ import java.util.regex.Matcher;
 
 public abstract class Extractor {
     private static final double ENTRY_AMOUNT_LIMIT = 1000000;
-    
+    private static final double BUDGET_AMOUNT_LIMIT = 100000000000.00;
+
     public static int extractIndex(String userGivenIndex) throws InvalidIndexException {
         try {
             int deleteIndex = Integer.parseInt(userGivenIndex);
@@ -82,7 +85,32 @@ public abstract class Extractor {
             throw new InvalidExpenseCategoryException(Messages.INVALID_EXPENSE_CATEGORY_MESSAGE);
         }
     }
-    
+
+    public static double extractBudgetAmount(Matcher matcher) throws InvalidBudgetAmountException {
+
+        String dataAmount = matcher.group("amount").trim();
+        if (dataAmount.isBlank()) {
+            throw new InvalidBudgetAmountException(Messages.BLANK_AMOUNT_MESSAGE);
+        } else if (hasMoreThanTwoDecimalPlaces(dataAmount)) {
+            throw new InvalidBudgetAmountException(Messages.TOO_MANY_DP_MESSAGE);
+        }
+        double budgetAmount;
+        try {
+            budgetAmount = Double.parseDouble(dataAmount);
+        } catch (NumberFormatException e) {
+            throw new InvalidBudgetAmountException(Messages.NON_NUMERIC_AMOUNT_MESSAGE);
+        }
+
+        if (budgetAmount < 0) {
+            throw new InvalidBudgetAmountException(Messages.NON_POSITIVE_AMOUNT_MESSAGE);
+        } else if (Double.isInfinite(budgetAmount) || Double.isNaN(budgetAmount)) {
+            throw new InvalidBudgetAmountException(Messages.NON_NUMERIC_AMOUNT_MESSAGE);
+        } else if (budgetAmount > BUDGET_AMOUNT_LIMIT) {
+            throw new InvalidBudgetAmountException(Messages.INVALID_BUDGET_VALUE);
+        }
+        return budgetAmount;
+    }
+
     public static double extractAmount(Matcher matcher) throws InvalidAmountException,
             EntryAmountExceedLimitException {
         String userGivenAmount = matcher.group("amount").trim();

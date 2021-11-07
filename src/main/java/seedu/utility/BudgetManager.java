@@ -15,7 +15,7 @@ import seedu.reminder.BudgetSetReminder;
 import seedu.reminder.DoubleExceededBudgetReminder;
 import seedu.reminder.DoubleNearingBudgetReminder;
 import seedu.reminder.ExceededBudgetNearingOverallReminder;
-import seedu.reminder.NearingBudgetExceededOverallReminder;
+import seedu.reminder.NoReminder;
 import seedu.reminder.SingleExceededReminder;
 import seedu.reminder.SingleNearingReminder;
 import seedu.reminder.SingleReminder;
@@ -48,23 +48,28 @@ public class BudgetManager {
         budgets.add(miscBudget);
     }
 
-    public BudgetReminder handleBudget(Expense expense, ArrayList<Expense> expenses, LocalDate date) {
+    public BudgetReminder handleBudget(Expense expense, ArrayList<Expense> expenses) {
         Budget budget = expenseCategoryToBudget(expense.getCategory());
+        LocalDate date = expense.getDate();
         String month = date.getMonth().toString();
         double currBudgetAmount = budget.calAmount(expenses, date);
         double currOverallAmount = overallBudget.calAmount(expenses, date);
 
-        if (isNearingLimit(budget, currBudgetAmount) & isNearingLimit(overallBudget, currOverallAmount)) {
+        if (isNotCurrentMonth(date)) {
+            return new NoReminder();
+        }
+
+        if (isNearingLimit(budget, currBudgetAmount) && isNearingLimit(overallBudget, currOverallAmount)) {
 
             return new DoubleNearingBudgetReminder(month, budget.getName(), currBudgetAmount, budget.getLimit(),
                     currOverallAmount, overallBudget.getLimit(), getTotalBudget(expenses, date));
 
-        } else if (isExceededLimit(budget, currBudgetAmount) & isExceededLimit(overallBudget, currOverallAmount)) {
+        } else if (isExceededLimit(budget, currBudgetAmount) && isExceededLimit(overallBudget, currOverallAmount)) {
 
             return new DoubleExceededBudgetReminder(month, budget.getName(), currBudgetAmount, budget.getLimit(),
                     currOverallAmount, overallBudget.getLimit(), getTotalBudget(expenses, date));
 
-        } else if (isExceededLimit(budget, currBudgetAmount) & isNearingLimit(overallBudget, currOverallAmount)) {
+        } else if (isExceededLimit(budget, currBudgetAmount) && isNearingLimit(overallBudget, currOverallAmount)) {
 
             return new ExceededBudgetNearingOverallReminder(month, budget.getName(), currBudgetAmount,
                     budget.getLimit(), currOverallAmount, overallBudget.getLimit(), getTotalBudget(expenses, date));
@@ -82,6 +87,10 @@ public class BudgetManager {
         }
     }
 
+    private boolean isNotCurrentMonth(LocalDate date) {
+        return date.getMonth() != LocalDate.now().getMonth() | date.getYear() != LocalDate.now().getYear();
+    }
+
     private double getThresholdLimit(double budgetLimit) {
         return (1 - threshold) * budgetLimit;
     }
@@ -89,7 +98,7 @@ public class BudgetManager {
     private boolean isNearingLimit(Budget budget, double currBudgetAmount) {
         double diff = budget.getLimit() - currBudgetAmount;
         double thresholdLimit = getThresholdLimit(budget.getLimit());
-        return (diff > 0) & (diff <= thresholdLimit);
+        return (diff > 0) && (diff <= thresholdLimit);
     }
 
     private boolean isExceededLimit(Budget budget, double currBudgetAmount) {
@@ -106,7 +115,7 @@ public class BudgetManager {
     }
 
     public void setThreshold(double threshold) {
-        assert (threshold >= 0) & (threshold <= 1);
+        assert (threshold >= 0) && (threshold <= 1);
         this.threshold = threshold;
     }
 
@@ -131,7 +140,7 @@ public class BudgetManager {
             double oldBudget = budget.getLimit();
             budget.setLimit(amount);
             double newTotalBudget = getTotalBudget(expenses, date);
-            if (amount >= budget.calAmount(expenses, date) & newTotalBudget <= overallBudget.getLimit()) {
+            if (amount >= budget.calAmount(expenses, date) && newTotalBudget <= overallBudget.getLimit()) {
                 return new BudgetSetReminder(budget.getName(), budget.getLimit());
             } else {
                 budget.setLimit(oldBudget);
@@ -156,8 +165,7 @@ public class BudgetManager {
         for (Budget budget : budgets) {
             if (budget == overallBudget) {
                 continue;
-            }
-            if (budget.getLimit() >= budget.calAmount(expenses, date)) {
+            } else if (budget.getLimit() >= budget.calAmount(expenses, date)) {
                 total += budget.getLimit();
             } else {
                 total += budget.calAmount(expenses, date);

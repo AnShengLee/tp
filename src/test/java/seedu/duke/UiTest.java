@@ -293,7 +293,7 @@ public class UiTest {
                 + "x   Account Balance: $0.00                                                 Legend:                 x"
                 + "x   Current month total expense: $0.00                                # is Expense      x"
                 + "x   Current month total income: $0.00                                 o is Income       x"
-                + "x   Your Yearly Report                                                     Unit: 0.01              x"
+                + "x   Your Year Report                                                       Unit: 0.01              x"
                 + "x ------------------------------------------------------------------------------------------------ x"
                 + "x                                                                                                  x"
                 + "x                                                                                                  x"

@@ -24,7 +24,7 @@ public class AddExpenseCommand extends Command {
         try {
             finances.addExpense(expense);
             ui.printExpenseAdded(expense);
-            BudgetReminder reminder = budgetManager.handleBudget(expense, finances.getExpenses(), LocalDate.now());
+            BudgetReminder reminder = budgetManager.handleBudget(expense, finances.getExpenses());
             ui.printBudgetReminder(reminder);
         } catch (ExpenseOverflowException e) {
             ui.printError(e.getMessage());

@@ -101,10 +101,17 @@ The Ui’s main role is to provide feedback whenever the user enters a command t
 handles the indexing of each element in the listing methods before printing out to the standard output for users to see.
 
 The image below illustrates the sequence diagram in the context of listing methods
-which includes listExpense, listIncome and listFind.
+which includes listExpense, listIncome and listFind
 
 
 ![Untitled Diagram drawio (2)](https://user-images.githubusercontent.com/69465661/138629733-63b2a115-5405-4af5-8a74-4d18f51c8f96.png)
+
+How the Ui component works:
+1. The Ui component consists mainly of printing methods that are tailored to be informative.
+2. The listing sequence diagram shown above uses the listExpense() method that calls printLine(), which is a line separator in the terminal.
+3. Based on the state of the list given it would decide whether to print a feedback message or to print the entire list with its indexes.
+4. Before ending with another line separator to mark the end of the message.
+5. There are many more methods that provides feedback messages like printing of exceptions, values and graphs. Some of this would be covered in the later sections.
 
 ---
 
@@ -116,9 +123,9 @@ Each method is abstracted into an appropriate child class (for e.g. `AddExpenseC
 
 After obtaining the attributes of an entry from the `entry` class and the required command given by the user from the `parser` class, it directs the inputs to the respective methods for execution.
 
-The image below shows the sequence diagram of how the `AddExpenseCommand` class is used and the other classes involved with it as well.
+The image below shows the sequence diagram of how the `AddExpenseCommand` class is used and, the other classes involved with it as well.
 
-![img_2.png](AddExpenseCommandSD.drawio.PNG)
+![](AddExpenseCommandSD.drawio.png)
 
 ---
 
@@ -146,10 +153,23 @@ The class diagram below shows the structure of `FinancialTracker`.
 
 The `FinancialTracker` component,
 
-- Uses `ArrayList` to store `income` and `expense` objects, which inherits from the parent class `entry`.
+- Uses `ArrayList` called `incomes` and `expenses` to store `income` and `expense` objects, which inherits from the parent class `entry`.
 - It also uses `DateOperator` and `FinancialCalculator` as helper class, used to perform calculation and dates related operation
 
 The sequence diagram below is used to illustrate how `FinancialTracker` utilizes the helper classes.
+It shows the hypothetical scenario where its `getExpenseBetween` method.
+
+![](FinancialTrackerSD.drawio.png)
+
+1. `getExpenseBetween` is implemented using streams. It filters through the entire `expenses` ArrayList,
+checking if the date associated to that entry lies within the given date range provided as input parameters.
+Those that passes this check are stored in a `List` using the method `.collect(Collections.toList())` method, called on the stream. 
+2. This check is done by the `entryDateInRange` method in `DateOperator`. `DateOperator` stores and carries out all date related operations. 
+3. The list is then passes into another method `getSumOfEntries`, which is a method in `FinancialCalculator` class.
+4. The method makes use of streams as well. It replaces all the entries with doubles associate to that entry
+   using the method `mapToDouble` which uses the `getvalue` method in `Entry` to get the value of the entry.
+5. Finally, the method `sum()` is called on the stream which returns the sum of all the values inside the stream. This value 
+   is then returned at the end of the function call.
 
 ---
 
@@ -217,10 +237,24 @@ Below is a list of some of the more important methods
 3. determineBarValue() is used to determine the skill of the graph based on the biggest value of that report's year, scaled to the nearest representing 10,100,1000.....<br>For example a value of 7672 will have a scale of 10,000/10 = 1000 and a value of 0.01 will have a scale of 0.1/10 = 0.01
 
 ---
+### Notes
 
-In the following section all coordinates will be in the form of (Row from the top, Column from the left) and coordinates mark with X is a don't care.
+- In the following section all coordinates will be in the form of `(Row from the top, Column from the left)` and coordinates mark with X is a don't care.
 
-Description of graphing component
+
+
+
+#### Sequential Diagram
+
+
+
+![](UpdatedWithDateOpSD.drawio.png)
+
+Above is a sequential diagram for the constructor of StonksGraph that shows the different method calls when a new StonksGraph object is instantiated.
+
+
+
+How the graphing component works:
 1. The graphing component consists mainly of the StonksGraph class which contains a 20 by 100 2D array.
 2. When first initialised, the StonksGraph constructor will call setBorder() which will loop through the 2D array and set
    all border characters as the given border character 'x' while keeping the others as the char blank.
@@ -232,18 +266,7 @@ Description of graphing component
 6. Using this 24 data set in total (12months for both expenses and incomes) it will calculate the scale for each bar unit
 7. Then it plots the bar graph based on whichever column it looped through using the drawBar() method.
 
----
 
-
-Below is a sequential diagram for the constructor of StonksGraph that shows the different method calls when a new StonksGraph object is instantiated.
-
-
-
-#### Sequential Diagram
-
-
-
-![](UpdatedWithDateOpSD.drawio.png)
 
 ---
 

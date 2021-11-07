@@ -18,7 +18,7 @@ public class UnableToSetBudgetReminder extends BudgetReminder {
 
     @Override
     public String toString() {
-        if (newBudgetLimit < currBudgetAmount & newTotalBudget > overallLimit) {
+        if (newBudgetLimit < currBudgetAmount && newTotalBudget > overallLimit) {
             return budgetName + " budget must be greater than current " + budgetName + " spending of $"
                     + roundTwoDecimalPlace(currBudgetAmount) + "."
                     + "\nWith new " + budgetName

@@ -175,7 +175,7 @@ public class StonksGraph {
     }
 
     private void drawLegendAndTitle() {
-        writeToGraph(5,4, "Your Yearly Report");
+        writeToGraph(5,4, "Your Year Report");
         writeToGraph(2, 75, "Legend:");
         writeToGraph(3, 80, " # is Expense");
         writeToGraph(4, 80, " o is Income ");

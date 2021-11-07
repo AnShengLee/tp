@@ -32,6 +32,7 @@ import seedu.entry.Income;
 import seedu.entry.IncomeCategory;
 import seedu.exceptions.BlankCurrencyTypeException;
 import seedu.exceptions.InputException;
+import seedu.exceptions.InvalidBudgetAmountException;
 import seedu.exceptions.InvalidCurrencyTypeException;
 import seedu.exceptions.InvalidExpenseDataFormatException;
 import seedu.exceptions.InvalidIncomeDataFormatException;
@@ -76,10 +77,12 @@ import static seedu.utility.tools.DateOperator.extractStartAndEndDate;
 import static seedu.utility.tools.DateOperator.getYearFormat;
 import static seedu.utility.tools.DateOperator.isValidDateRange;
 import static seedu.utility.tools.Extractor.extractAmount;
+import static seedu.utility.tools.Extractor.extractBudgetAmount;
 import static seedu.utility.tools.Extractor.extractDescription;
 import static seedu.utility.tools.Extractor.extractExpenseCategory;
 import static seedu.utility.tools.Extractor.extractIncomeCategory;
 import static seedu.utility.tools.Extractor.extractIndex;
+import static seedu.utility.tools.Extractor.extractThresholdValue;
 
 public class Parser {
     /**
@@ -167,7 +170,6 @@ public class Parser {
             + DATA_SEPARATOR + "(?<misc>.+)");
 
     public static final String DATE_FORMAT = "dd/MM/yyyy";
-    private static final double BUDGET_AMOUNT_LIMIT = 100000000000.00;
 
     /**
      * Parses user input into command for execution.
@@ -571,53 +573,17 @@ public class Parser {
         }
     }
 
-    private double parseThresholdValue(String userGivenThreshold) throws InvalidThresholdValueException {
-        double thresholdValue;
-        try {
-            thresholdValue = Double.parseDouble(userGivenThreshold);
-        } catch (NumberFormatException e) {
-            throw new InvalidThresholdValueException(Messages.NON_NUMERIC_THRESHOLD_MESSAGE);
-        }
-        if ((thresholdValue < 0) | (thresholdValue > 1)) {
-            throw new InvalidThresholdValueException(Messages.INVALID_THRESHOLD_MESSAGE);
-        } else if (Double.isNaN(thresholdValue) || Double.isInfinite(thresholdValue)) {
-            throw new InvalidThresholdValueException(Messages.NON_NUMERIC_THRESHOLD_MESSAGE);
-        } else if (hasMoreThanTwoDecimalPlaces(userGivenThreshold)) {
-            throw new InvalidThresholdValueException(Messages.TOO_MANY_DP_MESSAGE);
-        }
-        return thresholdValue;
-    }
-
-    private double extractThresholdValue(Matcher matcher) throws InvalidThresholdValueException {
-        String userGivenThreshold = matcher.group("threshold").trim();
-        return parseThresholdValue(userGivenThreshold);
-    }
-
     private Command prepareSetBudget(String arguments) {
         final Matcher matcher = SET_BUDGET_ARGUMENT_FORMAT.matcher(" " + arguments);
         if (!matcher.matches()) {
             return new InvalidCommand(Messages.PARAMETERS_ERROR_MESSAGE);
         }
 
-        String dataAmount = matcher.group("amount").trim();
-        if (dataAmount.isBlank()) {
-            return new InvalidCommand(Messages.BLANK_AMOUNT_MESSAGE);
-        } else if (hasMoreThanTwoDecimalPlaces(dataAmount)) {
-            return new InvalidCommand(Messages.TOO_MANY_DP_MESSAGE);
-        }
-
         double budgetAmount;
         try {
-            budgetAmount = Double.parseDouble(dataAmount);
-        } catch (NumberFormatException e) {
-            return new InvalidCommand(Messages.NON_NUMERIC_AMOUNT_MESSAGE);
-        }
-        if (budgetAmount < 0) {
-            return new InvalidCommand(Messages.NON_POSITIVE_AMOUNT_MESSAGE);
-        } else if (Double.isInfinite(budgetAmount) || Double.isNaN(budgetAmount)) {
-            return new InvalidCommand(Messages.NON_NUMERIC_AMOUNT_MESSAGE);
-        } else if (budgetAmount > BUDGET_AMOUNT_LIMIT) {
-            return new InvalidCommand(Messages.INVALID_BUDGET_VALUE);
+            budgetAmount = extractBudgetAmount(matcher);
+        } catch (InvalidBudgetAmountException e) {
+            return new InvalidCommand(e.getMessage());
         }
 
         String expenseCategory = matcher.group("category").trim().toUpperCase();

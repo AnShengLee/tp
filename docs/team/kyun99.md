@@ -4,8 +4,8 @@
 
 Stonks XD - It is an expense managing software that aims to simplify the process of keeping track of ones' s finances.
 The target users for this app are computing students that travels frequently and prefer logging their finances.
-The app is able to track your daily expenses, set and adjust your spending limits and give advice based on daily expenses.
-It is also able to give visual representations of financial data through bar graphs with currency conversion capabilities.
+By simplifying the commands, we made logging financial information easy, lowering the barrier of entry for users to build
+positive financial habits
 
 
 Given below are my contributions to the project.
@@ -61,7 +61,9 @@ Given below are my contributions to the project.
     - Supplemented add_in, add_ex commands. [#208](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/208)
     - Added FAQ. [#105](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/105)
   - Developer Guide:
-    
+    - Add Financial Tracker component
+    - Add StonksXD sequence diagram
+    - Add Command component sequence diagram
 
 
 - **Community**: 

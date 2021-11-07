@@ -25,6 +25,10 @@ import seedu.reminder.UnableToSetOverallBudgetReminder;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * BudgetManager is the class initializes and maintains all budget objects.
+ * Handles the setting of budgets and the provision of appropriate budget reminders.
+ */
 public class BudgetManager {
     private double threshold;
     private final OverallBudget overallBudget = new OverallBudget(0);
@@ -37,6 +41,9 @@ public class BudgetManager {
 
     ArrayList<Budget> budgets = new ArrayList<>();
 
+    /**
+     * Constructor that initializes the threshold value to a default of 0.9 and adds all budgets to an ArrayList.
+     */
     public BudgetManager() {
         this.threshold = 0.9;
         budgets.add(overallBudget);
@@ -48,6 +55,12 @@ public class BudgetManager {
         budgets.add(miscBudget);
     }
 
+    /**
+     * Returns an appropriate BudgetReminder object after determining the state of the budgets.
+     * @param expense Expense object that was just added
+     * @param expenses ArrayList of expenses in FinancialTracker
+     * @return
+     */
     public BudgetReminder handleBudget(Expense expense, ArrayList<Expense> expenses) {
         Budget budget = expenseCategoryToBudget(expense.getCategory());
         LocalDate date = expense.getDate();
@@ -87,42 +100,74 @@ public class BudgetManager {
         }
     }
 
+    /**
+     * Returns true if the date is in the current month.
+     * @param date Date containing month and year information
+     */
     private boolean isNotCurrentMonth(LocalDate date) {
         return date.getMonth() != LocalDate.now().getMonth() | date.getYear() != LocalDate.now().getYear();
     }
 
+    /**
+     * Returns the maximum amount left in the budget before budget warnings must be given.
+     * @param budgetLimit Limit of specific budget
+     * @return maximum amount left before budget warnings must be given.
+     */
     private double getThresholdLimit(double budgetLimit) {
         return (1 - threshold) * budgetLimit;
     }
 
+    /**
+     * Returns true if approaching the budget limit (diff is smaller than thresholdLimit).
+     * @param budget Budget to check
+     * @param currBudgetAmount Current amount spent in the budget
+     * @return boolean signifying if approaching budget limit
+     */
     private boolean isNearingLimit(Budget budget, double currBudgetAmount) {
         double diff = budget.getLimit() - currBudgetAmount;
         double thresholdLimit = getThresholdLimit(budget.getLimit());
         return (diff > 0) && (diff <= thresholdLimit);
     }
 
+    /**
+     * Returns true if budget limit is exceeded.
+     * @param budget Budget to check
+     * @param currBudgetAmount Current amount spent in the budget
+     * @return boolean signifying if budget limit is exceeded
+     */
     private boolean isExceededLimit(Budget budget, double currBudgetAmount) {
         double diff = budget.getLimit() - currBudgetAmount;
         return diff <= 0;
     }
 
-    private boolean isActive(Budget budget) {
-        if (budget.getLimit() != 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
+    /**
+     * Sets threshold value to specified value.
+     * Threshold value of 0.9 means budget warnings will be given when 90% of the budget limit is reached.
+     * @param threshold double value between 0 and 1
+     */
     public void setThreshold(double threshold) {
         assert (threshold >= 0) && (threshold <= 1);
         this.threshold = threshold;
     }
 
+    /**
+     * Returns the threshold value.
+     * @return threshold value
+     */
     public double getThreshold() {
         return this.threshold;
     }
 
+    /**
+     * Sets a new budget limit for a specified budget if the new limit is valid.
+     * If invalid, returns a BudgetReminder explaining the problem.
+     * New budget limit must be greater than spending in the budget category.
+     * Sum of all spending in sub-budgets and current sub-budget limits must be smaller than overall budget limit.
+     * @param amount New budget limit to be set
+     * @param category Budget category that new limit is to be imposed upon
+     * @param expenses ArrayList of expenses from FinancialTracker
+     * @return BudgetReminder object containing explanations and advice on the current budget situation.
+     */
     public BudgetReminder setBudget(double amount, ExpenseCategory category, ArrayList<Expense> expenses) {
         assert amount >= 0;
         assert category != ExpenseCategory.NULL;
@@ -150,16 +195,33 @@ public class BudgetManager {
         }
     }
 
+    /**
+     * Returns the current limit of a budget category.
+     * @param category Specified budget category
+     * @return Budget limit
+     */
     public double getBudget(ExpenseCategory category) {
         assert category != ExpenseCategory.NULL;
         Budget budget = expenseCategoryToBudget(category);
         return budget.getLimit();
     }
 
+    /**
+     * Returns an ArrayList containing all the budget objects for easy access.
+     * @return ArrayList of budget objects
+     */
     public ArrayList<Budget> getBudgets() {
         return budgets;
     }
 
+    /**
+     * Returns the sum of all sub-budgets (excluding overall budget).
+     * If the current expenses in a sub-budget is greater than its budget limit,
+     * the current expenses value will be summed instead.
+     * @param expenses ArrayList of expenses from FinancialTracker
+     * @param date Date object containing the month for which total budget will be calculated.
+     * @return sum of all sub-budgets (or expenses)
+     */
     public double getTotalBudget(ArrayList<Expense> expenses, LocalDate date) {
         double total = 0;
         for (Budget budget : budgets) {

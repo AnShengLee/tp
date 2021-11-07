@@ -1,7 +1,20 @@
 package seedu.reminder;
 
+/**
+ * Class representing the reminder message when both the sub-budget and the overall budget are exceeded.
+ */
 public class DoubleExceededBudgetReminder extends DoubleReminder {
 
+    /**
+     * Constructor initializing the reminder message with all relevant fields.
+     * @param month Current month
+     * @param budgetName Name of the budget that was exceeded
+     * @param currBudgetAmount Current amount in the exceeded budget
+     * @param budgetLimit Current limit of the exceeded budget
+     * @param currOverallAmount Current amount in the overall budget
+     * @param overallLimit Current overall budget limit
+     * @param totalBudget Sum of all sub-budgets and expenses
+     */
     public DoubleExceededBudgetReminder(String month, String budgetName, double currBudgetAmount,
                                                 double budgetLimit, double currOverallAmount,
                                                 double overallLimit, double totalBudget) {
@@ -14,6 +27,10 @@ public class DoubleExceededBudgetReminder extends DoubleReminder {
         this.totalBudget = totalBudget;
     }
 
+    /**
+     * Returns the reminder as a string.
+     * @return Reminder as a string.
+     */
     @Override
     public String toString() {
         return "Exceeded both " + month + " " + budgetName + " budget ($"

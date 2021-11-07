@@ -1,10 +1,21 @@
 package seedu.reminder;
 
+/**
+ * Class representing the reminder message when budget cannot be set.
+ */
 public class UnableToSetBudgetReminder extends BudgetReminder {
     private double overallLimit;
     private double newBudgetLimit;
     private double newTotalBudget;
 
+    /**
+     * Constructor initializing message with all relevant fields.
+     * @param budgetName Name of the budget
+     * @param currBudgetAmount Current amount in the budget
+     * @param overallLimit Current limit of the budget
+     * @param newBudgetLimit New limit to be set
+     * @param newTotalBudget New sum of all sub-budgets and expenses if new limit is successfully set
+     */
     public UnableToSetBudgetReminder(String budgetName, double currBudgetAmount, double overallLimit,
                                      double newBudgetLimit, double newTotalBudget) {
         this.month = null;
@@ -16,6 +27,10 @@ public class UnableToSetBudgetReminder extends BudgetReminder {
         this.newTotalBudget = newTotalBudget;
     }
 
+    /**
+     * Returns the reminder as a string.
+     * @return The reminder as a string.
+     */
     @Override
     public String toString() {
         if (newBudgetLimit < currBudgetAmount && newTotalBudget > overallLimit) {

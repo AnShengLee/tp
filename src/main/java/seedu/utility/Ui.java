@@ -352,12 +352,20 @@ public class Ui {
         System.out.print(stonksGraph);
         printLine();
     }
-  
+
+    /**
+     * Prints the budget reminder after an expense is added.
+     * @param reminder BudgetReminder object containing appropriate reminder.
+     */
     public void printBudgetReminder(BudgetReminder reminder) {
         System.out.println(reminder);
         printLine();
     }
 
+    /**
+     * Prints the budget setting advice after an attempt is made to set a new budget.
+     * @param reminder BudgetReminder object containing appropriate advice
+     */
     public void printSetBudgetReminder(BudgetReminder reminder) {
         printLine();
         System.out.println(reminder);

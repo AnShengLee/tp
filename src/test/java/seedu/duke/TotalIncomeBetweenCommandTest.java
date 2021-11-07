@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import seedu.entry.Income;
 import seedu.entry.IncomeCategory;
 import seedu.exceptions.IncomeOverflowException;
+import seedu.utility.CurrencyManager;
 import seedu.utility.FinancialTracker;
 
 import java.time.LocalDate;
@@ -12,7 +13,8 @@ import java.time.format.DateTimeFormatter;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TotalIncomeBetweenCommandTest {
-    private FinancialTracker testTracker = new FinancialTracker();
+    CurrencyManager currencyManager = new CurrencyManager();
+    FinancialTracker testTracker = new FinancialTracker(currencyManager);
 
     @Test
     public void execute_twoValidDateInputs_validTotalSum() throws IncomeOverflowException {

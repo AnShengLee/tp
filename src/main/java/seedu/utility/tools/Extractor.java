@@ -1,10 +1,13 @@
 package seedu.utility.tools;
 
+import seedu.commands.currency.CurrencyType;
 import seedu.commands.InvalidCommand;
 import seedu.entry.ExpenseCategory;
 import seedu.entry.IncomeCategory;
+import seedu.exceptions.BlankCurrencyTypeException;
 import seedu.exceptions.BlankExpenseCategoryException;
 import seedu.exceptions.BlankIncomeCategoryException;
+import seedu.exceptions.InvalidCurrencyTypeException;
 import seedu.exceptions.InvalidBudgetAmountException;
 import seedu.exceptions.InvalidDescriptionException;
 import seedu.exceptions.InvalidAmountException;
@@ -148,6 +151,24 @@ public abstract class Extractor {
             return numOfDecimalPlaces > 2;
         } else {
             return false;
+        }
+    }
+
+    public static CurrencyType extractCurrencyType(Matcher matcher)
+            throws BlankCurrencyTypeException, InvalidCurrencyTypeException {
+        String newCurrency = matcher.group("currency").trim();
+        if (newCurrency.isBlank()) {
+            throw new BlankCurrencyTypeException(Messages.BLANK_CURRENCY_TYPE_MESSAGE);
+        }
+        switch (newCurrency.toUpperCase()) {
+        case "USD":
+            return CurrencyType.USD;
+        case "SGD":
+            return CurrencyType.SGD;
+        case "INR":
+            return CurrencyType.INR;
+        default:
+            throw new InvalidCurrencyTypeException(Messages.INVALID_CURRENCY_TYPE_MESSAGE);
         }
     }
 

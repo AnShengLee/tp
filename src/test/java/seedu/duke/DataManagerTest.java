@@ -26,7 +26,8 @@ public class DataManagerTest {
     @Test
     public void saveEntries_validEntries_correctDataFileContent()
             throws ExpenseOverflowException, IncomeOverflowException {
-        FinancialTracker financialTracker = new FinancialTracker();
+        CurrencyManager currencyManager = new CurrencyManager();
+        FinancialTracker financialTracker = new FinancialTracker(currencyManager);
         LocalDate date = LocalDate.parse("11/11/2121", DateTimeFormatter.ofPattern(DATE_FORMAT));
         financialTracker.addExpense(new Expense("qwe", 12.5, ExpenseCategory.FOOD, date));
         financialTracker.addExpense(new Expense("qwe", .5, ExpenseCategory.FOOD, date));
@@ -35,7 +36,6 @@ public class DataManagerTest {
         Parser parser = new Parser();
         Ui ui = new Ui();
         BudgetManager budgetManager = new BudgetManager();
-        CurrencyManager currencyManager = new CurrencyManager();
         DataManager dataManager = new DataManager(parser, financialTracker, ui, budgetManager, currencyManager);
         dataManager.saveAll();
     }
@@ -45,10 +45,10 @@ public class DataManagerTest {
             throws ExpenseOverflowException, IncomeOverflowException {
         saveEntries_validEntries_correctDataFileContent();
         Parser parser = new Parser();
-        FinancialTracker financialTracker = new FinancialTracker();
+        CurrencyManager currencyManager = new CurrencyManager();
+        FinancialTracker financialTracker = new FinancialTracker(currencyManager);
         Ui ui = new Ui();
         BudgetManager budgetManager = new BudgetManager();
-        CurrencyManager currencyManager = new CurrencyManager();
         DataManager dataManager = new DataManager(parser, financialTracker, ui, budgetManager, currencyManager);
         dataManager.loadAll();
         assertEquals(12.5, financialTracker.getExpenses().get(0).getValue());
@@ -68,7 +68,8 @@ public class DataManagerTest {
     @Test
     public void loadEntries_invalidDataFileContent_detectInvalidDataEntriesAndOutputWarningMessages()
             throws ExpenseOverflowException, IncomeOverflowException {
-        FinancialTracker financialTracker = new FinancialTracker();
+        CurrencyManager currencyManager = new CurrencyManager();
+        FinancialTracker financialTracker = new FinancialTracker(currencyManager);
         LocalDate date = LocalDate.parse("11/11/2121", DateTimeFormatter.ofPattern(DATE_FORMAT));
         financialTracker.addExpense(new Expense("qwe", 12.5, ExpenseCategory.FOOD, date));
         financialTracker.addIncome(new Income("qwe", 12.5, IncomeCategory.ALLOWANCE, date));
@@ -76,7 +77,6 @@ public class DataManagerTest {
         Ui ui = new Ui();
         Parser parser = new Parser();
         BudgetManager budgetManager = new BudgetManager();
-        CurrencyManager currencyManager = new CurrencyManager();
         DataManager dataManager = new DataManager(parser, financialTracker, ui, budgetManager, currencyManager);
         dataManager.saveAll();
         dataManager.loadAll();
@@ -84,11 +84,11 @@ public class DataManagerTest {
 
     @Test
     public void saveSettings_validSettings_validSettingData() {
-        FinancialTracker financialTracker = new FinancialTracker();
+        CurrencyManager currencyManager = new CurrencyManager();
+        FinancialTracker financialTracker = new FinancialTracker(currencyManager);
         Ui ui = new Ui();
         Parser parser = new Parser();
         BudgetManager budgetManager = new BudgetManager();
-        CurrencyManager currencyManager = new CurrencyManager();
         DataManager dataManager = new DataManager(parser, financialTracker, ui, budgetManager, currencyManager);
         int i = 80;
         for (ExpenseCategory category : ExpenseCategory.values()) {
@@ -108,11 +108,11 @@ public class DataManagerTest {
     @Test
     public void loadAll_validBudgetData_validBudgets() {
         saveSettings_validSettings_validSettingData();
-        FinancialTracker financialTracker = new FinancialTracker();
+        CurrencyManager currencyManager = new CurrencyManager();
+        FinancialTracker financialTracker = new FinancialTracker(currencyManager);
         Ui ui = new Ui();
         Parser parser = new Parser();
         BudgetManager budgetManager = new BudgetManager();
-        CurrencyManager currencyManager = new CurrencyManager();
         DataManager dataManager = new DataManager(parser, financialTracker, ui, budgetManager, currencyManager);
         dataManager.loadAll();
         int i = 80;

@@ -8,11 +8,12 @@ import seedu.utility.FinancialTracker;
 import seedu.utility.Ui;
 
 public class CurrencyConversionCommand extends Command {
-    protected CurrencyType from = CurrencyType.SGD;
+    protected CurrencyType from;
     protected CurrencyType to;
 
     public CurrencyConversionCommand(CurrencyType to) {
         this.to = to;
+        this.from = CurrencyType.SGD;
     }
 
     @Override

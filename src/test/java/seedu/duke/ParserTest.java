@@ -263,7 +263,8 @@ public class ParserTest {
     @Test
     public void convertSettingsToData_validSettings_validData() {
         BudgetManager testBudgetManager = new BudgetManager();
-        FinancialTracker financialTracker = new FinancialTracker();
+        CurrencyManager currencyManager = new CurrencyManager();
+        FinancialTracker financialTracker = new FinancialTracker(currencyManager);
         for (ExpenseCategory category : ExpenseCategory.values()) {
             if (category == ExpenseCategory.NULL) {
                 break;
@@ -276,7 +277,6 @@ public class ParserTest {
         }
         testBudgetManager.setThreshold(0.2);
         Parser testParser = new Parser();
-        CurrencyManager currencyManager = new CurrencyManager();
         String testData = testParser.convertSettingsToData(testBudgetManager, currencyManager);
         assertEquals("SGD,0.2,12.0,1.0,1.0,1.0,1.0,1.0,1.0", testData);
         

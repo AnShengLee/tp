@@ -26,10 +26,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class CommandTest {
-    private FinancialTracker testTracker = new FinancialTracker();
+    private CurrencyManager currencyManager = new CurrencyManager();
+    private FinancialTracker testTracker = new FinancialTracker(currencyManager);
     private Ui testUi = new Ui();
     private BudgetManager budgetManager = new BudgetManager();
-    private CurrencyManager currencyManager = new CurrencyManager();
 
     @Test
     public void testAddExpenseCommand() {

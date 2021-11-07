@@ -52,9 +52,9 @@ public class UiTest {
 
     
     private final Ui testUI = new Ui();
-    private final FinancialTracker financialTracker = new FinancialTracker();
-    private BudgetManager budgetManager = new BudgetManager();
     private CurrencyManager currencyManager = new CurrencyManager();
+    private final FinancialTracker financialTracker = new FinancialTracker(currencyManager);
+    private BudgetManager budgetManager = new BudgetManager();
 
     public void initialiseFinancialTracker() throws IncomeOverflowException, ExpenseOverflowException {
         financialTracker.addIncome(new Income("Paycheck August", 25.0, IncomeCategory.SALARY));

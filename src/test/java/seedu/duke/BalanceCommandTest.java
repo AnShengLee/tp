@@ -7,12 +7,14 @@ import seedu.entry.Income;
 import seedu.entry.IncomeCategory;
 import seedu.exceptions.ExpenseOverflowException;
 import seedu.exceptions.IncomeOverflowException;
+import seedu.utility.CurrencyManager;
 import seedu.utility.FinancialTracker;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BalanceCommandTest {
-    private FinancialTracker testTracker = new FinancialTracker();
+    private CurrencyManager currencyManager = new CurrencyManager();
+    private FinancialTracker testTracker = new FinancialTracker(currencyManager);
     
     @Test
     public void execute_twoValidDateInputs_validTotalSum() throws IncomeOverflowException, ExpenseOverflowException {

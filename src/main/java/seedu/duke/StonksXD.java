@@ -29,11 +29,11 @@ public class StonksXD {
      */
     public StonksXD() {
         this.ui = new Ui();
-        this.finances = new FinancialTracker();
         this.parser = new Parser();
         this.budgetManager = new BudgetManager();
         this.currencyManager = new CurrencyManager();
-        
+        this.finances = new FinancialTracker(currencyManager);
+
         this.dataManager = new DataManager(parser, finances, ui, budgetManager, currencyManager);
         dataManager.loadAll();
     }

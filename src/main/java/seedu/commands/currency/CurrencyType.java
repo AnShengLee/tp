@@ -1,5 +1,5 @@
 package seedu.commands.currency;
 
 public enum CurrencyType {
-    USD, SGD
+    USD, SGD, INR
 }

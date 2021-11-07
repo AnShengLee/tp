@@ -16,6 +16,7 @@ import seedu.reminder.SingleNearingReminder;
 import seedu.reminder.SingleReminder;
 import seedu.reminder.UnableToSetBudgetReminder;
 import seedu.utility.BudgetManager;
+import seedu.utility.CurrencyManager;
 import seedu.utility.FinancialTracker;
 import seedu.utility.Ui;
 
@@ -30,8 +31,9 @@ public class BudgetManagerTest {
     private static final String currentMonth =
             LocalDate.now().getMonth().toString();
 
+    private final CurrencyManager currencyManager = new CurrencyManager();
     private final BudgetManager budgetManager = new BudgetManager();
-    private final FinancialTracker finances = new FinancialTracker();
+    private final FinancialTracker finances = new FinancialTracker(currencyManager);
 
     @Test
     public void setBudget_validEntry_correctBudget() {

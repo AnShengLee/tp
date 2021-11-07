@@ -144,8 +144,13 @@ The class diagram below shows the structure of `FinancialTracker`.
 
 ![](FinancialTrackerCD.drawio.png) 
 
-<to be updated>
-  
+The `FinancialTracker` component,
+
+- Uses `ArrayList` to store `income` and `expense` objects, which inherits from the parent class `entry`.
+- It also uses `DateOperator` and `FinancialCalculator` as helper class, used to perform calculation and dates related operation
+
+The sequence diagram below is used to illustrate how `FinancialTracker` utilizes the helper classes.
+
 ---
 
 ##### Converting user inputs to commands
@@ -296,13 +301,12 @@ shown to the user.
 11. Check if the first line of the `csv` file has the correct header. If the header is not correct, a warning will be
 shown to the user.
 12. Read from the `csv` file line by line.
-13. For every line, `x`, 3 things can happen (they will not happen concurrently):
-    - If `x` is blank we immediately read the next line.
+13. For every line, `x`, 2 things can happen (they will not happen concurrently):
     - If `x` can be loaded as an `Expense` entry, `Parser` will convert it to an `Expense` and load it into 
-    `FinancialTracker`. Start reading the next line.
+    `FinancialTracker`. Start reading for the next line.
     - If `x` can be loaded as an `Income` entry, `Parser` will convert it to an `Income` and load it into
-      `FinancialTracker`. Start reading the next line.
-14. If there are corrupted entries (blank or cannot be loaded as `Expense` or `Income), a warning will be 
+      `FinancialTracker`. Start reading for the next line.
+14. If there are corrupted entries (cannot be loaded as `Expense` or `Income`), a warning will be 
 shown to the user.
 15. Return the control to caller.
 

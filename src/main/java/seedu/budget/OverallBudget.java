@@ -2,6 +2,7 @@ package seedu.budget;
 
 import seedu.entry.Expense;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class OverallBudget extends Budget {
@@ -13,10 +14,12 @@ public class OverallBudget extends Budget {
     }
 
     @Override
-    public double calAmount(ArrayList<Expense> entries) {
+    public double calAmount(ArrayList<Expense> entries, LocalDate date) {
         double amount = 0;
         for (Expense expense : entries) {
-            amount += expense.getValue();
+            if (isCorrectMonthYear(expense, date)) {
+                amount += expense.getValue();
+            }
         }
         assert amount >= 0;
         return amount;

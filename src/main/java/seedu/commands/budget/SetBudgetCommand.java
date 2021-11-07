@@ -2,6 +2,7 @@ package seedu.commands.budget;
 
 import seedu.commands.Command;
 import seedu.entry.ExpenseCategory;
+import seedu.reminder.BudgetReminder;
 import seedu.utility.BudgetManager;
 import seedu.utility.CurrencyManager;
 import seedu.utility.FinancialTracker;
@@ -19,7 +20,7 @@ public class SetBudgetCommand extends Command {
     @Override
     public void execute(FinancialTracker finances, Ui ui, BudgetManager budgetManager,
                         CurrencyManager currencyManager) {
-        budgetManager.setBudget(amount, category);
-        ui.printBudgetSetConfirmation(amount, category);
+        BudgetReminder reminder = budgetManager.setBudget(amount, category, finances.getExpenses());
+        ui.printSetBudgetReminder(reminder);
     }
 }

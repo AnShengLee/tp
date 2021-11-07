@@ -6,8 +6,13 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
+import java.util.ArrayList;
 import java.util.function.Predicate;
+import java.util.regex.Matcher;
+
+import static seedu.utility.Parser.DATE_FORMAT;
 
 /**
  * DateOperator is stores useful date manipulation methods which are used for processing data of FinancialTracker.java.
@@ -31,11 +36,12 @@ public abstract class DateOperator {
     /**
      * Check if 2 dates form a valid date range.
      * 
-     * @param startDate The lower bound of the valid date range.
-     * @param endDate The upper bound of the valid date range.
+     * @param dateRange Object containing the date range
      * @return True if the startDate is earlier than endDate.
      */
-    public static boolean isValidDateRange(LocalDate startDate, LocalDate endDate) {
+    public static boolean isValidDateRange(DateRange dateRange) {
+        LocalDate startDate = dateRange.getStartDate();
+        LocalDate endDate = dateRange.getEndDate();
         return ((startDate.isBefore(endDate) || startDate.isEqual(endDate)));
     }
 
@@ -113,5 +119,19 @@ public abstract class DateOperator {
         LocalDate currentDate = LocalDate.now();
         return currentDate.getMonth();
     }
-    
+
+    public static DateRange extractStartAndEndDate(Matcher matcher) {
+        String start = matcher.group("start").trim();
+        LocalDate startDate = LocalDate.parse(start, DateTimeFormatter.ofPattern(DATE_FORMAT));
+        String end = matcher.group("end").trim();
+        LocalDate endDate = LocalDate.parse(end, DateTimeFormatter.ofPattern(DATE_FORMAT));
+        return new DateRange(startDate,endDate);
+    }
+
+    //@@author AnShengLee 
+    public static LocalDate extractDate(Matcher matcher) throws DateTimeParseException {
+        String date = matcher.group("date").trim();
+        return LocalDate.parse(date, DateTimeFormatter.ofPattern(DATE_FORMAT));
+    }
+    //@@author AnShengLee
 }

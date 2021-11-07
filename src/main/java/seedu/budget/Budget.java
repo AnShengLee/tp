@@ -27,15 +27,18 @@ public abstract class Budget {
         return this.limit;
     }
 
-    public double calAmount(ArrayList<Expense> entries) {
+    public double calAmount(ArrayList<Expense> entries, LocalDate date) {
         double amount = 0;
         for (Expense expense : entries) {
-            if ((expense.getCategory() == this.category)
-                    & (expense.getDate().getMonth() == LocalDate.now().getMonth())) {
+            if ((expense.getCategory() == this.category) & isCorrectMonthYear(expense, date)) {
                 amount += expense.getValue();
             }
         }
         assert amount >= 0;
         return amount;
+    }
+
+    protected boolean isCorrectMonthYear(Expense expense, LocalDate date) {
+        return expense.getDate().getMonth() == date.getMonth() & expense.getDate().getYear() == date.getYear();
     }
 }

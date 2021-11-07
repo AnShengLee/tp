@@ -101,10 +101,13 @@ to show all available commands and their format.)
 ### Notes
 
 - Words in `UPPER_CASE` are the parameters to be supplied by you, the user.
-  e.g. in add `a/AMOUNT`, `AMOUNT` is a parameter which can be typed as `a/12.30`.
-- Parameters surrounded with `[` and `]` are optional parameters which you might consider including to your input.
-  e.g. in the add expense/income feature, an optional date parameter `[D/DATE]` may be added which can be typed as `D/19/10/2021` 
-- Most features below have a collapsible section that allows you to see the run time output. Do check them out if you want to visualize what the product looks like!
+e.g. in add `a/AMOUNT`, `AMOUNT` is a parameter which can be typed as `a/12.30`.
+- Parameters can be in any order.
+e.g. if the command specifies `c/CATEGORY a/AMOUNT`, `a/AMOUNT c/CATEGORY` is also acceptable.
+- If a parameter is expected only once in the command, but you specified it multiple times, only the last occurrence 
+of the parameter will be taken. e.g. if you gave `a/100 a/1000`, only `a/1000` will be read in.
+- Most features below have a collapsible section that allows you to see the run time output. Do check them out if you 
+want to visualize what the product looks like!
 
 ---
 ### 2.1 Help
@@ -895,38 +898,49 @@ Here's our tip for the day: Try using the 50/30/20 rule to budget. 50% for needs
 
 ### Saving of Data
 
-Stonks XD will save / load data from `StonksXD_Entries.csv` and `StonksXD_Settings.csv`. 
+Stonks XD will save / load your data from `StonksXD_Entries.csv` and `StonksXD_Settings.csv`. This ensures that you 
+will not lose your important data when Stonks XD changes.
 
-- `StonksXD_Entries.csv` will store all the expense and income entries Stonks XD is currently tracking.
-- `StonksXD_Settings.csv` will store all the budget values, the currency setting and the threshold value.
+The 2 `csv` files will be stored in the same directory as `StonksXD.jar`.
+
+`StonksXD_Entries.csv` will store all your entries. They are:
+1. `Expense` entries.
+2. `Income` entries.
+
+`StonksXD_Settings.csv` will store all the important settings. They are:
+1. Currency setting
+2. Threshold setting
+3. Budget settings for different expense categories.
+
+All important fields will be separated by a `,`.
 
 The reason for data files to be in `.csv` format is so that you can have an easier time editing those data in Excel 
-when not using the program.
+when **not** using the program. It is easy to make mistakes when editing the `csv` files manually so do be careful.
 
 #### When editing csv files
 
-- `.csv` files should not be open concurrently while Stonks XD is running. In other words, never have two programs 
-writing / reading the `.csv` files at the same time. This will very likely cause a saving error and lost of data.
-- Restrictions and rules for different variables are the same as how you would enter them in the CLI, as specified 
-above.
-  - For example, when editing an expense entry in `StonksXD_Entries.csv`, `entry_description` should not be blank.
+- `.csv` files **must not** be open concurrently while Stonks XD is running. In other words, never have two programs 
+writing / reading the `.csv` files at the same time. This will very likely cause a saving / loading error and 
+lost of data.
+- Restrictions and rules for different variables are the same as how you would enter them in the Command Line 
+Interface, as specified above.
+  - For example, when editing an expense entry in `StonksXD_Entries.csv`, `entry_description` must not be blank.
   - Another example, when editing an income entry in `StonksXD_Entries.csv`, `amount` has to be a positive number and 
-  less than 1000000000.
+  less than 1000000.
   - Another example, when editing `threshold` in `StonksXD_Settings.csv`, ensure it is between 0 and 1. 
   - Another example, when editing an expense entry in `StonksXD_Entries.csv`, category should be the ones available and 
-  specified ealier on in the user guide.
+  specified earlier on in the user guide.
 - Do not alter / delete the headers of `.csv` files. Stonks XD is able to minimise the damage if you do so but to 
 ensure your data is saved / loaded properly, please do not edit anything unexpected.
 - Stonks XD expects the dates in `StonksXD_Entries.csv` to be in `DD/MM/YYYY` format i.e., `11/12/2021` when loading 
-data.
-  When opening `StonksXD_Entries.csv` in Excel, Excel might change the format of the dates. Do ensure Excel's date 
+data. When opening `StonksXD_Entries.csv` in Excel, Excel might change the format of the dates. Do ensure Excel's date 
 format is in `DD/MM/YYYY` when dealing with `StonksXD_Entries.csv`. Entries with a different date format will be 
 considered corrupted and not be loaded into Stonks XD.
 - Changing the currency setting in `StonksXD_Settings.csv` is not recommended. This is because it will
-  cause all your entries and budgets to be recognised as a different currency.
-- Do not edit the amount of your expenses / incomes drastically such that they exceed the limit per entry or the 
-total limit of 100000000000 for expense / income. Entries that cause you to exceed either limit will be considered 
-corrupted.
+cause all your entries and budgets to be recognised as a different currency.
+- Do not edit the amount of your entries drastically such that they exceed the max amount per entry or the 
+total limit of 100000000000 for expenses / incomes. Entries that cause you to exceed either of the 2 limit will be 
+considered corrupted and not be loaded.
 
 
 #### In the event of corrupted data

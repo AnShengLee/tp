@@ -35,6 +35,7 @@ import seedu.exceptions.InvalidIncomeDataFormatException;
 import seedu.exceptions.InvalidSettingsDataException;
 import seedu.utility.BudgetManager;
 import seedu.utility.CurrencyManager;
+import seedu.utility.FinancialTracker;
 import seedu.utility.Messages;
 import seedu.utility.Parser;
 
@@ -263,27 +264,36 @@ public class ParserTest {
     @Test
     public void convertSettingsToData_validSettings_validData() {
         BudgetManager testBudgetManager = new BudgetManager();
+        FinancialTracker financialTracker = new FinancialTracker();
         for (ExpenseCategory category : ExpenseCategory.values()) {
             if (category == ExpenseCategory.NULL) {
                 break;
             }
-            testBudgetManager.setBudget(12, category);
+            if (category == ExpenseCategory.OVERALL) {
+                testBudgetManager.setBudget(12, category, financialTracker.getExpenses());
+            } else {
+                testBudgetManager.setBudget(1, category, financialTracker.getExpenses());
+            }
         }
         testBudgetManager.setThreshold(0.2);
         Parser testParser = new Parser();
         CurrencyManager currencyManager = new CurrencyManager();
         String testData = testParser.convertSettingsToData(testBudgetManager, currencyManager);
-        assertEquals("SGD,0.2,12.0,12.0,12.0,12.0,12.0,12.0,12.0", testData);
+        assertEquals("SGD,0.2,12.0,1.0,1.0,1.0,1.0,1.0,1.0", testData);
         
     }
     
     @Test
     public void convertDataToBudgetSettings_validData_validBudgets() throws InvalidSettingsDataException {
-        String testData = "SGD,0.1,12.0,12.0,12.0,12.0,12.0,12.0,12";
+        String testData = "SGD,0.1,12.0,1.0,1.0,1.0,1.0,1.0,1.0";
         Parser parser = new Parser();
         ArrayList<Double> testBudgets = parser.convertDataToBudgetSettings(testData);
         for (int i = 0; i < TOTAL_EXPENSE_CATEGORY; i++) {
-            assertEquals(12, testBudgets.get(i));
+            if (i == 0) {
+                assertEquals(12, testBudgets.get(i));
+            } else {
+                assertEquals(1, testBudgets.get(i));
+            }
         }
     }
     

@@ -91,18 +91,18 @@ public class DataManagerTest {
         BudgetManager budgetManager = new BudgetManager();
         CurrencyManager currencyManager = new CurrencyManager();
         DataManager dataManager = new DataManager(parser, financialTracker, ui, budgetManager, currencyManager);
-        int i = 0;
+        int i = 80;
         for (ExpenseCategory category : ExpenseCategory.values()) {
             if (category == ExpenseCategory.NULL) {
                 break;
             }
-            budgetManager.setBudget(i, category);
-            i += 1;
+            budgetManager.setBudget(i, category, financialTracker.getExpenses());
+            i /= 2;
         }
         budgetManager.setThreshold(0.5);
         dataManager.saveAll();
         String testData = parser.convertSettingsToData(budgetManager, currencyManager);
-        String expectedData = "SGD,0.5,0.0,1.0,2.0,3.0,4.0,5.0,6.0";
+        String expectedData = "SGD,0.5,80.0,40.0,20.0,10.0,5.0,2.0,1.0";
         assertEquals(expectedData, testData);
     }
 
@@ -116,13 +116,13 @@ public class DataManagerTest {
         CurrencyManager currencyManager = new CurrencyManager();
         DataManager dataManager = new DataManager(parser, financialTracker, ui, budgetManager, currencyManager);
         dataManager.loadAll();
-        int i = 0;
+        int i = 80;
         for (ExpenseCategory category : ExpenseCategory.values()) {
             if (category == ExpenseCategory.NULL) {
                 break;
             }
             assertEquals(budgetManager.getBudget(category), i);
-            i += 1;
+            i /= 2;
         }
     }
 }

@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static seedu.utility.FinancialTracker.TOTAL_ENTRIES_LIMIT;
+import static seedu.utility.tools.DateOperator.sameEntryMonth;
 
 
 /**
@@ -33,7 +34,7 @@ public abstract class FinancialCalculator {
     
     private static double getMonthlyEntries(int inputMonth, List<Entry> yearlyEntries) {
         List<Entry> monthlyAccumulatedEntries = yearlyEntries.stream()
-                .filter(DateOperator.sameEntryMonth(inputMonth))
+                .filter(sameEntryMonth(inputMonth))
                 .collect(Collectors.toList());
         return getSumOfEntries(monthlyAccumulatedEntries);
     }
@@ -45,11 +46,10 @@ public abstract class FinancialCalculator {
      * @return The sum of all the entries stored as a double.
      */
     public static double getSumOfEntries(List<Entry> accumulatedEntries) {
-        double totalEntry = 0;
-        for (Entry entry : accumulatedEntries) {
-            totalEntry += entry.getValue();
-        }
-        assert totalEntry < TOTAL_ENTRIES_LIMIT;
+        double totalEntry = accumulatedEntries.stream()
+                .mapToDouble(Entry::getValue)
+                .sum();
+        assert totalEntry <= TOTAL_ENTRIES_LIMIT;
         return totalEntry;
     }
 }

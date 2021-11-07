@@ -1,9 +1,5 @@
 entry_type,entry_description,amount,category,date
 E,qwe,12.5,FOOD,11/11/2121
 E,qwe,0.5,FOOD,11/11/2121
-E,food,500.0,FOOD,06/11/2021
-E,a,5.0E8,FOOD,06/11/2021
-E,a,5.0E8,FOOD,06/11/2021
-E,a,5.0E8,FOOD,06/11/2021
 I,qwe,12.5,SALARY,11/11/2121
 I,qwe,12.5,ALLOWANCE,11/11/2121

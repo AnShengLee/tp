@@ -10,88 +10,98 @@ import seedu.budget.OverallBudget;
 import seedu.budget.TransportBudget;
 import seedu.entry.Expense;
 import seedu.entry.ExpenseCategory;
+import seedu.reminder.BudgetReminder;
+import seedu.reminder.BudgetSetReminder;
+import seedu.reminder.DoubleExceededBudgetReminder;
+import seedu.reminder.DoubleNearingBudgetReminder;
+import seedu.reminder.ExceededBudgetNearingOverallReminder;
+import seedu.reminder.NearingBudgetExceededOverallReminder;
+import seedu.reminder.SingleExceededReminder;
+import seedu.reminder.SingleNearingReminder;
+import seedu.reminder.SingleReminder;
+import seedu.reminder.UnableToSetBudgetReminder;
+import seedu.reminder.UnableToSetOverallBudgetReminder;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class BudgetManager {
     private double threshold;
-    private OverallBudget overallBudget = new OverallBudget(0);
-    private FoodBudget foodBudget = new FoodBudget(0);
-    private TransportBudget transportBudget = new TransportBudget(0);
-    private MedicalBudget medicalBudget = new MedicalBudget(0);
-    private BillsBudget billsBudget = new BillsBudget(0);
-    private EntertainmentBudget entertainmentBudget = new EntertainmentBudget(0);
-    private MiscBudget miscBudget = new MiscBudget(0);
+    private final OverallBudget overallBudget = new OverallBudget(0);
+    private final FoodBudget foodBudget = new FoodBudget(0);
+    private final TransportBudget transportBudget = new TransportBudget(0);
+    private final MedicalBudget medicalBudget = new MedicalBudget(0);
+    private final BillsBudget billsBudget = new BillsBudget(0);
+    private final EntertainmentBudget entertainmentBudget = new EntertainmentBudget(0);
+    private final MiscBudget miscBudget = new MiscBudget(0);
+
+    ArrayList<Budget> budgets = new ArrayList<>();
 
     public BudgetManager() {
         this.threshold = 0.9;
+        budgets.add(overallBudget);
+        budgets.add(foodBudget);
+        budgets.add(transportBudget);
+        budgets.add(medicalBudget);
+        budgets.add(billsBudget);
+        budgets.add(entertainmentBudget);
+        budgets.add(miscBudget);
     }
 
-    public void handleBudget(Expense expense, ArrayList<Expense> expenses, Ui ui) {
-        boolean isOverallExceeded = checkOverallBudget(expense, expenses, ui);
+    public BudgetReminder handleBudget(Expense expense, ArrayList<Expense> expenses, LocalDate date) {
         Budget budget = expenseCategoryToBudget(expense.getCategory());
-        if (budget != overallBudget) {
-            checkBudget(expense, expenses, budget, isOverallExceeded, ui);
-        }
-    }
+        String month = date.getMonth().toString();
+        double currBudgetAmount = budget.calAmount(expenses, date);
+        double currOverallAmount = overallBudget.calAmount(expenses, date);
 
-    private boolean checkOverallBudget(Expense expense, ArrayList<Expense> expenses, Ui ui) {
-        boolean isOverallExceeded = false;
-        boolean isOverallBudgetActive = overallBudget.getLimit() != 0;
-        if (isOverallBudgetActive) {
-            String month = LocalDate.now().getMonth().toString();
-            double currAmount = overallBudget.calAmount(expenses);
-            assert currAmount >= 0;
-            double limit = overallBudget.getLimit();
-            assert limit >= 0;
-            double diff = limit - currAmount;
-            double thresholdLimit = (1 - threshold) * limit;
-            boolean isNearingLimit = (diff > 0) & (diff <= thresholdLimit);
-            boolean isExceededLimit = diff <= 0;
-            if (isNearingLimit) {
-                ui.printOverallBudgetWarning(month, currAmount, limit);
-            } else if (isExceededLimit) {
-                ui.printOverallBudgetExceeded(month, currAmount, limit);
-                isOverallExceeded = true;
-            }
-        }
-        return isOverallExceeded;
-    }
+        if (isNearingLimit(budget, currBudgetAmount) & isNearingLimit(overallBudget, currOverallAmount)) {
 
-    private void checkBudget(Expense expense, ArrayList<Expense> expenses, Budget budget, boolean isOverallExceeded,
-                             Ui ui) {
-        assert budget != overallBudget;
-        boolean isBudgetActive = budget.getLimit() != 0;
-        if (isBudgetActive) {
-            String month = LocalDate.now().getMonth().toString();
-            double currOverallAmount = overallBudget.calAmount(expenses);
-            double overallLimit = overallBudget.getLimit();
-            double currAmount = budget.calAmount(expenses);
-            assert currAmount >= 0;
-            double limit = budget.getLimit();
-            assert limit >= 0;
-            double diff = limit - currAmount;
-            double thresholdLimit = (1 - threshold) * limit;
-            boolean isNearingLimit = (diff > 0) & (diff <= thresholdLimit);
-            boolean isExceededLimit = diff <= 0;
-            if (isOverallExceeded) {
-                if (isNearingLimit) {
-                    ui.printOverallExceededBudgetWarning(month, budget.getName(), currAmount, limit,
-                            currOverallAmount, overallLimit);
-                } else if (isExceededLimit) {
-                    ui.printOverallExceededBudgetExceeded(month, budget.getName(), currAmount, limit,
-                            currOverallAmount, overallLimit);
-                }
+            return new DoubleNearingBudgetReminder(month, budget.getName(), currBudgetAmount, budget.getLimit(),
+                    currOverallAmount, overallBudget.getLimit(), getTotalBudget(expenses, date));
+
+        } else if (isExceededLimit(budget, currBudgetAmount) & isExceededLimit(overallBudget, currOverallAmount)) {
+
+            return new DoubleExceededBudgetReminder(month, budget.getName(), currBudgetAmount, budget.getLimit(),
+                    currOverallAmount, overallBudget.getLimit(), getTotalBudget(expenses, date));
+
+        } else if (isExceededLimit(budget, currBudgetAmount) & isNearingLimit(overallBudget, currOverallAmount)) {
+
+            return new ExceededBudgetNearingOverallReminder(month, budget.getName(), currBudgetAmount,
+                    budget.getLimit(), currOverallAmount, overallBudget.getLimit(), getTotalBudget(expenses, date));
+
+        } else {
+
+            if (isNearingLimit(budget, currBudgetAmount)) {
+                return new SingleNearingReminder(month, budget.getName(), currBudgetAmount, budget.getLimit());
+            } else if (isExceededLimit(budget, currBudgetAmount)) {
+                return new SingleExceededReminder(month, budget.getName(), currBudgetAmount, budget.getLimit());
             } else {
-                if (isNearingLimit) {
-                    ui.printOverallNotExceededBudgetWarning(month, budget.getName(), currAmount, limit,
-                            currOverallAmount, overallLimit);
-                } else if (isExceededLimit) {
-                    ui.printOverallNotExceededBudgetExceeded(month, budget.getName(), currAmount, limit,
-                            currOverallAmount, overallLimit);
-                }
+                return new SingleReminder(month, budget.getName(), currBudgetAmount, budget.getLimit());
             }
+
+        }
+    }
+
+    private double getThresholdLimit(double budgetLimit) {
+        return (1 - threshold) * budgetLimit;
+    }
+
+    private boolean isNearingLimit(Budget budget, double currBudgetAmount) {
+        double diff = budget.getLimit() - currBudgetAmount;
+        double thresholdLimit = getThresholdLimit(budget.getLimit());
+        return (diff > 0) & (diff <= thresholdLimit);
+    }
+
+    private boolean isExceededLimit(Budget budget, double currBudgetAmount) {
+        double diff = budget.getLimit() - currBudgetAmount;
+        return diff <= 0;
+    }
+
+    private boolean isActive(Budget budget) {
+        if (budget.getLimit() != 0) {
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -104,11 +114,31 @@ public class BudgetManager {
         return this.threshold;
     }
 
-    public void setBudget(double amount, ExpenseCategory category) {
+    public BudgetReminder setBudget(double amount, ExpenseCategory category, ArrayList<Expense> expenses) {
         assert amount >= 0;
         assert category != ExpenseCategory.NULL;
         Budget budget = expenseCategoryToBudget(category);
-        budget.setLimit(amount);
+        LocalDate date = LocalDate.now();
+        if (budget == overallBudget) {
+            if (amount >= getTotalBudget(expenses, date)) {
+                budget.setLimit(amount);
+                return new BudgetSetReminder(budget.getName(), budget.getLimit());
+            } else {
+                return new UnableToSetOverallBudgetReminder(budget.getName(),
+                        budget.getLimit(), getTotalBudget(expenses, date));
+            }
+        } else {
+            double oldBudget = budget.getLimit();
+            budget.setLimit(amount);
+            double newTotalBudget = getTotalBudget(expenses, date);
+            if (amount >= budget.calAmount(expenses, date) & newTotalBudget <= overallBudget.getLimit()) {
+                return new BudgetSetReminder(budget.getName(), budget.getLimit());
+            } else {
+                budget.setLimit(oldBudget);
+                return new UnableToSetBudgetReminder(budget.getName(), budget.calAmount(expenses, date),
+                        overallBudget.getLimit(), amount, newTotalBudget);
+            }
+        }
     }
 
     public double getBudget(ExpenseCategory category) {
@@ -118,15 +148,22 @@ public class BudgetManager {
     }
 
     public ArrayList<Budget> getBudgets() {
-        ArrayList<Budget> budgets = new ArrayList<>();
-        budgets.add(overallBudget);
-        budgets.add(foodBudget);
-        budgets.add(transportBudget);
-        budgets.add(medicalBudget);
-        budgets.add(billsBudget);
-        budgets.add(entertainmentBudget);
-        budgets.add(miscBudget);
         return budgets;
+    }
+
+    public double getTotalBudget(ArrayList<Expense> expenses, LocalDate date) {
+        double total = 0;
+        for (Budget budget : budgets) {
+            if (budget == overallBudget) {
+                continue;
+            }
+            if (budget.getLimit() >= budget.calAmount(expenses, date)) {
+                total += budget.getLimit();
+            } else {
+                total += budget.calAmount(expenses, date);
+            }
+        }
+        return total;
     }
 
     private Budget expenseCategoryToBudget(ExpenseCategory category) {

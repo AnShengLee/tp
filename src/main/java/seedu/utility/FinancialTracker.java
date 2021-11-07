@@ -168,7 +168,7 @@ public class FinancialTracker {
             totalExpense += expense.getValue();
         }
         assert totalExpense >= 0;
-        assert totalExpense < TOTAL_ENTRIES_LIMIT;
+        assert totalExpense <= TOTAL_ENTRIES_LIMIT;
         return totalExpense;
     }
     
@@ -184,7 +184,7 @@ public class FinancialTracker {
             totalIncome += income.getValue();
         }
         assert totalIncome >= 0;
-        assert totalIncome < TOTAL_ENTRIES_LIMIT;
+        assert totalIncome <= TOTAL_ENTRIES_LIMIT;
         return totalIncome;
     }
 

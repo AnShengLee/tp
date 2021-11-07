@@ -1,7 +1,6 @@
 package seedu.duke;
 
 import org.junit.jupiter.api.Test;
-import seedu.commands.currency.CurrencyType;
 import seedu.entry.Expense;
 import seedu.entry.ExpenseCategory;
 import seedu.entry.Income;

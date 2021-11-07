@@ -28,9 +28,8 @@ import seedu.entry.IncomeCategory;
 import seedu.exceptions.BlankCurrencyTypeException;
 import seedu.exceptions.InputException;
 import seedu.exceptions.InvalidCurrencyTypeException;
-import seedu.exceptions.InvalidExpenseAmountException;
+import seedu.exceptions.InvalidAmountException;
 import seedu.exceptions.InvalidExpenseDataFormatException;
-import seedu.exceptions.InvalidIncomeAmountException;
 import seedu.exceptions.InvalidIncomeDataFormatException;
 import seedu.exceptions.InvalidSettingsDataException;
 import seedu.utility.BudgetManager;
@@ -218,7 +217,7 @@ public class ParserTest {
     @Test
     public void convertDataToExpense_invalidExpenseDataWithInvalidAmount_throwsException() {
         Parser testParser = new Parser();
-        assertThrows(InvalidExpenseAmountException.class,
+        assertThrows(InvalidAmountException.class,
             () -> testParser.convertDataToExpense("E, asd, 12a, qwe, 21-11-11"));
     }
 
@@ -242,7 +241,7 @@ public class ParserTest {
     @Test
     public void convertDataToIncome_invalidIncomeDataWithInvalidAmount_throwsException() {
         Parser testParser = new Parser();
-        assertThrows(InvalidIncomeAmountException.class, 
+        assertThrows(InvalidAmountException.class, 
             () -> testParser.convertDataToIncome("I, asd, 12a, q, 2121-11-11"));
     }
 

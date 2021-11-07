@@ -90,13 +90,17 @@ public class Ui {
     public void listFind(ArrayList<Entry> filteredEntries) {
         printLine();
         if (filteredEntries.isEmpty()) {
-            System.out.println(Messages.SEARCH_NO_MATCH_MESSAGE);
+            printNoMatchFoundMessage();
         } else {
             printFilteredList(filteredEntries);
         }
         printLine();
     }
-    
+
+    private void printNoMatchFoundMessage() {
+        System.out.println(Messages.SEARCH_NO_MATCH_MESSAGE);
+    }
+
     private void printEmptyIncomeListMessage() {
         System.out.println(Messages.EMPTY_INCOME_MESSAGE);
     }

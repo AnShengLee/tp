@@ -93,43 +93,16 @@ Before you learn how to use the app, take a look at the [Quick Start](#quick-sta
 
 4. Open the Command-Line interface (CLI) and navigate to the directory where you saved the `.jar` file and run
 `java -jar StonksXD.jar` in the command line. `Stonks XD` will start up.
+   
 
-
-5. In `Stonks XD`, type the command in the CLI and press `Enter` on your keyboard to execute it. (Tip: type `help` 
-to show all available commands and their format.)
-
-
-6. Use the format `add_ex d/DESCRIPTION a/AMOUNT c/CATEGORY` to add expense entries to `Stonks XD`.
-
-
-7. Use the format `add_in d/DESCRIPTION a/AMOUNT c/CATEGORY` to add income entries to `Stonks XD`.
-
-
-8. Type `balance` to view your net saving or type `show_graph` to see an overview of your finances!
-
-
-9. Refer to the [Features](#features) below for details of each command.
-
-
-10. The image shown below is what the program should look like for first time users like yourself!   
+5. Once the program is up and running, the image shown below is what you can expect the program should look like!   
 
 ![image](https://user-images.githubusercontent.com/69465661/140613991-7848997a-e97b-4c65-825a-1e126590b6a0.png)
 
-12. In `Stonks XD`, type the command in the CLI and press `Enter` on your keyboard to execute it. (Tip: type `help` 
-to show all available commands and their format.)
 
-
-12. Use the format `add_ex d/DESCRIPTION a/AMOUNT c/CATEGORY` to add expense entries to `Stonks XD`.
-
-
-13. Use the format `add_in d/DESCRIPTION a/AMOUNT c/CATEGORY` to add income entries to `Stonks XD`.
-
-
-14. Type `balance` to view your net saving or type `show_graph` to see an overview of your finances!
-
-
-15. Refer to the [Features](#features) below for details of each command.
-
+6. If you are a first time user, the first command you want to key in is the [help](#view-all-possible-commands-help) command.
+It will guide you to the possible commands you can enter into Stonks XD. (Tip! Refer to the [Features](#features) below for details of each command.)
+    
 ---
 
 ## 2. Features 

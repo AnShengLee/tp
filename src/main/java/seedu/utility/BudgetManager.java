@@ -39,7 +39,7 @@ public class BudgetManager {
     private final EntertainmentBudget entertainmentBudget = new EntertainmentBudget(0);
     private final MiscBudget miscBudget = new MiscBudget(0);
 
-    ArrayList<Budget> budgets = new ArrayList<>();
+    private ArrayList<Budget> budgets = new ArrayList<>();
 
     /**
      * Constructor that initializes the threshold value to a default of 0.9 and adds all budgets to an ArrayList.

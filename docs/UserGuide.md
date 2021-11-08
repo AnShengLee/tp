@@ -85,7 +85,7 @@ Before you learn how to use the app, take a look at the [Quick Start](#quick-sta
 1. Ensure that you have Java 11 or above installed.
 
 
-2. Download the latest version of `StonksXD.jar` from [here](https://github.com/AY2122S1-CS2113T-T12-3/tp/releases).
+2. Download the latest version of `StonksXD.jar` from [here](https://github.com/AY2122S1-CS2113T-T12-3/tp/releases/tag/v2.1).
 
 
 3. Copy the file to the folder you want to use as the home folder for your `Stonks XD`.
@@ -100,7 +100,7 @@ Before you learn how to use the app, take a look at the [Quick Start](#quick-sta
 ![image](https://user-images.githubusercontent.com/77761339/140724500-ea056343-86d5-4a9c-ba82-db8de51dd595.png)
 
 6. If you are a first time user, the first command you want to key in is the [help](#view-all-possible-commands-help) command.
-It will guide you to the possible commands you can enter into Stonks XD. (Tip! Refer to the [Features](#features) below for details of each command.)
+It will guide you to the possible commands you can enter into `Stonks XD`. (Tip! Refer to the [Features](#features) below for details of each command.)
     
 ---
 
@@ -872,7 +872,7 @@ onwards will be treated as the new currency set.
 
 Format: `set_curr c/CURRENCY`
 
-- As of v2.0, Stonks XD supports 2 different currencies: SGD and RMB.
+- As of v2.0, Stonks XD supports 2 different currencies: SGD and HKD.
 - If you try to set currency to currency you're already using, a warning will be shown.
 
 <details>
@@ -885,14 +885,14 @@ Current FOOD limit is $12.50
 -----------------------------------------------------------------------------------------------------
 </pre>
 <br>
-If you wish to convert the above (and all entries) to RMB, simply enter <code>set_curr c/RMB</code>. You will receive the following confirmation message:
+If you wish to convert the above (and all entries) to HKD, simply enter <code>set_curr c/HKD</code>. You will receive the following confirmation message:
 <pre>
 -----------------------------------------------------------------------------------------------------
-All entries have been converted to RMB!
+All entries have been converted to HKD!
 -----------------------------------------------------------------------------------------------------
 </pre>
 <br>
-If we check our budget limit once again, we see that it has now been converted to the appropriate value in RMB!
+If we check our budget limit once again, we see that it has now been converted to the appropriate value in HKD!
 <pre>
 -----------------------------------------------------------------------------------------------------
 Current FOOD limit is $62.50
@@ -934,7 +934,7 @@ If you are unsure as to what currency types you can convert to, just enter <code
 <pre>
 -----------------------------------------------------------------------------------------------------
 Here is a list of available currencies you can convert to!
-1. RMB
+1. HKD
 2. SGD
 -----------------------------------------------------------------------------------------------------
 </pre>
@@ -1082,8 +1082,8 @@ lost of data.
 Interface, as specified above.
 
   - For example, when editing an expense entry in `StonksXD_Entries.csv`, `entry_description` must not be blank.
-  - Another example, when editing an income entry in `StonksXD_Entries.csv`, `amount` has to be a positive number and 
-  less than 1,000,000.
+  - Another example, when editing an income entry in `StonksXD_Entries.csv`, `amount` has to be between 0.05 and
+  1,000,000 inclusive.
   - Another example, when editing an expense entry in `StonksXD_Entries.csv`, category should be the ones available and
   specified earlier on in the user guide.
 
@@ -1158,7 +1158,7 @@ means all your edits are gone. But, this pretty much ensures that there will be 
 | Set budget | `set_budget c/CATEGORY a/AMOUNT` | `set_budget c/bills a/100` |
 | Check budget | `check_budget c/CATEGORY` | `check_budget c/bills` |
 | Set threshold | `set_threshold t/THRESHOLD` | `set_threshold t/0.2` |
-| Set currency | `set_curr c/CURRENCY` | `set_curr c/usd` |
+| Set currency | `set_curr c/CURRENCY` | `set_curr c/hkd` |
 | Check current currency | `check_curr` | - |
 | List all currency conversions | `list_curr` | - |
 | View Yearly Report |`show_graph Y/YYYY`|`show_graph Y/2023`|

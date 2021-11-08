@@ -15,7 +15,7 @@ Source:
 
 ![](Architecture.drawio.png)
 
-The __Architecture Diagram__ above explains the high-level design of the StonksXD app.
+The __Architecture Diagram__ above explains the high-level design of the Stonks XD app.
 Given below is a quick overview of the main components of the application and how they interact with each other:
 <br>
 
@@ -65,8 +65,8 @@ It interacts with `FinancialTracker`, `BudgetManager`, `CurrencyConversion` and 
 
 ---
 ### Main Component 
-The main component is made up of the StonksXD class that contains references to the various other components such as Parser and BudgetManager.
-When the program first starts, the StonksXD class will call its constructor and load up the data stored in a csv file into the FinancialTracker component.
+The main component is made up of the `StonksXD` class that contains references to the various other components such as Parser and BudgetManager.
+When the program first starts, the `StonksXD` class will call its constructor and load up the data stored in a csv file into the FinancialTracker component.
 After that it would take inputs from the user and parse it to identify which command it is. This process will continue until a termination command is identified
 which will then stop the feedback loop and end the program.
 
@@ -219,22 +219,6 @@ currency types, loaded from `DataManager`.
     
 ---
 
-##### Converting user inputs to commands
-
-1. When the user gives an input, it will first be split into 2 parts command word and arguments using regex.
-2. The command word will be matched with the list of expected command words. If there is no match, return an 
-invalid command, and the process stops here.
-3. If there is a match, `Parser` will check the validity of the arguments the user gave. This is also done
-using regex.
-4. If the arguments are valid, the corresponding command will be returned.
-5. If invalid, return an invalid command.
-
-##### Converting user information to `csv` data
-
-Every important field will be separated by `Parser` with a `,` before saving them into the respective `csv` files.
-
----
-
 ### Budget Component
 
 The Budget component consists mainly of the `Budget`, the `BudgetManager` and the `BudgetReminder` classes.
@@ -251,7 +235,7 @@ The 7 `Budget` objects are initialized and maintained in the `BudgetManager` cla
 The `BudgetReminder` abstract class and its child classes contain all possible reminder messages to be returned upon completion of budget operations.
 
 
-How the Budget component works:
+#### How the Budget component works
 - Upon start-up, a new `BudgetManager` is initialised in `StonksXD`.
 - `BudgetManager` initialises all `Budget` objects with respective budget limit values loaded from `DataManager`.
 - When an entry is added by the user, `BudgetManager` parses the category input by the user and calls the relevant `Budget` object.
@@ -450,7 +434,7 @@ It is designed to fit the needs of students who travel frequently and prefer log
 
 ### Value proposition
 
-StonksXD a global financial tracking journal, capable of both budgeting and 
+Stonks XD a global financial tracking journal, capable of both budgeting and 
 analysis to serve financial needs while traveling. It is highly operable and 
 intuitive command line program that is simple to use and is optimized for 
 anyone on the go. Using a minimalistic command format, we aim to empower 

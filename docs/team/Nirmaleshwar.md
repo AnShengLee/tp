@@ -55,7 +55,7 @@ It is also able to give visual representations of financial data through bar gra
 
 * **Link to code contribution:** [Reposense Link](https://nus-cs2113-ay2122s1.github.io/tp-dashboard/?search=Nirmaleshwar&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2021-09-25&tabOpen=true&tabType=authorship&tabAuthor=Nirmaleshwar&tabRepo=AY2122S1-CS2113T-T12-3%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code&authorshipIsBinaryFileTypeChecked=false)
 ---
-###Enhancement to existing features:
+### Enhancement to existing features:
 
 * Added JUnit testing for command class [#92](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/92)
 * Added JUnit testing for currencyManager class [#276](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/276)
@@ -65,7 +65,7 @@ It is also able to give visual representations of financial data through bar gra
 
 <br>
 
-###Contributions to the UG:
+### Contributions to the UG:
 
 * Created the entire UG for v1.0 release [#76](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/76/files)
 * Implemented drop-down box style descriptions [#76](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/76/files)
@@ -74,7 +74,7 @@ It is also able to give visual representations of financial data through bar gra
 
 <br>
 
-###Contributions to the DG:
+### Contributions to the DG:
 
 * Created section pertaining to command class for v1.0 release [#83](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/83)
 * Created entire manual testing section for v1.0 release [#83](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/83)
@@ -83,7 +83,7 @@ It is also able to give visual representations of financial data through bar gra
 
 <br>
 
-###Contributions to team-based tasks:
+### Contributions to team-based tasks:
 
   * Worked together with teammates for the UG, DG and features for v1.0.
   * Discussed with teammates regularly on ideas for the development of the product.
@@ -94,7 +94,7 @@ It is also able to give visual representations of financial data through bar gra
 
 <br>
 
-###Review/mentoring contributions:
+### Review/mentoring contributions:
 
 * Links to PR's reviewed by me:
   * [#20](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/20)

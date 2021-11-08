@@ -133,7 +133,9 @@ of the parameter will be taken. e.g. if you gave `a/100 a/1000`, only `a/1000` w
 ### 2.1 Help
 
 ### View all possible commands: `help`
-This shows a list of all possible commands. Use this command when you are lost while using the app!
+This shows a list of all possible commands. 
+If you are a first time user, this is the perfect opportunity for you to get familiarize with the application.
+Feel free to use this command whenever you are lost while using the app!
 
 Format: `help`
 
@@ -195,7 +197,9 @@ Note:
 
 Examples:
 
-- `add_ex d/KFC lunch a/10.20 c/food` Adds an expense entry regarding lunch that costs $10.20.
+- Let's say you just had KFC for lunch today, and you want to log it down. Type in
+  `add_ex d/KFC lunch a/10.20 c/food` into the command line. This adds an expense entry regarding lunch that costs $10.20.
+
 <details>
 <summary> ▼ Expected output in run window </summary>
 <pre>
@@ -240,7 +244,10 @@ Note:
 
 Examples:
 
-- `add_ex_d d/McDonalds dinner a/7.50 c/food D/20/10/2021` Adds a dinner expense entry that costs $7.50 that is made on 20th October 2021.
+- Let's say you had McDonald's for dinner 2 days ago, and you only remembered about it today. You can type in
+  `add_ex_d d/McDonalds dinner a/7.50 c/food D/20/10/2021` into the command line. This will adds a dinner expense 
+  entry that costs $7.50 that is made on 20th October 2021.
+  
 <details>
 <summary> ▼ Expected output in run window </summary>
 <pre>
@@ -332,7 +339,9 @@ Note:
 
 Examples:
 
-- `add_in d/lunch money a/1000 c/allowance` Adds an income entry regarding a lunch allowance of $1000.
+- Let's say you received some pocket money for the week. To log it down, type 
+  `add_in d/lunch money a/1000 c/allowance` into the command line. This adds an income entry regarding a 
+  lunch allowance of $1000.
 
 <details>
   <summary> ▼ Expected output in run window </summary>
@@ -364,7 +373,10 @@ Note:
 
 Examples:
 
-- `add_in_d/december's bonus a/5000 c/salary D/26/12/2021` Adds an income entry regarding a salary bonus of $5000 for 26th December 2021.
+- Let's say you received a holiday bonus of $5000, but you forgot to add it in. To log it 
+  type `add_in_d/december's bonus a/5000 c/salary D/26/12/2021` into the command line. It adds an 
+  income entry regarding a salary bonus of $5000 for 26th December 2021.
+
 <details>
 <summary> ▼ Expected output in run window </summary>
 <pre>

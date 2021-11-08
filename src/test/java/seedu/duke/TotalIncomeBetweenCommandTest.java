@@ -13,7 +13,7 @@ import java.time.format.DateTimeFormatter;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TotalIncomeBetweenCommandTest {
-    CurrencyManager currencyManager = new CurrencyManager();
+    CurrencyManager currencyManager = new CurrencyManagerStub();
     FinancialTracker testTracker = new FinancialTracker(currencyManager);
 
     @Test

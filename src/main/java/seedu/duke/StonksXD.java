@@ -35,6 +35,7 @@ public class  StonksXD {
         this.finances = new FinancialTracker(currencyManager);
         this.dataManager = new DataManager(finances, ui, budgetManager, currencyManager);
         dataManager.loadAll();
+        dataManager.setSettingsToWritable();
     }
 
     /**
@@ -53,6 +54,7 @@ public class  StonksXD {
             }
             dataManager.saveAll();
         }
+        dataManager.setSettingsToReadOnly();
         //ui.printBye();
     }
     

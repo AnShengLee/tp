@@ -36,6 +36,7 @@ public class DataManagerTest {
         Ui ui = new Ui();
         BudgetManager budgetManager = new BudgetManager();
         DataManager dataManager = new DataManager(financialTracker, ui, budgetManager, currencyManager);
+        dataManager.setSettingsToWritable();
         dataManager.saveAll();
     }
 
@@ -95,6 +96,7 @@ public class DataManagerTest {
             i /= 2;
         }
         budgetManager.setThreshold(0.5);
+        dataManager.setSettingsToWritable();
         dataManager.saveAll();
         String testData = convertSettingsToData(budgetManager, currencyManager);
         String expectedData = "SGD,0.5,80.0,40.0,20.0,10.0,5.0,2.0,1.0";

@@ -20,6 +20,7 @@ import seedu.utility.Messages;
 import seedu.utility.Ui;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -88,6 +89,24 @@ public class DataManager {
     public void loadAll() {
         loadSettings();
         loadEntries();
+    }
+
+    /**
+     * Sets the settings file, StonksXD_Settings.csv, to read-only.
+     */
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    public void setSettingsToReadOnly() {
+        File settingsFile = new File(SETTINGS_FILE_NAME);
+        settingsFile.setReadOnly();
+    }
+
+    /**
+     * Sets the settings file, StonksXD_Settings.csv, to writable.
+     */
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    public void setSettingsToWritable() {
+        File settingsFile = new File(SETTINGS_FILE_NAME);
+        settingsFile.setWritable(true);
     }
 
     /**

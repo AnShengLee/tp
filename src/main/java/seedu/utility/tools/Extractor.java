@@ -1,29 +1,38 @@
 package seedu.utility.tools;
 
 import seedu.commands.currency.CurrencyType;
-import seedu.commands.InvalidCommand;
 import seedu.entry.ExpenseCategory;
 import seedu.entry.IncomeCategory;
+import seedu.exceptions.BlankCategoryException;
 import seedu.exceptions.BlankCurrencyTypeException;
-import seedu.exceptions.BlankExpenseCategoryException;
-import seedu.exceptions.BlankIncomeCategoryException;
-import seedu.exceptions.InvalidCurrencyTypeException;
-import seedu.exceptions.InvalidBudgetAmountException;
-import seedu.exceptions.InvalidDescriptionException;
+import seedu.exceptions.EntryAmountExceedLimitException;
 import seedu.exceptions.InvalidAmountException;
+import seedu.exceptions.InvalidBudgetAmountException;
+import seedu.exceptions.InvalidCurrencyTypeException;
+import seedu.exceptions.InvalidDescriptionException;
 import seedu.exceptions.InvalidExpenseCategoryException;
 import seedu.exceptions.InvalidIncomeCategoryException;
 import seedu.exceptions.InvalidIndexException;
-import seedu.exceptions.EntryAmountExceedLimitException;
 import seedu.exceptions.InvalidThresholdValueException;
 import seedu.utility.Messages;
 
 import java.util.regex.Matcher;
 
+/**
+ * Converts Strings given to a variable format that the program understands and can do meaningful work on it.
+ */
 public abstract class Extractor {
+
     private static final double ENTRY_AMOUNT_LIMIT = 1000000;
     private static final double BUDGET_AMOUNT_LIMIT = 100000000000.00;
 
+    /**
+     * Converts the String given to an index which is an int.
+     *
+     * @param userGivenIndex The String that should contain user-specified index.
+     * @return An int which represents the index user specify.
+     * @throws InvalidIndexException If the String cannot be parsed into an int.
+     */
     public static int extractIndex(String userGivenIndex) throws InvalidIndexException {
         try {
             int deleteIndex = Integer.parseInt(userGivenIndex);
@@ -36,6 +45,13 @@ public abstract class Extractor {
         }
     }
 
+    /**
+     * Checks if the String given for Entry description is valid. Returns the String if it's valid.
+     *
+     * @param matcher An engine that performs match operations on a character sequence by interpreting a Pattern.
+     * @return The description as a String.
+     * @throws InvalidDescriptionException If the description is blank.
+     */
     public static String extractDescription(Matcher matcher) throws
             InvalidDescriptionException {
         String description = matcher.group("description").trim();
@@ -45,11 +61,19 @@ public abstract class Extractor {
         return description;
     }
 
+    /**
+     * Converts the String given to IncomeCategory.
+     *
+     * @param matcher An engine that performs match operations on a character sequence by interpreting a Pattern.
+     * @return The IncomeCategory.
+     * @throws BlankCategoryException   If the supposed IncomeCategory is blank.
+     * @throws InvalidIncomeCategoryException If the IncomeCategory given is not expected / not supported.
+     */
     public static IncomeCategory extractIncomeCategory(Matcher matcher) throws
-            BlankIncomeCategoryException, InvalidIncomeCategoryException {
+            BlankCategoryException, InvalidIncomeCategoryException {
         String incomeCategory = matcher.group("category").trim();
         if (incomeCategory.isBlank()) {
-            throw new BlankIncomeCategoryException(Messages.BLANK_CATEGORY_MESSAGE);
+            throw new BlankCategoryException(Messages.BLANK_CATEGORY_MESSAGE);
         }
         switch (incomeCategory.toUpperCase()) {
         case "ALLOWANCE":
@@ -65,11 +89,19 @@ public abstract class Extractor {
         }
     }
 
+    /**
+     * Converts the given String to ExpenseCategory.
+     *
+     * @param matcher An engine that performs match operations on a character sequence by interpreting a Pattern.
+     * @return The ExpenseCategory.
+     * @throws BlankCategoryException   If the supposed ExpenseCategory is blank.
+     * @throws InvalidExpenseCategoryException If the ExpenseCategory given is not expected / not supported.
+     */
     public static ExpenseCategory extractExpenseCategory(Matcher matcher) throws
-            BlankExpenseCategoryException, InvalidExpenseCategoryException {
+            BlankCategoryException, InvalidExpenseCategoryException {
         String expenseCategory = matcher.group("category").trim();
         if (expenseCategory.isBlank()) {
-            throw new BlankExpenseCategoryException(Messages.BLANK_CATEGORY_MESSAGE);
+            throw new BlankCategoryException(Messages.BLANK_CATEGORY_MESSAGE);
         }
         switch (expenseCategory.toUpperCase()) {
         case "FOOD":
@@ -89,6 +121,14 @@ public abstract class Extractor {
         }
     }
 
+    /**
+     * Converts the given String to the budget amount which is a double.
+     *
+     * @param matcher An engine that performs match operations on a character sequence by interpreting a Pattern.
+     * @return The budget amount in double format.
+     * @throws InvalidBudgetAmountException If the budget amount does not fit the expected rules.
+     *                                      For example, if budget amount given is more than the limit.
+     */
     public static double extractBudgetAmount(Matcher matcher) throws InvalidBudgetAmountException {
 
         String dataAmount = matcher.group("amount").trim();
@@ -114,6 +154,14 @@ public abstract class Extractor {
         return budgetAmount;
     }
 
+    /**
+     * Converts the given String to amount which is a double.
+     * 
+     * @param matcher An engine that performs match operations on a character sequence by interpreting a Pattern.
+     * @return The amount, in double format.
+     * @throws InvalidAmountException If the amount given does not match the expected guidelines.
+     * @throws EntryAmountExceedLimitException If the amount given exceeds the limit.
+     */
     public static double extractAmount(Matcher matcher) throws InvalidAmountException,
             EntryAmountExceedLimitException {
         String userGivenAmount = matcher.group("amount").trim();
@@ -123,7 +171,7 @@ public abstract class Extractor {
         }
         return amount;
     }
-
+    
     private static double parseAmount(String userGivenAmount) throws InvalidAmountException {
         double amount;
         try {
@@ -154,6 +202,14 @@ public abstract class Extractor {
         }
     }
 
+    /**
+     * Converts the String given to the CurrencyType.
+     * 
+     * @param matcher An engine that performs match operations on a character sequence by interpreting a Pattern.
+     * @return The CurrencyType.
+     * @throws BlankCurrencyTypeException If CurrencyType given is empty.
+     * @throws InvalidCurrencyTypeException the CurrencyType given is not expected / not supported.
+     */
     public static CurrencyType extractCurrencyType(Matcher matcher)
             throws BlankCurrencyTypeException, InvalidCurrencyTypeException {
         String newCurrency = matcher.group("currency").trim();
@@ -172,6 +228,13 @@ public abstract class Extractor {
         }
     }
 
+    /**
+     * Converts given String to threshold value.
+     * 
+     * @param matcher An engine that performs match operations on a character sequence by interpreting a Pattern.
+     * @return The threshold value.
+     * @throws InvalidThresholdValueException If the threshold value given is unexpected.
+     */
     public static double extractThresholdValue(Matcher matcher) throws InvalidThresholdValueException {
         String userGivenThreshold = matcher.group("threshold").trim();
         return parseThresholdValue(userGivenThreshold);

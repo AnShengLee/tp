@@ -9,15 +9,15 @@ import seedu.exceptions.ExpenseOverflowException;
 import seedu.exceptions.IncomeOverflowException;
 import seedu.utility.BudgetManager;
 import seedu.utility.CurrencyManager;
-import seedu.utility.DataManager;
+import seedu.utility.storage.DataManager;
 import seedu.utility.FinancialTracker;
-import seedu.utility.Parser;
 import seedu.utility.Ui;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.utility.storage.DataConverter.convertSettingsToData;
 
 public class DataManagerTest {
 
@@ -33,10 +33,9 @@ public class DataManagerTest {
         financialTracker.addExpense(new Expense("qwe", .5, ExpenseCategory.FOOD, date));
         financialTracker.addIncome(new Income("qwe", 12.5, IncomeCategory.SALARY, date));
         financialTracker.addIncome(new Income("qwe", 12.5, IncomeCategory.ALLOWANCE, date));
-        Parser parser = new Parser();
         Ui ui = new Ui();
         BudgetManager budgetManager = new BudgetManager();
-        DataManager dataManager = new DataManager(parser, financialTracker, ui, budgetManager, currencyManager);
+        DataManager dataManager = new DataManager(financialTracker, ui, budgetManager, currencyManager);
         dataManager.saveAll();
     }
 
@@ -44,12 +43,11 @@ public class DataManagerTest {
     public void loadEntries_validDataFileContent_correctEntries()
             throws ExpenseOverflowException, IncomeOverflowException {
         saveEntries_validEntries_correctDataFileContent();
-        Parser parser = new Parser();
         CurrencyManager currencyManager = new CurrencyManager();
         FinancialTracker financialTracker = new FinancialTracker(currencyManager);
         Ui ui = new Ui();
         BudgetManager budgetManager = new BudgetManager();
-        DataManager dataManager = new DataManager(parser, financialTracker, ui, budgetManager, currencyManager);
+        DataManager dataManager = new DataManager(financialTracker, ui, budgetManager, currencyManager);
         dataManager.loadAll();
         assertEquals(12.5, financialTracker.getExpenses().get(0).getValue());
         assertEquals("qwe", financialTracker.getExpenses().get(0).getDescription());
@@ -75,9 +73,8 @@ public class DataManagerTest {
         financialTracker.addIncome(new Income("qwe", 12.5, IncomeCategory.ALLOWANCE, date));
         financialTracker.addIncome(new Income("", 12.5, IncomeCategory.ALLOWANCE, date));
         Ui ui = new Ui();
-        Parser parser = new Parser();
         BudgetManager budgetManager = new BudgetManager();
-        DataManager dataManager = new DataManager(parser, financialTracker, ui, budgetManager, currencyManager);
+        DataManager dataManager = new DataManager(financialTracker, ui, budgetManager, currencyManager);
         dataManager.saveAll();
         dataManager.loadAll();
     }
@@ -87,9 +84,8 @@ public class DataManagerTest {
         CurrencyManager currencyManager = new CurrencyManager();
         FinancialTracker financialTracker = new FinancialTracker(currencyManager);
         Ui ui = new Ui();
-        Parser parser = new Parser();
         BudgetManager budgetManager = new BudgetManager();
-        DataManager dataManager = new DataManager(parser, financialTracker, ui, budgetManager, currencyManager);
+        DataManager dataManager = new DataManager(financialTracker, ui, budgetManager, currencyManager);
         int i = 80;
         for (ExpenseCategory category : ExpenseCategory.values()) {
             if (category == ExpenseCategory.NULL) {
@@ -100,7 +96,7 @@ public class DataManagerTest {
         }
         budgetManager.setThreshold(0.5);
         dataManager.saveAll();
-        String testData = parser.convertSettingsToData(budgetManager, currencyManager);
+        String testData = convertSettingsToData(budgetManager, currencyManager);
         String expectedData = "SGD,0.5,80.0,40.0,20.0,10.0,5.0,2.0,1.0";
         assertEquals(expectedData, testData);
     }
@@ -111,9 +107,8 @@ public class DataManagerTest {
         CurrencyManager currencyManager = new CurrencyManager();
         FinancialTracker financialTracker = new FinancialTracker(currencyManager);
         Ui ui = new Ui();
-        Parser parser = new Parser();
         BudgetManager budgetManager = new BudgetManager();
-        DataManager dataManager = new DataManager(parser, financialTracker, ui, budgetManager, currencyManager);
+        DataManager dataManager = new DataManager(financialTracker, ui, budgetManager, currencyManager);
         dataManager.loadAll();
         int i = 80;
         for (ExpenseCategory category : ExpenseCategory.values()) {

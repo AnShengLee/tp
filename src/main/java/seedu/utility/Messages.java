@@ -69,8 +69,6 @@ public class Messages {
             + "commands again!";
     public static final String INVALID_EXPENSE_VALUE = "Wow! That's a lot of money. "
             + "Are you sure you have spent that much?";
-    public static final String INVALID_INCOME_VALUE = "Wow! That's a lot of money."
-            + "I don't think we can handle that much money";
     public static final String INVALID_BUDGET_VALUE = "Wow! That's a lot of money."
             + "I don't think we can handle that much money";
     public static final String INCOMPLETE_ENTRIES_CSV_HEADER_MESSAGE = "The CSV header for StonksXD_Entries.csv " 

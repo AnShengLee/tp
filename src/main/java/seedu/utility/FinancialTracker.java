@@ -24,8 +24,6 @@ import static seedu.utility.tools.FinancialCalculator.sortEntriesByMonth;
  * A Financial tracker that contains 2 separate list of income and expense entries and a net balance.
  */
 public class FinancialTracker {
-    private static final double TOTAL_EXPENSE_LIMIT = 100000000000.00;
-    private static final double TOTAL_INCOME_LIMIT = 100000000000.00;
     private ArrayList<Expense> expenses;
     private ArrayList<Income> incomes;
     private CurrencyManager currencyManager;
@@ -68,13 +66,6 @@ public class FinancialTracker {
 
         assert !expenses.isEmpty();
         assert expenses.size() > expenseSize;
-    }
-
-    public void getOriginalEntries() {
-        ArrayList<Entry> entries = new ArrayList<>();
-        for (Entry entry : entries) {
-            entry.setCurrentDetails(entry.getOriginalValue(), CurrencyType.SGD);
-        }
     }
 
     private boolean isOverflowedExpense(Expense expense) {

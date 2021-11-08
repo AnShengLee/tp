@@ -26,13 +26,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class CommandTest {
-    private CurrencyManager currencyManager = new CurrencyManager();
+    private CurrencyManagerStub currencyManager = new CurrencyManagerStub();
     private FinancialTracker testTracker = new FinancialTracker(currencyManager);
     private Ui testUi = new Ui();
     private BudgetManager budgetManager = new BudgetManager();
 
     @Test
-    public void testAddExpenseCommand() {
+    public void addExpenseCommand_validExpense_validExpensesSize() {
         Expense testExpense = new Expense("Bubble Tea", 4.80, ExpenseCategory.FOOD);
         AddExpenseCommand testCommand = new AddExpenseCommand(testExpense);
         testCommand.execute(testTracker, testUi, budgetManager, currencyManager);
@@ -40,7 +40,7 @@ public class CommandTest {
     }
 
     @Test
-    public void testAddIncomeCommand() {
+    public void addIncomeCommand_validIncome_validIncomeSize() {
         Income testIncome = new Income("Pocket Money", 100, IncomeCategory.ALLOWANCE);
         AddIncomeCommand testCommand = new AddIncomeCommand(testIncome);
         testCommand.execute(testTracker, testUi, budgetManager, currencyManager);
@@ -48,21 +48,30 @@ public class CommandTest {
     }
 
     @Test
-    public void testDeleteExpenseCommand() {
+    public void deleteExpenseCommand_validIndex_validIncomeRemoved() {
         DeleteExpenseCommand testCommand = new DeleteExpenseCommand(1);
         testCommand.execute(testTracker, testUi, budgetManager, currencyManager);
         assertTrue(testTracker.isExpensesEmpty());
     }
 
     @Test
-    public void testDeleteIncomeCommand() {
+    public void deleteIncomeCommand_validIndex_validExpenseRemoved() {
         DeleteIncomeCommand testCommand = new DeleteIncomeCommand(1);
         testCommand.execute(testTracker, testUi, budgetManager, currencyManager);
         assertTrue(testTracker.isIncomesEmpty());
     }
 
     @Test
-    public void testClearAllEntriesCommand() {
+    public void clearAllEntriesCommand_validEntry_validArrayListSize() 
+            throws IncomeOverflowException, ExpenseOverflowException {
+        Income testIncome1 = new Income("Pocket Money", 100, IncomeCategory.ALLOWANCE);
+        Income testIncome2 = new Income("Pocket Money", 100, IncomeCategory.ALLOWANCE);
+        Expense testExpense1 = new Expense("Bubble Tea", 4.80, ExpenseCategory.FOOD);
+        Expense testExpense2 = new Expense("Bubble Tea", 4.80, ExpenseCategory.FOOD);
+        testTracker.addIncome(testIncome1);
+        testTracker.addIncome(testIncome2);
+        testTracker.addExpense(testExpense1);
+        testTracker.addExpense(testExpense2);
         ClearAllEntriesCommand testCommand = new ClearAllEntriesCommand();
         testCommand.execute(testTracker, testUi, budgetManager, currencyManager);
         assertEquals(0, testTracker.getIncomeSize());
@@ -70,7 +79,7 @@ public class CommandTest {
     }
 
     @Test
-    public void testTotalExpenseCommand() throws ExpenseOverflowException, IncomeOverflowException {
+    public void totalExpenseCommand_validExpenseEntry_validTotal() {
         TotalExpenseCommand testCommand = new TotalExpenseCommand();
         testCommand.execute(testTracker, testUi, budgetManager, currencyManager);
         assertEquals(0, testTracker.getTotalIncome());
@@ -86,7 +95,7 @@ public class CommandTest {
     }
 
     @Test
-    public void testTotalIncomeCommand() throws ExpenseOverflowException, IncomeOverflowException {
+    public void totalIncomeCommand_validIncomeEntry_validTotal() {
         TotalIncomeCommand testCommand = new TotalIncomeCommand();
         testCommand.execute(testTracker, testUi, budgetManager, currencyManager);
         assertEquals(0, testTracker.getTotalExpense());

@@ -12,6 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static seedu.utility.tools.DateOperator.DATE_FORMAT;
 import static seedu.utility.tools.FinancialAdvisor.getRandomAdvice;
 
 /**
@@ -19,7 +20,6 @@ import static seedu.utility.tools.FinancialAdvisor.getRandomAdvice;
  */
 public class Ui {
     private final Scanner in;
-    private static final String DATE_FORMAT = "dd/MM/yyyy";
     private static final String NEW_LINE = System.lineSeparator();
 
 

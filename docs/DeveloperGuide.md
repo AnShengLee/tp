@@ -167,7 +167,7 @@ The `Parser` class is in charge of:
 
 `Parser` mainly uses regex to parse items.
 
-##### Converting user inputs to commands
+#### Converting user inputs to commands
 
 1. When the user gives an input, it will first be split into 2 parts command word and arguments using regex.
 2. The command word will be matched with the list of expected command words. If there is no match, return an 
@@ -177,14 +177,6 @@ using regex.
 4. If the arguments are valid, the corresponding command will be returned.
 5. If invalid, return an invalid command.
 
-##### Converting user information to `csv` data
-
-Every important field will be separated by `Parser` with a `,` before saving them into the respective `csv` files.
-
-##### Converting `csv` data to user information
-
-When a line of data is obtained from the `csv` file, `Parser` will check if the line fits the required format using
-regex.
 
 ---
 
@@ -338,13 +330,15 @@ Second file is `StonksXD_Settings.csv` which will be storing settings. They are:
 Every important fields will be separate by a `,`. 
 These 2 files will be located in the same directory as `StonksXD.jar`.
 
-`DataManager` requires an instance of the `Parser`, `FinancialTracker`, `Ui`, `CurrencyManager` and `BudgetManager` 
+`DataManager` requires an instance of the `FinancialTracker`, `Ui`, `CurrencyManager` and `BudgetManager` 
 at the moment of creation. 
 
 - When saving data into the csv files, `DataManager` uses Java's `FileWriter` and `BufferedWriter` class to 
 interact with the csv files.
 - When loading data from the csv files, `DataManager` uses Java's `FileInputStream` and `Scanner` to interact with 
 the csv files. 
+
+`DataManager` also uses `DataConverter` to convert `csv` data to entries and settings, vice versa.
 
 The image below illustrates the class diagram in the context of data saving and loading.
 
@@ -362,9 +356,9 @@ entries immediately.
 3. Check if the first line of the `csv` file has the correct header. If the header is not correct, a warning will be 
 shown to the user.
 4. Read the second line,called `data`, which should contain all the settings.
-5. Pass `data` into `Parser` to obtain the `CurrencyType` and load it into `CurrencyManager`.
-6. Pass `data` into `Parser` to obtain the threshold value and load it into `BudgetManager`.
-7. Pass `data` into `Parser` to obtain the different budget settings and load them into `BudgetManager`.
+5. Pass `data` into `DataConverter` to obtain the `CurrencyType` and load it into `CurrencyManager`.
+6. Pass `data` into `DataConverter` to obtain the threshold value and load it into `BudgetManager`.
+7. Pass `data` into `DataConverter` to obtain the different budget settings and load them into `BudgetManager`.
 8. Return.
 9. Now DataManager will begin loading all the entries from `StonksXD_Entries.csv`.
 
@@ -376,9 +370,9 @@ shown to the user.
 shown to the user.
 12. Read from the `csv` file line by line.
 13. For every line, `x`, 2 things can happen (they will not happen concurrently):
-    - If `x` can be loaded as an `Expense` entry, `Parser` will convert it to an `Expense` and load it into 
+    - If `x` can be loaded as an `Expense` entry, `DataConverter` will convert it to an `Expense` and load it into 
     `FinancialTracker`. Start reading for the next line.
-    - If `x` can be loaded as an `Income` entry, `Parser` will convert it to an `Income` and load it into
+    - If `x` can be loaded as an `Income` entry, `DataConverter` will convert it to an `Income` and load it into
       `FinancialTracker`. Start reading for the next line.
 14. If there are corrupted entries (cannot be loaded as `Expense` or `Income`), a warning will be 
 shown to the user.
@@ -402,9 +396,9 @@ settings immediately.
 could be the faster option.
 3. Write in the `csv` header.
 4. Obtain all `Expense` entries from `FinancialTracker`.
-5. For each `Expense`, convert it to a `String` through `Parser` and write the `String` to the `csv` file.
+5. For each `Expense`, convert it to a `String` through `DataConverter` and write the `String` to the `csv` file.
 6. Obtain all `Income` entries from `FinancialTracker`. (Will not be shown in diagram as it is similar to step 4.)
-7. For each `Income`, convert it to a `String` through `Parser` and write the `String` to the `csv` file.
+7. For each `Income`, convert it to a `String` through `DataConverter` and write the `String` to the `csv` file.
 (Will not be shown in diagram as it is similar to step 5.)
 8. Close the buffer and return.
 9. Begin saving the settings.
@@ -415,7 +409,7 @@ could be the faster option.
 11. Create a `BufferedWriter` using the `FileWriter`. `BufferedWriter` is used as since we are writing many times, it
 could be the faster option.
 12. Write in the `csv` header.
-13. Use `Parser` to convert all settings to a `String`.
+13. Use `DataConverter` to convert all settings to a `String`.
 14. Write the `String` to the `csv` file.
 15. Close the buffer.
 16. Return the control to the caller.

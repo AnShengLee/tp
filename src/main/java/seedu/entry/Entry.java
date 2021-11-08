@@ -57,7 +57,7 @@ public abstract class Entry {
      * @return A enum which the entry is categorised under.
      */
     public abstract Enum getCategory();
-
+    
     public CurrencyType getOriginalCurrency() {
         return this.originalCurrency;
     }

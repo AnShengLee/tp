@@ -11,12 +11,13 @@ import java.time.temporal.ChronoField;
 import java.util.function.Predicate;
 import java.util.regex.Matcher;
 
-import static seedu.utility.Parser.DATE_FORMAT;
 
 /**
  * DateOperator is stores useful date manipulation methods which are used for processing data of FinancialTracker.java.
  */
 public abstract class DateOperator {
+    public static final String DATE_FORMAT = "dd/MM/yyyy";
+    
     /**
      * Checks if the date of a given entry is within a valid date range, 
      * where startDate is earlier than or the same as endDate.

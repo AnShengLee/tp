@@ -27,12 +27,13 @@ public class CommandFormat {
     private static final String FIND_FORMAT = "To Find Using Date: find DD/MM/YYYY\n"
             + "To Find Based On Keyword: find KEYWORD";
     private static final String BALANCE_FORMAT = "To Display Total Balance: balance";
-    private static final String SET_BUDGET_FORMAT = "To Set Budgets: set_budget c/CATEGORY a/AMOUNT";
+    private static final String SET_BUDGET_FORMAT = "To Set Budgets(Overall, Food, Transport, Medical, Bills," 
+            + " Entertainment, Misc): set_budget c/CATEGORY a/AMOUNT";
     private static final String CHECK_BUDGET_FORMAT = "To Check Budgets: check_budget c/CATEGORY";
     private static final String SET_THRESHOLD_FORMAT = "To Set Threshold Value for Reminders: "
             + "set_threshold t/THRESHOLD";
     private static final String CLEAR_FORMAT = "To Clear All Expense And Income Entries: clear_all_entries";
-    private static final String GRAPH_FORMAT = "To View Your Yearly Report (Year format: YYYY): show_graph [Y/YEAR]";
+    private static final String GRAPH_FORMAT = "To View Your Year Report (Year format: YYYY): show_graph [Y/YEAR]";
     private static final String CONVERT_CURRENCY_FORMAT
             = "To change entries into a different currency: set_curr c/CURRENCY";
     private static final String CHECK_CURRENCY_FORMAT

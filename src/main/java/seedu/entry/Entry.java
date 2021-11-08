@@ -58,10 +58,6 @@ public abstract class Entry {
      */
     public abstract Enum getCategory();
     
-    public CurrencyType getOriginalCurrency() {
-        return this.originalCurrency;
-    }
-
     public double getOriginalValue() {
         return this.originalValue;
     }

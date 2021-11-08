@@ -291,7 +291,7 @@ The constructed StonksGraph will then be printed out by the Ui class through the
 
 #### Class Diagram
 
-![](italiciseAbstractCD.png)
+![](constructorNoReturnType.png)
 In the class diagram above the StonksGraph class has a 2D array as a private attribute representing the graph.
 It also contains multiple methods used to write the proper characters to each parts of the 2D array.
 
@@ -494,12 +494,6 @@ youth to manage their finances by making personal finance entries simple.
 - Fault tolerance requirements: the application should handle inputs with a reasonable amount of errors
 - Interoperability requirements: the application should run on macOS, Windows and Linux operating systems
 - Stability requirements: Application should run without internet so that user can access the application anywhere without having to connect to the internet
-
----
-
-## Glossary
-
-* *glossary item* - Definition
 
 ---
 

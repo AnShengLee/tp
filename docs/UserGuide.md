@@ -97,8 +97,7 @@ Before you learn how to use the app, take a look at the [Quick Start](#quick-sta
 
 5. Once the program is up and running, the image shown below is what you can expect the program should look like!   
 
-![image](https://user-images.githubusercontent.com/69465661/140613991-7848997a-e97b-4c65-825a-1e126590b6a0.png)
-
+![image](https://user-images.githubusercontent.com/69465661/140690502-73964f95-4a07-4ea4-8ef4-83341e4fe268.png)
 
 6. If you are a first time user, the first command you want to key in is the [help](#view-all-possible-commands-help) command.
 It will guide you to the possible commands you can enter into Stonks XD. (Tip! Refer to the [Features](#features) below for details of each command.)
@@ -161,13 +160,13 @@ Show Total Expense between 2 dates (Date Format: DD/MM/YYYY): btw_ex s/START_DAT
 Show Total Income between 2 dates (Date Format: DD/MM/YYYY): btw_in s/START_DATE e/END_DATE
 To Find Using Date: find DD/MM/YYYY
 To Find Based On Keyword: find KEYWORD
-To Set Budgets: set_budget c/CATEGORY a/AMOUNT
+To Set Budgets(Overall, Food, Transport, Medical, Bills, Entertainment, Misc): set_budget c/CATEGORY a/AMOUNT
 To Check Budgets: check_budget c/CATEGORY
 To Set Threshold Value for Reminders: set_threshold t/THRESHOLD
 To change entries into a different currency: set_curr c/CURRENCY
 To check the currency that entries are currently in: check_curr
 Lists available currency types for conversion: list_curr
-To View Your Yearly Report (Year format: YYYY): show_graph [Y/YEAR]
+To View Your Year Report (Year format: YYYY): show_graph [Y/YEAR]
 To Clear All Expense And Income Entries: clear_all_entries
 To Terminate The Program: end
 -----------------------------------------------------------------------------------------------------

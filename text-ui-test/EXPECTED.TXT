@@ -9,4 +9,4 @@ Unable to find StonksXD_Entries.csv, a new one has been made.
      ██    ██    ██    ██ ██  ██ ██ ██  ██       ██      ██ ██  ██   ██ 
 ███████    ██     ██████  ██   ████ ██   ██ ███████     ██   ██ ██████  
 -----------------------------------------------------------------------------------------------------
-Type something!
+Would you like to set your budget before you begin? You can use the set budget commands shown in the help command!

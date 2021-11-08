@@ -134,9 +134,8 @@ How the Command compoment works:
 
 ### Parser component
 
-The `Parser` class is in charge of:
-1. Converting user inputs to commands. 
-2. It is also in charge of converting important user information to `csv` data, vice versa.
+The `Parser` class is in charge of converting user inputs to commands. 
+
 
 #### Implementation
 
@@ -322,7 +321,7 @@ How the graphing component works:
 
 ---
 
-### Data storage Component
+### Data Storage Component
 
 The saving and loading of data is handled by the `DataManager` class. There are 2 `csv` files that will be storing 
 data. 
@@ -331,7 +330,8 @@ First file is `StonksXD_Entries.csv` which will be storing entries. They are:
 1. `Expense` entries.
 2. `Income` entries.
 
-Second file is `StonksXD_Settings.csv` which will be storing settings. They are:
+Second file is `StonksXD_Settings.csv` which will be storing settings. This file is made read-only after Stonks XD 
+ends to prevent user from editing it. They are:
 1. Budget settings for various expense category.
 2. The currency setting.
 3. The threshold setting.
@@ -349,9 +349,11 @@ the csv files.
 
 `DataManager` also uses `DataConverter` to convert `csv` data to entries and settings, vice versa.
 
+`DataManager` also uses Java's `File` class to alter write permission of `StonksXD_Settings.csv`. 
+
 The image below illustrates the class diagram in the context of data saving and loading.
 
-![](StorageCD.png)
+![](DataStorageCD.png)
 
 #### Loading of data
 

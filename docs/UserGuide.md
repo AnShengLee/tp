@@ -38,7 +38,7 @@ Before you learn how to use the app, take a look at the [Quick Start](#quick-sta
    * [Create income entry with date: `add_in_d`](#create-income-entry-with-date-add_in_d)
    * [Delete income entry: `del_in`](#delete-income-entry-del_in)
 
-   2.3 List / View information
+   2.3 List / View Information
    * [List all expense entries: `list_ex`](#list-all-expense-entries-list_ex)
    * [List all income entries: `list_in`](#list-all-income-entries-list_in)
    * [View total expense: `total_ex`](#view-total-expense-total_ex)
@@ -185,15 +185,16 @@ This command adds an expense entry to your list. Use this to keep track of your 
 
 Format: `add_ex d/DESCRIPTION a/AMOUNT c/CATEGORY`
 
-- `DESCRIPTION` has to be non-empty.
-- `AMOUNT` has to be a positive amount that has a maximum of 2 decimal points.
-- `CATEGORY` has to be either `food`, `transport`, `bills`, `medical`, `entertainment`, or `misc`.
 
 Note:
 
-- The default date of the added expense will be the date in which the expense is added.
-- Each expense entry can only have a maximum value of 1,000,000 (1 Million).
+- `DESCRIPTION` has to be non-empty.
+- `AMOUNT` can only have a maximum of 2 decimal points.
+- `AMOUNT` must be more than or equal to 0.05.
+- `AMOUNT` can only have a maximum value of 1,000,000 (1 Million).
 - The sum of all your entries cannot be more than 100,000,000,000 (100 Billion).
+- `CATEGORY` has to be either `food`, `transport`, `bills`, `medical`, `entertainment`, or `misc`.
+- The default date of the added expense will be the date in which the expense is added.
 
 Examples:
 
@@ -228,16 +229,14 @@ This command adds an expense entry to your list with a date of your choice!
 
 Format: `add_ex_d d/DESCRIPTION a/AMOUNT c/CATEGORY D/DATE`
 
+Note:
 - `DESCRIPTION` has to be non-empty.
-- `AMOUNT` has to be a positive amount that has a maximum of 2 decimal points.
+- `AMOUNT` can only have a maximum of 2 decimal points.
+- `AMOUNT` must be more than or equal to 0.05.
+- `AMOUNT` can only have a maximum value of 1,000,000 (1 Million).
+- The sum of all your entries cannot be more than 100,000,000,000 (100 Billion).
 - `CATEGORY` has to be either `food`, `transport`, `bills`, `medical`, `entertainment`, or `misc`.
 - `DATE` must be in the DD/MM/YYYY format.
-
-
-Note:
-
-- Each expense entry can only have a maximum value of 1,000,000 (1 Million).
-- The sum of all your entries cannot be more than 100,000,000,000 (100 Billion).
 
 Examples:
 
@@ -326,15 +325,14 @@ This adds an income entry to your list. Use this to keep track of your income!
 
 Format: `add_in d/DESCRIPTION a/AMOUNT c/CATEGORY`
 
-- `DESCRIPTION` has to be non-empty.
-- `AMOUNT` has to be a positive amount that has a maximum of 2 decimal points.
-- `CATEGORY` has to be either `salary`, `allowance`, `others` or `adhoc`.
-
 Note:
-
-- The default date of the added income will be the date in which the income is added.
-- Each income entry can only have a maximum value of 1,000,000 (1 Million).
+- `DESCRIPTION` has to be non-empty.
+- `AMOUNT` can only have a maximum of 2 decimal points.
+- `AMOUNT` must be more than or equal to 0.05.
+- `AMOUNT` can only have a maximum value of 1,000,000 (1 Million).
 - The sum of all your entries cannot be more than 100,000,000,000 (100 Billion).
+- `CATEGORY` has to be either `salary`, `allowance`, `others` or `adhoc`.
+- The default date of the added income will be the date in which the income is added.
 
 Examples:
 
@@ -359,16 +357,14 @@ This command adds an income entry to your list with a date of your choice!
 
 Format: `add_in_d d/DESCRIPTION a/AMOUNT c/CATEGORY D/DATE`
 
+Note:
 - `DESCRIPTION` has to be non-empty.
-- `AMOUNT` has to be a positive amount that has a maximum of 2 decimal points.
+- `AMOUNT` can only have a maximum of 2 decimal points.
+- `AMOUNT` must be more than or equal to 0.05.
+- `AMOUNT` can only have a maximum value of 1,000,000 (1 Million).
+- The sum of all your entries cannot be more than 100,000,000,000 (100 Billion).
 - `CATEGORY` has to be either `salary`, `allowance`, `others` or `adhoc`.
 - `DATE` must be in the DD/MM/YYYY format.
-
-
-Note:
-
-- Each income entry can only have a maximum value of 1,000,000 (1 Million).
-- The sum of all your entries cannot be more than 100,000,000,000 (100 Billion).
 
 Examples:
 
@@ -444,7 +440,7 @@ After deletion, we can see the list that the entry we want to remove is removed!
 <br>
 
 ---
-### 2.3 List / View information
+### 2.3 List / View Information
 
 ### List all expense entries: `list_ex`
 
@@ -793,8 +789,10 @@ The allowable overall limit must be greater than $100 + **$150** + $100 + $100 +
 
 Format: `set_budget c/CATEGORY a/AMOUNT`
 
-- `CATEGORY` has to be one of `food`, `transport`, `bills`, `medical`, `entertainment`, `misc` or `overall`.
-- `AMOUNT` has to be a valid non-negative number less than 100,000,000,000 (100 Billion).
+- `CATEGORY` has to be one of `food`, `transport`, `bills`, `medical`, `entertainment`, `misc` or `overall`. 
+- `AMOUNT` must be more than or equal to 0.05.
+- `AMOUNT` has to be less than 100,000,000,000 (100 Billion).
+- `AMOUNT` has to be in 2 decimal places.
 
 Examples:
 
@@ -1044,64 +1042,51 @@ Here's our tip for the day: Try using the 50/30/20 rule to budget. 50% for needs
 ---
 ### 2.10 Saving of Data
 
-### Saving of Data
+### Saving of data
 
 Stonks XD will save / load your data from `StonksXD_Entries.csv` and `StonksXD_Settings.csv`. This ensures that you 
 will not lose your important data when Stonks XD changes.
 
 The 2 `csv` files will be stored in the same directory as `StonksXD.jar`.
 
-`StonksXD_Entries.csv` will store all your entries. They are:
+`StonksXD_Entries.csv` will store all your entries. You can edit this file. They are:
 1. `Expense` entries.
 2. `Income` entries.
 
-`StonksXD_Settings.csv` will store all the important settings. They are:
-1. Currency setting
-2. Threshold setting
+`StonksXD_Settings.csv` will store all the important settings. **This file is read-only.** They are:
+1. Currency setting.
+2. Threshold setting.
 3. Budget settings for different expense categories.
 
 All important fields will be separated by a `,`.
 
-The reason for data files to be in `.csv` format is so that you can have an easier time editing those data in Excel 
-when **not** using the program. It is easy to make mistakes when editing the `csv` files manually so do be careful.
+The reason for data files to be in `.csv` format is so that you can have an easier time editing / viewing those data 
+in Excel when **not** using the program. It is easy to make mistakes when editing the `.csv` files manually so 
+do be careful.
 
-#### When editing csv files
+<br>
 
+#### When editing / viewing csv files
 
 - `.csv` files **must not** be open concurrently while Stonks XD is running. In other words, never have two programs 
 writing / reading the `.csv` files at the same time. This will very likely cause a saving / loading error and 
 lost of data.
 
 
+- `StonksXD_Settings.csv` is **read-only**. This is because changing the settings will result in many unexpected
+  results. For example, changing the currency setting in the file would result in the amounts in `StonksXD_Entries.csv`
+  to be recognised as another currency which is very unlikely what you are trying to do.
+
+
 - Restrictions and rules for different variables are the same as how you would enter them in the Command Line 
 Interface, as specified above.
 
-
   - For example, when editing an expense entry in `StonksXD_Entries.csv`, `entry_description` must not be blank.
-
-
   - Another example, when editing an income entry in `StonksXD_Entries.csv`, `amount` has to be a positive number and 
   less than 1,000,000.
-
-
-  - Another example, when editing `threshold` in `StonksXD_Settings.csv`, ensure it is between 0 and 1. 
-
-
   - Another example, when editing an expense entry in `StonksXD_Entries.csv`, category should be the ones available and
-  specified ealier on in the user guide.
-
-    
-- `.csv` files should not be open concurrently while Stonks XD is running. In other words, never have two programs 
-writing / reading the `.csv` files at the same time. This will very likely cause a saving error and loss of data.
-- Restrictions and rules for different variables are the same as how you would enter them in the CLI, as specified 
-above:<br></br>
-  - For example, when editing an expense entry in `StonksXD_Entries.csv`, `entry_description` should not be blank.
-  - Another example, when editing an income entry in `StonksXD_Entries.csv`, `amount` has to be a positive number and 
-  less than 1,000,000.
-  - Another example, when editing `threshold` in `StonksXD_Settings.csv`, ensure it is between 0 and 1. 
-  - Another example, when editing an expense entry in `StonksXD_Entries.csv`, category should be the ones available and 
-
   specified earlier on in the user guide.
+
 
 - Do not alter / delete the headers of `.csv` files. Stonks XD is able to minimise the damage if you do so but to 
 ensure your data is saved / loaded properly, please do not edit anything unexpected.
@@ -1112,17 +1097,8 @@ data. When opening `StonksXD_Entries.csv` in Excel, Excel might change the forma
 format is in `DD/MM/YYYY` when dealing with `StonksXD_Entries.csv`. Entries with a different date format will be 
 considered corrupted and not be loaded into Stonks XD.
 
-
-- Changing the currency setting in `StonksXD_Settings.csv` is not recommended. This is because it will
-  cause all your entries and budgets to be recognised as a different currency.
-
   
-- Do not edit the amount of your expenses / incomes drastically such that they exceed the limit per entry or the 
-total limit of 100,000,000,000 for expense / income. Entries that cause you to exceed either limit will be considered 
-corrupted.
-cause all your entries and budgets to be recognised as a different currency.
-
-- Do not edit the amount of your entries drastically such that they exceed the max amount per entry or the 
+- Do not edit the amount of your entries **drastically** such that they exceed the max amount per entry or the 
 total limit of 100,000,000,000 for expenses / incomes. Entries that cause you to exceed either of the 2 limit will be 
 considered corrupted and not be loaded.
 
@@ -1142,7 +1118,7 @@ Here are the steps:
 
 
 3. Copy and paste the contents from your copies back into `StonksXD_Entries.csv` and `StonksXD_Settings.csv`. This 
-means all your edits are gone. But this pretty much ensures that there will be no corrupted data. 
+means all your edits are gone. But, this pretty much ensures that there will be no corrupted data. 
 
 
 ---

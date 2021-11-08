@@ -8,6 +8,7 @@ import seedu.exceptions.BlankCurrencyTypeException;
 import seedu.exceptions.ExpenseOverflowException;
 import seedu.exceptions.IncomeOverflowException;
 import seedu.exceptions.InputException;
+import seedu.exceptions.InvalidBudgetAmountException;
 import seedu.exceptions.InvalidCurrencyTypeException;
 import seedu.exceptions.InvalidExpenseDataFormatException;
 import seedu.exceptions.InvalidIncomeDataFormatException;
@@ -48,7 +49,8 @@ public class DataManager {
 
     private static final String NEWLINE = System.lineSeparator();
     private static final String ENTRIES_FILE_NAME = "./StonksXD_Entries.csv";
-    private static final String ENTRIES_CSV_HEADER = "entry_type,entry_description,amount,category,date";
+    private static final String ENTRIES_CSV_HEADER = "entry_type,entry_description,entry_amount," 
+            + "entry_category,entry_date";
     private static final String SETTINGS_FILE_NAME = "./StonksXD_Settings.csv";
     private static final String SETTINGS_CSV_HEADER = "currency,threshold,overall,food,transport,medical,"
             + "bills,entertainment,misc";
@@ -270,9 +272,9 @@ public class DataManager {
             loadThresholdSetting(thresholdValue);
             ArrayList<Double> budgetSettings = convertDataToBudgetSettings(data);
             loadBudgetSettings(budgetSettings);
-        } catch (NullPointerException | NumberFormatException | InvalidSettingsDataFormatException
-                | InvalidCurrencyTypeException | BlankCurrencyTypeException | NoSuchElementException
-                | InvalidThresholdValueException e) {
+        } catch (NullPointerException | NumberFormatException | InvalidSettingsDataFormatException 
+                | InvalidCurrencyTypeException | BlankCurrencyTypeException | NoSuchElementException 
+                | InvalidThresholdValueException | InvalidBudgetAmountException e) {
             ui.printLoadingError(Messages.HAS_CORRUPTED_SETTINGS);
         }
     }

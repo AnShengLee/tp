@@ -92,4 +92,5 @@ public class Messages {
     public static final String INVALID_INDEX_MESSAGE = "Index given is either out of range or not an integer.";
     public static final String INVALID_YEAR_MESSAGE = "The given year must be in the YYYY format.";
     public static final String INVALID_DATE_ERROR = "This date is invalid. Try another date!";
+    public static final String AMOUNT_BELOW_MIN_MESSAGE = "The amount you have given is less than 0.05!";
 }

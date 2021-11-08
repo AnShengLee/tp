@@ -9,6 +9,7 @@ import seedu.entry.IncomeCategory;
 import seedu.exceptions.BlankCurrencyTypeException;
 import seedu.exceptions.InputException;
 import seedu.exceptions.InvalidAmountException;
+import seedu.exceptions.InvalidBudgetAmountException;
 import seedu.exceptions.InvalidCurrencyTypeException;
 import seedu.exceptions.InvalidExpenseDataFormatException;
 import seedu.exceptions.InvalidIncomeDataFormatException;
@@ -51,14 +52,14 @@ public class DataConverterTest {
         LocalDate date = LocalDate.parse("11/11/2121", DateTimeFormatter.ofPattern(DATE_FORMAT));
         Income testIncome = new Income("job", 1233.0, IncomeCategory.ADHOC, date);
         String testData = convertIncomeToData(testIncome);
-        assertEquals("I" + DATA_SEPARATOR + "job" + DATA_SEPARATOR + 1233.0 + DATA_SEPARATOR + "ADHOC"
+        assertEquals("I" + DATA_SEPARATOR + "job" + DATA_SEPARATOR + "1233.00" + DATA_SEPARATOR + "ADHOC"
                 + DATA_SEPARATOR + "11/11/2121", testData);
     }
 
     @Test
     public void convertDataToExpense_validExpenseData_outputExpense() throws InputException,
             InvalidExpenseDataFormatException {
-        Expense testExpense = convertDataToExpense("E,sfa,12,food,11/11/2121");
+        Expense testExpense = convertDataToExpense("E,sfa,12.00,food,11/11/2121");
         assertEquals("sfa", testExpense.getDescription());
         assertEquals(12, testExpense.getValue());
     }
@@ -109,7 +110,8 @@ public class DataConverterTest {
     }
 
     @Test
-    public void convertDataToBudgetSettings_validData_validBudgets() throws InvalidSettingsDataFormatException {
+    public void convertDataToBudgetSettings_validData_validBudgets() throws InvalidSettingsDataFormatException, 
+            InvalidBudgetAmountException {
         String testData = "SGD,0.1,12.0,1.0,1.0,1.0,1.0,1.0,1.0";
         ArrayList<Double> testBudgets = convertDataToBudgetSettings(testData);
         for (int i = 0; i < TOTAL_EXPENSE_CATEGORY; i++) {

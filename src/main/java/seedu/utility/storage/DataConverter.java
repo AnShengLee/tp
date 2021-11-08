@@ -7,6 +7,7 @@ import seedu.entry.Income;
 import seedu.entry.IncomeCategory;
 import seedu.exceptions.BlankCurrencyTypeException;
 import seedu.exceptions.InputException;
+import seedu.exceptions.InvalidBudgetAmountException;
 import seedu.exceptions.InvalidCurrencyTypeException;
 import seedu.exceptions.InvalidExpenseDataFormatException;
 import seedu.exceptions.InvalidIncomeDataFormatException;
@@ -24,7 +25,8 @@ import java.util.regex.Pattern;
 
 import static seedu.utility.tools.DateOperator.DATE_FORMAT;
 import static seedu.utility.tools.DateOperator.extractDate;
-import static seedu.utility.tools.Extractor.extractAmount;
+import static seedu.utility.tools.Extractor.extractAmountForLoading;
+import static seedu.utility.tools.Extractor.extractBudgetAmountForLoading;
 import static seedu.utility.tools.Extractor.extractCurrencyType;
 import static seedu.utility.tools.Extractor.extractDescription;
 import static seedu.utility.tools.Extractor.extractExpenseCategory;
@@ -59,8 +61,9 @@ public abstract class DataConverter {
      * @return A csv String.
      */
     public static String convertExpenseToData(Expense expense) {
-        return "E" + DATA_SEPARATOR + expense.getDescription() + DATA_SEPARATOR + expense.getValue() + DATA_SEPARATOR
-                + expense.getCategory() + DATA_SEPARATOR
+        String expenseInTwoDecimalPlace = String.format("%.2f",expense.getValue());
+        return "E" + DATA_SEPARATOR + expense.getDescription() + DATA_SEPARATOR + expenseInTwoDecimalPlace 
+                + DATA_SEPARATOR + expense.getCategory() + DATA_SEPARATOR
                 + expense.getDate().format(DateTimeFormatter.ofPattern(DATE_FORMAT));
     }
 
@@ -71,8 +74,9 @@ public abstract class DataConverter {
      * @return A csv String.
      */
     public static String convertIncomeToData(Income income) {
-        return "I" + DATA_SEPARATOR + income.getDescription() + DATA_SEPARATOR + income.getValue() + DATA_SEPARATOR
-                + income.getCategory() + DATA_SEPARATOR
+        String incomeInTwoDecimalPlace = String.format("%.2f",income.getValue());
+        return "I" + DATA_SEPARATOR + income.getDescription() + DATA_SEPARATOR + incomeInTwoDecimalPlace 
+                + DATA_SEPARATOR + income.getCategory() + DATA_SEPARATOR
                 + income.getDate().format(DateTimeFormatter.ofPattern(DATE_FORMAT));
     }
 
@@ -93,7 +97,7 @@ public abstract class DataConverter {
         final Matcher matcher = EXPENSE_DATA_FORMAT.matcher(data.trim());
         if (matcher.matches()) {
             String expenseDescription = extractDescription(matcher);
-            double expenseAmount = extractAmount(matcher);
+            double expenseAmount = extractAmountForLoading(matcher);
             ExpenseCategory expenseCategory = extractExpenseCategory(matcher);
             LocalDate expenseDate = extractDate(matcher);
             assert expenseAmount > 0;
@@ -121,7 +125,7 @@ public abstract class DataConverter {
         final Matcher matcher = INCOME_DATA_FORMAT.matcher(data.trim());
         if (matcher.matches()) {
             String incomeDescription = extractDescription(matcher);
-            double incomeAmount = extractAmount(matcher);
+            double incomeAmount = extractAmountForLoading(matcher);
             IncomeCategory incomeCategory = extractIncomeCategory(matcher);
             LocalDate incomeDate = extractDate(matcher);
             assert incomeAmount > 0;
@@ -205,7 +209,7 @@ public abstract class DataConverter {
      *                                            expected format.
      */
     public static ArrayList<Double> convertDataToBudgetSettings(String data) throws NumberFormatException,
-            NullPointerException, InvalidSettingsDataFormatException {
+            NullPointerException, InvalidSettingsDataFormatException, InvalidBudgetAmountException {
         ArrayList<Double> budgetSettings = new ArrayList<>();
         final Matcher matcher = SETTINGS_DATA_FORMAT.matcher(data.trim());
         if (matcher.matches()) {
@@ -214,7 +218,7 @@ public abstract class DataConverter {
                 if (category == ExpenseCategory.NULL) {
                     break;
                 }
-                budgetSettings.add(Double.parseDouble(matcher.group(category.toString().toLowerCase())));
+                budgetSettings.add(extractBudgetAmountForLoading(matcher.group(category.toString().toLowerCase())));
             }
             return budgetSettings;
         }

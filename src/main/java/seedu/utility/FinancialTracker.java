@@ -1,6 +1,5 @@
 package seedu.utility;
 
-import seedu.commands.currency.CurrencyType;
 import seedu.entry.Entry;
 import seedu.entry.Expense;
 import seedu.entry.Income;
@@ -24,9 +23,10 @@ import static seedu.utility.tools.FinancialCalculator.sortEntriesByMonth;
  * A Financial tracker that contains 2 separate list of income and expense entries and a net balance.
  */
 public class FinancialTracker {
-    private ArrayList<Expense> expenses;
-    private ArrayList<Income> incomes;
-    private CurrencyManager currencyManager;
+    private final ArrayList<Expense> expenses;
+    private final ArrayList<Income> incomes;
+    private final CurrencyManager currencyManager;
+
     public static final double TOTAL_ENTRIES_LIMIT = 100000000000.00;
 
     /**

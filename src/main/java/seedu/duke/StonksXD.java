@@ -38,7 +38,7 @@ public class StonksXD {
     }
 
     /**
-     * This method handles the lifecycle and the general logic of the program. It reads users input and performs actions
+     * Handles the lifecycle and the general logic of the program. It reads users input and performs actions
      * based on it.
      */
     public void run() {

@@ -1,3 +1,5 @@
+//@@author Nirmaleshwar
+
 package seedu.commands.expense;
 
 import seedu.commands.Command;
@@ -11,10 +13,21 @@ import seedu.utility.Ui;
 public class DeleteExpenseCommand extends Command {
     private int expenseNumber;
 
+    /**
+     * Constructor for delete expense command.
+     * @param expenseNumber index of item to be deleted
+     */
     public DeleteExpenseCommand(int expenseNumber) {
         this.expenseNumber = expenseNumber;
     }
 
+    /**
+     * Executes deletion of expense item.
+     * @param finances object from FinancialTracker
+     * @param ui object from Ui
+     * @param budgetManager object from BudgetManager
+     * @param currencyManager object from CurrencyManager
+     */
     @Override
     public void execute(FinancialTracker finances, Ui ui, BudgetManager budgetManager,
                         CurrencyManager currencyManager) {

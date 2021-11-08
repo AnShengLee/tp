@@ -48,11 +48,13 @@ It ensures the appropriate input format, and passes the input data to the approp
 
 `Command` is the class responsible for the execution of all commands.
 It contains child classes for all possible commands.
-It interacts with `FinancialTracker` and `BudgetManager` to execute commands, before sending information to `Ui` for output.
+It interacts with `FinancialTracker`, `BudgetManager` and `CurrencyConversion` to execute commands, before sending information to `Ui` for output.
 
 `Parser` &rarr; `Command` &harr; `FinancialTracker`
 
 `Parser` &rarr; `Command` &harr; `BudgetManager`
+
+`Parser` &rarr; `Command` &harr; `CurrencyConversion`
 
 `Ui` &larr; `Command`
 
@@ -68,6 +70,16 @@ It also retrieves data from `DataManager` when the program is loaded.
 
 <br>
 
+`CurrencyConversion` is the class containing and handling all currency related information an operations.
+It interacts with Command to execute tasks, and writes to DataManager to save its data.
+It also retrieves data from `DataManager` when the program is loaded.
+
+`Command` &harr; `CurrencyConversion`
+
+`CurrencyConversion` &harr; `DataManager`
+
+<br>
+
 `BudgetManager` is the class containing and handling all budget information.
 It interacts with `Command` to execute tasks, and writes to `DataManager` to save its data.
 It also retrieves data from `DataManager` when the program is loaded.
@@ -80,11 +92,13 @@ It also retrieves data from `DataManager` when the program is loaded.
 
 `DataManager` is the class responsible for reading data from the `StonksXD_entries.csv` and `StonksXD_budget.csv` files upon boot up,
 and writing save data to the files before terminating the program.
-It interacts with `FinancialTracker` and `BudgetManager` and receives commands from `StonksXD`.
+It interacts with `FinancialTracker`, `BudgetManager`, `CurrencyConversion` and receives commands from `StonksXD`.
 
 `FinancialTracker` &harr; `DataManager`
 
 `BudgetManager` &harr; `DataManager`
+
+`CurrencyConversion` &harr; `DataManager`
 
 `DataManager` &larr; `StonksXD_data.csv`
 
@@ -200,7 +214,7 @@ It shows the hypothetical scenario where its `getExpenseBetween` method.
 
 ![](FinancialTrackerSD.drawio.png)
 
-How the Financial Tracker compoment works:
+How the Financial Tracker component works:
 
 1. `getExpenseBetween` is implemented using streams. It filters through the entire `expenses` ArrayList,
    checking if the date associated to that entry lies within the given date range provided as input parameters.
@@ -211,6 +225,18 @@ How the Financial Tracker compoment works:
    using the method `mapToDouble` which uses the `getvalue` method in `Entry` to get the value of the entry.
 5. Finally, the method `sum()` is called on the stream which returns the sum of all the values inside the stream. This value
    is then returned at the end of the function call.
+
+---
+
+### Currency Manager Component
+
+The `CurrencyManager` class is responsible for all currency related operations performed on entries in Stonks XD. 
+It can convert all these entries to a given currency type, track the current type and list the available types for conversion
+as prompted by the user using appropriate commands.
+
+The class diagram below shows the structure of the `CurrencyManager` class:
+
+-- Work in progress --
 
 ---
 
@@ -228,11 +254,6 @@ using regex.
 
 Every important field will be separated by `Parser` with a `,` before saving them into the respective `csv` files.
 
-##### Converting `csv` data to user information
-
-When a line of data is obtained from the `csv` file, `Parser` will check if the line fits the required format using
-regex.
-
 ---
 
 ### Budget Component
@@ -247,7 +268,7 @@ There are currently 7 child classes of `Budget` (i.e. 7 legal budget categories 
 
 <br>
 
-How the Budget compoment works:
+How the Budget component works:
 - Upon start-up, a new `BudgetManager` is initialised in `StonksXD`.
 - `BudgetManager` initialises all `Budget` sub-classes with respective budget limit values loaded from `DataManager`.
 - When an entry is added by the user, `BudgetManager` parses the category input by the user and calls the relevant `Budget` sub-class.

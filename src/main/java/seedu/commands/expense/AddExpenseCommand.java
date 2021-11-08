@@ -1,3 +1,5 @@
+//@@author Nirmaleshwar
+
 package seedu.commands.expense;
 
 import seedu.commands.Command;
@@ -14,10 +16,21 @@ import java.time.LocalDate;
 public class AddExpenseCommand extends Command {
     private Expense expense;
 
+    /**
+     * Constructor for add expense command.
+     * @param expense object to be added
+     */
     public AddExpenseCommand(Expense expense) {
         this.expense = expense;
     }
 
+    /**
+     * Executes adding of expense item.
+     * @param finances object from FinancialTracker
+     * @param ui object from Ui
+     * @param budgetManager object from BudgetManager
+     * @param currencyManager object from CurrencyManager
+     */
     @Override
     public void execute(FinancialTracker finances, Ui ui, BudgetManager budgetManager,
                         CurrencyManager currencyManager) {

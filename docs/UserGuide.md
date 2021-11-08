@@ -844,7 +844,7 @@ onwards will be treated as the new currency set.
 
 Format: `set_curr c/CURRENCY`
 
-- As of v2.0, Stonks XD supports 2 different currencies: SGD and USD.
+- As of v2.0, Stonks XD supports 2 different currencies: SGD and RMB.
 - If you try to set currency to currency you're already using, a warning will be shown.
 
 <details>
@@ -853,21 +853,21 @@ Format: `set_curr c/CURRENCY`
 Let's take the following budget limit for <code>FOOD</code> expenses as an example:
 <pre>
 -----------------------------------------------------------------------------------------------------
-Current FOOD limit is $10.00
+Current FOOD limit is $12.50
 -----------------------------------------------------------------------------------------------------
 </pre>
 <br>
-If you wish to convert the above (and all entries) to USD, simply enter <code>set_curr c/USD</code>. You will receive the following confirmation message:
+If you wish to convert the above (and all entries) to RMB, simply enter <code>set_curr c/RMB</code>. You will receive the following confirmation message:
 <pre>
 -----------------------------------------------------------------------------------------------------
-All entries have been converted to USD!
+All entries have been converted to RMB!
 -----------------------------------------------------------------------------------------------------
 </pre>
 <br>
-If we check our budget limit once again, we see that it has now been converted to the appropriate value in USD!
+If we check our budget limit once again, we see that it has now been converted to the appropriate value in RMB!
 <pre>
 -----------------------------------------------------------------------------------------------------
-Current FOOD limit is $7.40
+Current FOOD limit is $62.50
 -----------------------------------------------------------------------------------------------------
 </pre>
 <br>
@@ -906,7 +906,7 @@ If you are unsure as to what currency types you can convert to, just enter <code
 <pre>
 -----------------------------------------------------------------------------------------------------
 Here is a list of available currencies you can convert to!
-1. USD
+1. RMB
 2. SGD
 -----------------------------------------------------------------------------------------------------
 </pre>

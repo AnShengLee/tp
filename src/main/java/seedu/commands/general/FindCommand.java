@@ -13,12 +13,18 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-
 import static seedu.utility.tools.DateOperator.DATE_FORMAT;
 
+/**
+ * The command that searches through the financial tracker for same keyword, value or category.
+ */
 public class FindCommand extends Command {
     protected String keyword;
-    
+
+    /**
+     * Constructor of FindCommand class that initialises the keyword attribute as what the user key in.
+     * @param keyword The given keyword, value or category user wants to search for.
+     */
     public FindCommand(String keyword) {
         this.keyword = keyword;
     }
@@ -30,6 +36,7 @@ public class FindCommand extends Command {
      * @param finances The financial tracker containing all the entries.
      * @param ui The user interface which provide feedback to the user.
      * @param budgetManager The budgeting manager that manages all the budget related operations.
+     * @param currencyManager The currency manager that manages the currency state of the financial tracker.
      */
     public void execute(FinancialTracker finances, Ui ui, BudgetManager budgetManager,
                         CurrencyManager currencyManager) {

@@ -97,7 +97,7 @@ Before you learn how to use the app, take a look at the [Quick Start](#quick-sta
 
 5. Once the program is up and running, the image shown below is what you can expect the program should look like!   
 
-![image](https://user-images.githubusercontent.com/69465661/140690502-73964f95-4a07-4ea4-8ef4-83341e4fe268.png)
+![image](https://user-images.githubusercontent.com/77761339/140724500-ea056343-86d5-4a9c-ba82-db8de51dd595.png)
 
 6. If you are a first time user, the first command you want to key in is the [help](#view-all-possible-commands-help) command.
 It will guide you to the possible commands you can enter into Stonks XD. (Tip! Refer to the [Features](#features) below for details of each command.)
@@ -114,7 +114,7 @@ It will guide you to the possible commands you can enter into Stonks XD. (Tip! R
 
 
 - Parameters surrounded with `[` and `]` are optional parameters which you might consider including to your input.
-  e.g. in the add expense/income feature, an optional date parameter `[D/DATE]` may be added which can be typed as `D/19/10/2021` 
+  e.g. in the show graph feature: `show_graph [Y/YEAR]`, an optional `YEAR` parameter may be added to show graphs of different years.
 
 
 - Most features below have a collapsible section that allows you to see the run time output. Do check them out if you want to visualize what the product looks like!
@@ -214,12 +214,9 @@ Note: Budget reminders of different kinds might also appear when expenses are ad
 They might look something like this.
 
 <pre>-----------------------------------------------------------------------------------------------------
-You are almost reaching the OCTOBER OVERALL budget: $48.40/$50.00
-Consider readjusting your OCTOBER OVERALL budget!
------------------------------------------------------------------------------------------------------
-You have exceeded the OCTOBER FOOD budget: $30.40/$30.00
-Since you have not yet exceeded your OCTOBER OVERALL budget: $48.40/$50.00
-You can directly increase your OCTOBER FOOD budget up to $32.00!
+Exceeded both NOVEMBER FOOD budget ($35.50/$30.00) and NOVEMBER OVERALL budget ($50.50/$50.00).
+Consider adjusting your OVERALL budget to $50.50 before adjusting your FOOD budget!
+Currently you cannot extend your FOOD budget without first extending your OVERALL budget!
 -----------------------------------------------------------------------------------------------------
 </pre>
 </details>
@@ -261,12 +258,9 @@ Note: Budget reminders of different kinds might also appear when expenses are ad
 They might look something like this.
 
 <pre>-----------------------------------------------------------------------------------------------------
-You are almost reaching the OCTOBER OVERALL budget: $48.40/$50.00
-Consider readjusting your OCTOBER OVERALL budget!
------------------------------------------------------------------------------------------------------
-You have exceeded the OCTOBER FOOD budget: $30.40/$30.00
-Since you have not yet exceeded your OCTOBER OVERALL budget: $48.40/$50.00
-You can directly increase your OCTOBER FOOD budget up to $32.00!
+Exceeded both NOVEMBER FOOD budget ($35.50/$30.00) and NOVEMBER OVERALL budget ($50.50/$50.00).
+Consider adjusting your OVERALL budget to $50.50 before adjusting your FOOD budget!
+Currently you cannot extend your FOOD budget without first extending your OVERALL budget!
 -----------------------------------------------------------------------------------------------------
 </pre>
 </details>
@@ -286,35 +280,40 @@ Format: `del_ex i/INDEX`
 
 Examples:
 
-- `del_ex i/1` Deletes the 1st entry from the expense list.
+- Let's say you have made a mistake while entering `expense` entries, and you want to remove the entry you made.
+  What you want to do is get the list of `expense` first, to find the index corresponding to that entry.
 
 <details>
 <summary> ▼ Expected output in run window </summary>
 <br>
-Before deletion the expense list is as follows:
+Before deletion, view the expense list using the <code>list_ex</code> command. The expected output will be as follows:
 <pre>
 -----------------------------------------------------------------------------------------------------
 Below is a list of all of your recent spending!
 -----------------------------------------------------------------------------------------------------
-1: [E] pillow - $500.00 (18/10/2021)
-2: [E] bought cookies - $500.00 (18/01/2021)
+1: [E] pillow - $5.00 (18/10/2021)
+2: [E] bought cookies - $5.00 (18/01/2021)
 3: [E] bought home - $555.00 (18/07/2021)
 -----------------------------------------------------------------------------------------------------
 </pre>
 <br>
-When command <code>del_ex i/1</code> is given, you get the following message:
+You want to delete the last entry, with index 3 because the description you entered was incorrect.
+You can enter the command <code>del_ex i/3</code> into the command line to delete that entry.
+<br>
+<br>
+When entry is deleted, you should expect the following message from the program:
 <pre>
 -----------------------------------------------------------------------------------------------------
 You removed this: 
-[E] pillow - $500.00 (18/10/2021)
+[E] bought home - $555.00 (18/07/2021)
 -----------------------------------------------------------------------------------------------------
 </pre>
 <br>
-After deletion, we see that the list has removed the previous first entry!
+After deletion, we view the list again to see that the list no longer contains the entry you deleted!
 <pre>
 -----------------------------------------------------------------------------------------------------
-1: [E] bought cookies - $500.00 (18/01/2021)
-2: [E] bought home - $555.00 (18/07/2021)
+1: [E] pillow - $5.00 (18/10/2021)
+2: [E] bought cookies - $5.00 (18/01/2021)
 -----------------------------------------------------------------------------------------------------
 </pre>
 </details>
@@ -385,19 +384,6 @@ Your most recent earning:
 [I] december's bonus - $5000.00 (26/12/2021)
 -----------------------------------------------------------------------------------------------------
 </pre>
-
-Note: Budget reminders of different kinds might also appear when expenses are added!
-They might look something like this.
-
-<pre>-----------------------------------------------------------------------------------------------------
-You are almost reaching the OCTOBER OVERALL budget: $48.40/$50.00
-Consider readjusting your OCTOBER OVERALL budget!
------------------------------------------------------------------------------------------------------
-You have exceeded the OCTOBER FOOD budget: $30.40/$30.00
-Since you have not yet exceeded your OCTOBER OVERALL budget: $48.40/$50.00
-You can directly increase your OCTOBER FOOD budget up to $32.00!
------------------------------------------------------------------------------------------------------
-</pre>
 </details>
 <br>
 
@@ -415,35 +401,42 @@ Format: `del_in i/INDEX`
 
 Examples:
 
-- `del_in i/1` Deletes the 1st entry from the income list.
+- Let's say you have made a mistake while entering `income` entries, and you want to remove the entry you made.
+  What you want to do is get the list of `income` first, to find the index corresponding to that entry.
 
 <details>
 <summary> ▼ Expected output in run window </summary>
 <br>
-Before deletion the income list is as follows:
+Before deletion, view the income list using the <code>list_in</code> command. The expected output will be as follows:
 <pre>
 -----------------------------------------------------------------------------------------------------
 Below is a list of all of your recent earnings!
 -----------------------------------------------------------------------------------------------------
-1: [I] rob a bank - $800.00 (18/10/2021)
-2: [I] rob a church - $300.00 (18/11/2021)
-3: [I] rob a car - $400.00 (18/12/2021)
+1: [I] tuition salary - $800.00 (18/10/2021)
+2: [I] November allowance - $300.00 (18/11/2021)
+3: [I] Christmas gift money - $50.00 (18/12/2021)
+4: [I] Christmas gift money - $50000.00 (18/12/2021)
 -----------------------------------------------------------------------------------------------------
 </pre>
 <br>
-When command <code>del_in i/1</code> is given, you get the following message:
+You want to delete the last entry, with index 4 because the value you entered was too large.
+You can enter the command <code>del_in i/4</code> to delete that entry.
+<br>
+<br>
+Once the delete is completed, you get the following message:
 <pre>
 -----------------------------------------------------------------------------------------------------
 You removed this: 
-[I] rob a bank - $800.00 (18/10/2021)
+[I] Christmas gift money - $50000.00 (18/12/2021)
 -----------------------------------------------------------------------------------------------------
 </pre>
 <br>
-After deletion, we see that the list has removed the previous first entry!
+After deletion, we can see the list that the entry we want to remove is removed!
 <pre>
 -----------------------------------------------------------------------------------------------------
-1: [I] rob a church - $300.00 (18/11/2021)
-2: [I] rob a car - $400.00 (18/12/2021)
+1: [I] tuition salary - $800.00 (18/10/2021)
+2: [I] November allowance - $300.00 (18/11/2021)
+3: [I] Christmas gift money - $50.00 (18/12/2021)
 -----------------------------------------------------------------------------------------------------
 </pre>
 
@@ -512,11 +505,11 @@ Note:
 - `total_ex` command is only able to print values less than 100,000,000,000 (100Billion).
 
 Examples:
-<ol>
+<ul>
 <li>
 Let's say you have made expense entries consistently for a couple of months since you downloaded the application and you want to know the total expense you have logged.
 </li>
-</ol>
+</ul>
 <details>
 <summary> ▼ Expected output in run window </summary>
 <br>
@@ -768,14 +761,40 @@ Below is a list of all your findings!
 
 ### Set budget: `set_budget`
 
-This sets a budget for one of the many preset expense categories. 
+This sets a budget limit for one of the many preset expense categories. 
 Reminders will be given when your spending approaches the budget limit!
+From here onwards, sub-budgets refer to the `food`, `transport`, `bills`, `medical`, `entertainment` and `misc` budgets.
+
+To help you better manage your budgets, the following features are in place for setting budgets:
+1. The new budget limit for each sub-budget must be greater than the current month's expenses for that sub-budget.
+2. The sum of all the sub-budget limits must be less than the `overall` budget limit.
+3. In the event that a sub-budget's expenses exceed its budget limit, the total expenses for that sub-budget will be used for the calculation in point 2 instead.
+
+Example:
+
+|                    | Food | Transport | Bills | Medical | Entertainment | Misc | Overall     |
+| ------------------ | ---- | --------- | ----- | ------- | ------------- | ---- | -------     |
+| **Expenses**       | $100 | **$1**    | $100  | $100    | $100          | $100 |             |
+| **Budget Limit**   | $100 | $100      | $100  | $100    | $100          | $100 | **>$600**   |
+
+In the example above, none of the sub-budget expenses exceed their budget limits. 
+The allowable overall limit must be greater than $100 + **$100** + $100 + $100 + $100 + $100 = $600, which is the sum of all the sub-budget limits.
+
+
+However, in the following example, the transport expense exceeds the transport budget.
+The allowable overall limit must be greater than $100 + **$150** + $100 + $100 + $100 + $100 = $650.
+
+|                    | Food | Transport | Bills | Medical | Entertainment | Misc | Overall     |
+| ------------------ | ---- | --------- | ----- | ------- | ------------- | ---- | -------     |
+| **Expenses**       | $100 | **$150**  | $100  | $100    | $100          | $100 |             |
+| **Budget Limit**   | $100 | $100      | $100  | $100    | $100          | $100 | **>$650**   |
+
+<br>
 
 Format: `set_budget c/CATEGORY a/AMOUNT`
 
 - `CATEGORY` has to be one of `food`, `transport`, `bills`, `medical`, `entertainment`, `misc` or `overall`.
-- `AMOUNT` has to be a valid non-negative number.
-- TIP: Setting `AMOUNT` to 0 deactivates the budget warnings for that category!
+- `AMOUNT` has to be a valid non-negative number less than 100,000,000,000 (100 Billion).
 
 Examples:
 
@@ -784,10 +803,10 @@ Examples:
 <details>
 <summary> ▼ Expected output in run window </summary>
 <br>
-When command <code>set_budget c/bills a/100</code> is given, you get the following message:
+When command <code>set_budget c/bills a/100</code> is given, you get the following message if the budget is set successfully:
 <pre>
 -----------------------------------------------------------------------------------------------------
-BILLS budget has been set to $100.00
+BILLS budget set to $100.00
 -----------------------------------------------------------------------------------------------------
 </pre>
 </details>
@@ -802,7 +821,6 @@ Use this when you forget your budget limits!
 Format: `check_budget c/CATEGORY`
 
 - `CATEGORY` has to be one of `food`, `transport`, `bills`, `medical`, `entertainment`, `misc` or `overall`.
-- TIP: Setting `AMOUNT` to 0 deactivates the budget warnings for that category!
 
 Examples:
 
@@ -827,19 +845,20 @@ This sets the threshold beyond which reminders will be given when approaching th
 Format: `set_threshold t/THRESHOLD`
 
 - `THRESHOLD` has to be a value between 0 and 1.
-- Setting `THRESHOLD` to 0.1 produces reminders when you have used up more than 90% of your budget!
+- Setting `THRESHOLD` to 0.9 produces reminders when you have used up more than 90% of your budget!
 
 Examples:
 
-- `set_threshold t/0.2` sets the threshold value of all budget categories to 80%.
+- `set_threshold t/0.8` sets the threshold value of all budget categories to 80%.
 
 <details>
 <summary> ▼ Expected output in run window </summary>
 <br>
-When command <code>set_threshold t/0.2</code> is given, you get the following message:
+When command <code>set_threshold t/0.8</code> is given, you get the following message:
 <pre>
 -----------------------------------------------------------------------------------------------------
-Threshold for budget reminders set to 0.2
+Threshold for budget reminders set to 0.8
+We'll warn you when you spend 80.0% of your budget!
 -----------------------------------------------------------------------------------------------------
 </pre>
 </details>
@@ -930,7 +949,7 @@ Here is a list of available currencies you can convert to!
 ### View yearly report: `show_graph`
 
 This shows the monthly breakdown of the finances in a Yearly Report which also
-includes current month spending and earnings.
+includes current month spending and earnings and your overall account balance regardless of year.
 We recommend using this function after your daily logging of expenses for a one-stop check-in on the state of your finances!
 
 
@@ -947,25 +966,25 @@ Format: `show_graph [Y/YEAR]`
 <details>
 <summary> ▼ Expected output in run window </summary>
 <pre>
-show_graph
+show_graph Y/2121
 -----------------------------------------------------------------------------------------------------
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 x                                                                                                  x
-x   Account Balance: $-449.50                                              Legend:                 x
-x   Current month (NOVEMBER) total expense: $5454.00                             # is Expense      x
-x   Current month (NOVEMBER) total income: $0.00                                 o is Income       x
-x   Your Yearly Report                                                     Unit: 1000.0            x
+x   Account Balance: $12.00                                                Legend:                 x
+x   Current month (NOVEMBER 2021) total expense: $0.00                           # is Expense      x
+x   Current month (NOVEMBER 2021) total income: $0.00                            o is Income       x
+x   Year 2121 Report                                                       Unit: 10.0              x
 x ------------------------------------------------------------------------------------------------ x
 x                                                                                                  x
 x                                                                                                  x
 x                                                                                                  x
 x                                                                                                  x
 x                                                                                                  x
-x                                                                                   #        o     x
-x                                                                                   #        o     x
-x                                                                                   #        o     x
-x                                                                                   #        o     x
-x                                                                                   #        o     x
+x                                                                                                  x
+x                                                                                                  x
+x                                                                                                  x
+x                                                                                    o             x
+x                                                                                   #o             x
 x ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ x
 x   Jan     Feb     Mar     Apr     May     Jun     Jul     Aug     Sept    Oct     Nov     Dec    x
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx

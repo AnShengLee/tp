@@ -216,7 +216,7 @@ public abstract class Extractor {
             throw new BlankCurrencyTypeException(Messages.BLANK_CURRENCY_TYPE_MESSAGE);
         }
         switch (newCurrency.toUpperCase()) {
-        case "RMB":
+        case "HKD":
             return CurrencyType.HKD;
         case "SGD":
             return CurrencyType.SGD;

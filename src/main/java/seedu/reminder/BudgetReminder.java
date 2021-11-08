@@ -15,13 +15,7 @@ public abstract class BudgetReminder {
      * @return String of a value with two decimal places
      */
     protected String roundTwoDecimalPlace(double value) {
-        double intermediateValue = Math.round(value * 100);
-        double roundedValue = intermediateValue / 100;
-        String displayValue = Double.toString(roundedValue);
-        int decimalPointIndex = displayValue.indexOf(".");
-        if (displayValue.substring(decimalPointIndex).length() < 3) {
-            displayValue += "0";
-        }
+        String displayValue = String.format("%.2f", value);
         return displayValue;
     }
 

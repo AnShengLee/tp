@@ -57,16 +57,15 @@ Given below are my contributions to the project.
   - Brainstormed for features and ideas as a project
 
 
-- **Enhancements to existing features**: (TO BE UPDATED)
+- **Enhancements to existing features**: 
   - Set limit to the sum of total expense and income to prevent rounding-off error.
   - Set limit to amount user can add for each entry.
   - Added multiple helper class that 
-  - Refactored Parser class using SLAP
   - Wrote additional tests for existing features. [#166](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/116), [#202](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/202)
   - Added Categories and Date fields to Expense and Income.[#56](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/56)
   - Added method to get data for printing in graph command. [#66](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/66)
   - Refactored financial tracker class to use 2 array list instead of 1, making the code cleaner and more readable. [#45](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/45) 
-  - Refactored parser code to use exceptions. [#97](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/97)
+  - Refactored parser code using SLAP and exceptions. [#97](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/97)
 
 - **Documentation**:
   - User Guide:

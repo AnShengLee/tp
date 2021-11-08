@@ -157,26 +157,26 @@ public class StonksGraph {
      * @param currExpenseBreakdowns ArrayList containing all the totalExpenses for each month of the current year.
      */
     private void drawCurrentMonth(ArrayList<Double> currIncomeBreakdowns, ArrayList<Double> currExpenseBreakdowns) {
-        
+        int currentYear = LocalDate.now().getYear();
         Month currentMonth = DateOperator.currentMonth();
         int currentMonthInIndex = DateOperator.currentMonthInIndex();
-        String currentExpenseString = "Current month (" + currentMonth + ") total expense: ";
-        String currentIncomeString = "Current month (" + currentMonth + ") total income: ";
+        String currentExpenseString = "Current month (" + currentMonth + " " + currentYear + ") total expense: ";
+        String currentIncomeString = "Current month (" + currentMonth + " " + currentYear + ") total income: ";
         
         double currentMonthExpense = currExpenseBreakdowns.get(currentMonthInIndex);
         writeToGraph(3,4, currentExpenseString);
         String stringCurrentMonthExpense = String.format("$%.2f", currentMonthExpense);
-        writeToGraph(3, 44, stringCurrentMonthExpense);
+        writeToGraph(3, 49, stringCurrentMonthExpense);
 
         double currentMonthIncome = currIncomeBreakdowns.get(currentMonthInIndex);
         writeToGraph(4,4, currentIncomeString);
         String stringCurrentMonthIncome = String.format("$%.2f", currentMonthIncome);
-        writeToGraph(4, 43, stringCurrentMonthIncome);
+        writeToGraph(4, 48, stringCurrentMonthIncome);
 
     }
 
-    private void drawLegendAndTitle() {
-        writeToGraph(5,4, "Your Year Report");
+    private void drawLegendAndTitle(int year) {
+        writeToGraph(5,4, String.format("Year %d Report", year));
         writeToGraph(2, 75, "Legend:");
         writeToGraph(3, 80, " # is Expense");
         writeToGraph(4, 80, " o is Income ");
@@ -243,7 +243,7 @@ public class StonksGraph {
      */
     private void drawReport(FinancialTracker finances, int year) {
         drawSeparator();
-        drawLegendAndTitle();
+        drawLegendAndTitle(year);
         drawXAxisLabels();
         drawXAxis();
         ArrayList<Double> searchedIncomeBreakdowns = finances.getMonthlyIncomeBreakdown(year);

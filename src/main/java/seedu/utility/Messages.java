@@ -23,8 +23,8 @@ public class Messages {
     public static final String UNABLE_TO_FIND_SETTINGS_FILE = "Unable to find StonksXD_Settings.csv, a new one " 
             + "has been made.";
     public static final String SEARCH_NO_MATCH_MESSAGE = "Your search did not match any of the entries!";
-    public static final String PROMPTING_MESSAGE = "Would you like to set your budget before you begin?"
-            + " You can use the set budget commands shown in the help command!";
+    public static final String PROMPTING_MESSAGE = "Would you like to set your budget before you begin?\n"
+            + "You can use the set budget commands shown in the help command!";
     public static final String HELP_COMMAND_MESSAGE = "This is a list of commands and their format!";
     public static final String LISTING_EXPENSE_MESSAGE = "Below is a list of all of your recent spending!";
     public static final String LISTING_INCOME_MESSAGE = "Below is a list of all of your recent earnings!";
@@ -38,8 +38,8 @@ public class Messages {
             + "Transport, Bills, Medical, Entertainment or Misc.";
     public static final String INVALID_INCOME_CATEGORY_MESSAGE = "Input only 1 of these 4 categories: Salary, " 
             + "Allowance, Adhoc, or Others.";
-    public static final String INVALID_BUDGET_CATEGORY_MESSAGE = "Input only 1 of these 6 categories: Food, "
-            + "Transport, Bills, Medical, Entertainment or Overall";
+    public static final String INVALID_BUDGET_CATEGORY_MESSAGE = "Input only 1 of these 7 categories: Food, "
+            + "Transport, Bills, Medical, Entertainment, Misc or Overall";
     public static final String INVALID_THRESHOLD_MESSAGE = "Threshold value should between 0 and 1.";
     public static final String INVALID_CURRENCY_TYPE_MESSAGE = "Please enter a valid currency for conversion!";
     public static final String BLANK_CURRENCY_TYPE_MESSAGE = "You have not entered any currency type!";

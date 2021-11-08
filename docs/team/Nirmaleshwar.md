@@ -76,9 +76,10 @@ It is also able to give visual representations of financial data through bar gra
 ###Enhancement to existing features:
 
 * Added JUnit testing for command class [#92](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/92)
+* Added JUnit testing for currencyManager class [#276](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/276)
 * Refactored Currency commands into separate classes [#213](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/213)
 * Refactored `Parser` to include separate case handling for currency commands [#213](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/213)
-* Added Javadoc comments to improve code readability []()
+* Added Javadoc comments to improve code readability [#270](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/270)
 
 <br>
 
@@ -95,8 +96,8 @@ It is also able to give visual representations of financial data through bar gra
 
 * Created section pertaining to command class for v1.0 release [#83](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/83)
 * Created entire manual testing section for v1.0 release [#83](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/83)
-* Created section for Currency Conversion class
-* Included both class and sequence diagrams
+* Created section for Currency Conversion class [#276](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/276)
+* Included both class and sequence diagrams [#276](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/276)
 
 <br>
 
@@ -107,6 +108,7 @@ It is also able to give visual representations of financial data through bar gra
   * Involved in creating releases for `v1.0` & `v2.0`
   * Handled issues, user stories and PR's during project development.
   * Facilitated Zoom calls by creating rooms whenever required and taking meeting minutes.
+  * Tested extensively and fixed bugs before final release.
 
 <br>
 
@@ -130,6 +132,6 @@ It is also able to give visual representations of financial data through bar gra
 ### Other notable contributions not listed above:
 
 * Created the skeleton of entire command class for Stonks XD before refactoring [#20](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/20)
-* Fixed the precision issue of using doubles for currency conversions []()
+* Fixed the loss of precision when converting between currencies when they ae of type double [#279](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/137)
 
   

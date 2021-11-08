@@ -45,6 +45,7 @@ public class Ui {
         System.out.println(Messages.LOGO_MESSAGE);
         printLine();
         System.out.println(Messages.PROMPTING_MESSAGE);
+        printLine();
     }
 
     private void printLine() {

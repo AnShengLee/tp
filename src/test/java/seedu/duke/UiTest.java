@@ -289,15 +289,16 @@ public class UiTest {
     
     @Test
     public void printGraph_validStonksGraph_printCorrectGraph() {
+        int currentYear = LocalDate.now().getYear();
         //empty financialtracker
-        StonksGraph stonksGraph = new StonksGraph(financialTracker,LocalDate.now().getYear());
+        StonksGraph stonksGraph = new StonksGraph(financialTracker,currentYear);
         String expectedOutput = SEPARATOR_LINE
                 + "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
                 + "x                                                                                                  x"
                 + "x   Account Balance: $0.00                                                 Legend:                 x"
-                + "x   Current month total expense: $0.00                                # is Expense      x"
-                + "x   Current month total income: $0.00                                 o is Income       x"
-                + "x   Your Year Report                                                       Unit: 0.01              x"
+                + "x   Current month total expense: $0.00                           # is Expense      x"
+                + "x   Current month total income: $0.00                            o is Income       x"
+                + "x   Year Report                                                       Unit: 0.01              x"
                 + "x ------------------------------------------------------------------------------------------------ x"
                 + "x                                                                                                  x"
                 + "x                                                                                                  x"
@@ -317,9 +318,10 @@ public class UiTest {
 
         String fullOutput = outputStreamCaptor.toString().trim();
         String fullOutputWithoutNewLine = fullOutput.replace(System.lineSeparator(),"");
-        String outputToBeTested = fullOutputWithoutNewLine.replaceAll("h.*?t","h t");
+        String afterRemoveCurrentMonth = fullOutputWithoutNewLine.replaceAll("month.*?t","month t");
+        String afterRemoveCurrentYear = afterRemoveCurrentMonth.replaceAll("Year.*?R","Year R");
 
-        assertEquals(expectedOutput, outputToBeTested);
+        assertEquals(expectedOutput, afterRemoveCurrentYear);
     }
 
     @Test

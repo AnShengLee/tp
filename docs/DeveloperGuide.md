@@ -189,23 +189,43 @@ How the Financial Tracker component works:
 
 ---
 
-### Currency Manager Component
+### Currency Component
 
-The `CurrencyManager` class is responsible for all currency related operations performed on entries in Stonks XD. 
-It can convert all these entries to a given currency type, track the current type and list the available types for conversion
-as prompted by the user using appropriate commands.
+The currency component is handled chiefly by the `CurrencyManager` class. 
+It also makes use of an Enum class (`CurrencyType`) that stores 
+all the legal currency types that can be parsed by the user.
 
-The class diagram below shows the structure of the `CurrencyManager` class:
+The class diagram below shows the structure of the `CurrencyManager` class and the accompanying `CurrencyType` enum class:
 
--- Work in progress --
+####Class Diagram:
 
+![](CurrencyManagerCD.drawio.png)
+
+As shown above, the `CurrencyManager` class is the main class. It contains all the methods required
+to perform currency related operations on `income`, `expense` or `budget` objects from their respective classes.
+It also has methods to track the currency type of said objects both during and after the execution of the program.
+
+The enum class is used mainly to prevent erroneous currency types from being parsed by the user.
+It currently supports only two conversions: `SGD` to `HKD` & vice versa. 
+
+####How the Currency component works:
+* Upon start-up, a new `CurrencyManager` is initialised in `StonksXD`.
+* `CurrencyManager` initialises `Entry` and `Budget` objects with their respective values and
+currency types, loaded from `DataManager`.
+* When a user gives the command `set_curr c/HKD`:
+  * The currency type parameter is first extracted by the `Extractor` class and parsed to `CurrencyConversionCommand`.
+  * The command class then passes the argument to the `CurrencyManager` class.
+  * It checks to see if the `getCurrency()` method has the same currency type as the argument.
+  * If true, an error is thrown. Otherwise, it is passed to the `determineExchangeRate()` method.
+  * After the fetching the correct rate, it is multiplied with all `Entry` and `Budget` objects by calling the arrayLists used to store them in their respective classes
+    
 ---
 
 ##### Converting user inputs to commands
 
 1. When the user gives an input, it will first be split into 2 parts command word and arguments using regex.
 2. The command word will be matched with the list of expected command words. If there is no match, return an 
-invalid command and the process stops here.
+invalid command, and the process stops here.
 3. If there is a match, `Parser` will check the validity of the arguments the user gave. This is also done
 using regex.
 4. If the arguments are valid, the corresponding command will be returned.
@@ -259,7 +279,7 @@ The constructed StonksGraph will then be printed out by the Ui class through the
 
 #### Class Diagram
 
-![](constructorNoReturnType.png)
+![](addedYearParamCD.drawio.png)
 In the class diagram above the StonksGraph class has a 2D array as a private attribute representing the graph.
 It also contains multiple methods used to write the proper characters to each parts of the 2D array.
 
@@ -280,7 +300,7 @@ Below is a list of some of the more important methods
 
 
 
-![](UpdatedWithDateOpSD.drawio.png)
+![](addedYearParamSD.png)
 
 Above is a sequential diagram for the constructor of StonksGraph that shows the different method calls when a new StonksGraph object is instantiated.
 
@@ -380,7 +400,6 @@ The sequence diagram below shows the sequence of loading entries.
 ![](LoadEntriesSD.png)
 
 #### Saving
-
 
 Saving of data will take place after every user input. Entries will be saved first followed by
 settings immediately.
@@ -507,44 +526,50 @@ Below are a few types of testing that you can perform:
 This is a non-exhaustive list of some common manual tests that can given as commands during run-time to test code defensibility:
 
 - #### _Adding Income/ Expense entries_
-  1. Test Case: `add_ex d/DESCRIPTION a/AMOUNT c/CATEGORY`. </p>
+  * Test Case: `add_ex d/DESCRIPTION a/AMOUNT c/CATEGORY`.
+     <br>
      Expected : Adds an expense item to the list. Displays confirmation message with timestamp.
   
   <br>
   
-  2. Test Case: `add_ex` but leave `d/`, `/a`, `/c` or all  empty. </p>
+  * Test Case: `add_ex` but leave `d/`, `/a`, `/c` or all  empty.
+  <br>
      Expected : No item is added. Error message displayed showing correct syntax.
   
   <br>
   
-  3. Test Case: `add_ex` but give non-existent category for `/c`.
+  *  Test Case: `add_ex` but give non-existent category for `/c`.
      Expected : No item added. Error message displayed showing available categories.
 
 - #### _Delete Income/ Expense entries_
-  1. Pre-requisite: List expense or income using `list_ex`/ `list_in. Must have one or more entries.
+  * Pre-requisite: List expense or income using `list_ex`/ `list_in. Must have one or more entries.
   
   <br>
   
-  2. Test Case: `del_in i/1` or `del_ex i/1` </p>
+  *  Test Case: `del_in i/1` or `del_ex i/1` </p>
      Expected : Deletes the 1st entry in Income/ Expense list. Displays confirmation message.
   
   <br>
   
-  3. Test Case: `del_in i/0`, `del_in i/ABC` or `del_in i/-3`. </p>
+  *  Test Case: `del_in i/0`, `del_in i/ABC` or `del_in i/-3`.
+  <br>
      Expected : Displays error message saying invalid index.
 
   <br>
-
-  4. Test Case: `del_in i/x` where x is larger than list size.
+  
+  * Test Case: `del_in i/x` where x is larger than list size.
+  <br>
      Expected : Similar error message as before.
 
 - #### _List Income/ Expense entries_
-  1. Test Case: `list_ex` or `list_in` </p>
+  * Test Case: `list_ex` or `list_in`
+  <br>
      Expected : Lists all entries added so far.
   
   <br>
   
-  2. Test Case: `list_ex` or `list_in` but no items in both lists.
+  * Test Case: `list_ex` or `list_in` but no items in both lists.
+  <br>
      Expected : Displays message saying no items in list.
 
 ### JUnit Testing 

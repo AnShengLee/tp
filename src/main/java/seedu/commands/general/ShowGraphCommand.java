@@ -42,7 +42,7 @@ public class ShowGraphCommand extends Command {
     @Override
     public void execute(FinancialTracker finances, Ui ui, BudgetManager budgetManager,
                         CurrencyManager currencyManager) {
-        StonksGraph stonksGraph = new StonksGraph(finances,year);
+        StonksGraph stonksGraph = new StonksGraph(finances, year);
         ui.printGraph(stonksGraph);
     }
 }

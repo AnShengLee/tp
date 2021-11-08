@@ -363,11 +363,12 @@ shown to the user.
 12. Check if the first line of the `csv` file has the correct header. If the header is not correct, a warning will be
 shown to the user.
 13. Read from the `csv` file line by line.
-14. For every line, `x`, 2 things can happen (they will not happen concurrently):
+14. For every line, `x`, 3 things can happen (they will not happen concurrently):
     - If `x` can be loaded as an `Expense` entry, `DataConverter` will convert it to an `Expense` and load it into 
     `FinancialTracker`. Start reading for the next line.
     - If `x` can be loaded as an `Income` entry, `DataConverter` will convert it to an `Income` and load it into
       `FinancialTracker`. Start reading for the next line.
+    - If `x` is invalid, it will not be loaded in, considered corrupted.
 15. If there are corrupted entries (cannot be loaded as `Expense` or `Income`), a warning will be 
 shown to the user.
 16. Return the control to caller.

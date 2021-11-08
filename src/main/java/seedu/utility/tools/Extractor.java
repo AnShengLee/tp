@@ -217,7 +217,7 @@ public abstract class Extractor {
         }
         switch (newCurrency.toUpperCase()) {
         case "RMB":
-            return CurrencyType.RMB;
+            return CurrencyType.HKD;
         case "SGD":
             return CurrencyType.SGD;
         default:

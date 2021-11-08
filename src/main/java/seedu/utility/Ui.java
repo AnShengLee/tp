@@ -408,7 +408,7 @@ public class Ui {
      */
     public void printCurrencyChangedConfirmation(CurrencyType currency) {
         printLine();
-        System.out.println("All entries have been converted to " + currency + "!");
+        System.out.println(Messages.CURRENCY_CONVERSION_SUCCESSFUL_MESSAGE + currency + "!");
         printLine();
     }
 

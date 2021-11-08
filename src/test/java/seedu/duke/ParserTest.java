@@ -154,12 +154,6 @@ public class ParserTest {
         assertSame("Invalid command. Use \"help\" to show the list of possible commands.", test.getMessage());
     }
 
-    
-    
-    
-    
-    
-    
     @Test
     public void parseCommand_expenseInputWithDate_validCommand() {
         Parser testParser = new Parser();

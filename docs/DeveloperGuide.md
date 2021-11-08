@@ -85,7 +85,7 @@ How the feedback loop of the main components works
 6. In the example above, delete expense command is created and executed, hence calling removeExpense() method.
 7. In most cases the method called would have feedback printing messages that requires the use of the Ui component, in this case the printing method is called printIncomeDeleted.
 8. After everything is completed, the isExit() method will check if the command given is a terminating command to adjust the terminating flag accordingly.
-9. If it is terminated the main component will print the termination message through the Ui.
+9. If it is terminated the main component will set `StonksXD_Settings.csv` to read-only and print the termination message through the Ui.
 
 ---
 
@@ -331,7 +331,7 @@ the csv files.
 
 The image below illustrates the class diagram in the context of data saving and loading.
 
-![](DataManagerCD.drawio.png)
+![](StorageCD.png)
 
 #### Loading of data
 
@@ -370,7 +370,14 @@ shown to the user.
 The sequence diagrams below will illustrate the loading process. Note that the diagrams do not show the full
 details to reduce complexity.
 
-![](.png)
+The sequence diagram below shows the sequence of loading settings.
+![](LoadSettingsSD.png)
+
+The sequence diagram below shows the sequence of loading settings specifically loading of budgets.
+![](LoadBudgetsSD.png)
+
+The sequence diagram below shows the sequence of loading entries.
+![](LoadEntriesSD.png)
 
 #### Saving
 
@@ -406,7 +413,11 @@ could be the faster option.
 The sequence diagrams below will illustrate the saving process. Note that the diagrams do not show the full
 details to reduce complexity.
 
-![](.png)
+The sequence diagram below illustrates the sequence of saving entries.
+![](SaveEntriesSD.png)
+
+The sequence diagram below illustrates the sequence of saving settings.
+![](SaveSettingsSD.png)
 
 ---
 

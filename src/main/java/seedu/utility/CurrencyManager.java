@@ -72,7 +72,7 @@ public class CurrencyManager {
      */
     public double determineExchangeRate(CurrencyType to) {
         switch (to) {
-        case RMB:
+        case HKD:
             return exchangeRate = 5.00;
         case SGD:
             return exchangeRate = (1.00 / 5.00);

@@ -6,6 +6,6 @@ import seedu.utility.CurrencyManager;
 public class CurrencyManagerStub extends CurrencyManager {
     @Override
     public CurrencyType getCurrency() {
-        return CurrencyType.SGD;       
+        return CurrencyType.SGD;
     }
 }

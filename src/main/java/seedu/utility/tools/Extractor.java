@@ -169,9 +169,7 @@ public abstract class Extractor {
         
         if (amountFromData.isBlank()) {
             throw new InvalidBudgetAmountException(Messages.BLANK_AMOUNT_MESSAGE);
-        } else if (hasMoreThanTwoDecimalPlaces(amountFromData)) {
-            throw new InvalidBudgetAmountException(Messages.TOO_MANY_DP_MESSAGE);
-        }
+        } 
         double budgetAmount;
         try {
             budgetAmount = Double.parseDouble(amountFromData);

@@ -25,7 +25,12 @@ It is also able to give visual representations of financial data through bar gra
 - **New Feature**: Added `BudgetManager` class.
   - What it does: This is the main processor of all budget and budget reminder operations. (Budget reminders are given when the user approaches/exceeds an active budget, and prompts are given to the user on how to refactor the budget.)
   - Justification: Contains all budget and budget reminder methods. Isolates budget operations from other operations in the program.
-  - Highlights: The logic behind the budget reminders to be given was quite challenging as it contained many scenarios.
+  - Highlights: The logic behind which budget reminders to give was quite challenging as it contained many scenarios.
+
+- **New Feature** Added 'BudgetReminder' class.
+  - What it does: This class represents all the possible budget reminders given in different scenarios.
+  - Justification: Organizes the large number of reminder information in a neat manner.
+  - Highlights: The budget reminders had many variations and required much data from various places to print the reminders accurately.
 
 
 - **New Feature**: Added `set_budget` command.
@@ -52,21 +57,21 @@ Link to code contribution: [RepoSense Link](https://nus-cs2113-ay2122s1.github.i
 
 
 - **Enhancement to existing features**: 
-  - Wrote JUnit tests for `BudgetManager` class (Pull requests [#84](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/84), [#127](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/127)) TO-BE-UPDATED
-  - Added additional JUnit tests for `Ui` class (Pull request [#127](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/127)) TO-BE-UPDATED
-  - Bug fixes. (Pull requests [#42](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/42), [#44](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/44), [#135](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/135)) TO-BE-UPDATED
+  - Wrote JUnit tests for `BudgetManager` class (Pull requests [#84](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/84), [#127](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/127), [#243](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/243)) 
+  - Added additional JUnit tests for `Ui` class (Pull request [#127](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/127))
+  - Bug fixes. (Pull requests [#42](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/42), [#44](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/44), [#135](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/135), [#254](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/254), [#284](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/284)) 
   
 
 - **Documentation**:
   - User Guide:
     - Contributed to the writing of the introduction to StonksXD (Pull requests [#86](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/86/files), [#129](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/129))
-    - Added write-up for `set_budget`, `check_budget` and `set_threshold` commands (Pull request [#129](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/129))
-    - Made edits for grammar and friendlier tone (Pull request [#129](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/129)) TO-BE-UPDATED
+    - Added write-up for `set_budget`, `check_budget` and `set_threshold` commands (Pull request [#129](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/129), [#281](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/281))
+    - Made edits for grammar and friendlier tone (Pull request [#129](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/129)) 
   - Developer Guide:
-    - Added Architecture Component write-up and architecture diagram (Pull requests [#85](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/85), [#89](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/89), [#133](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/133))
-    - Added Budget Component write-up and sequence diagram (Pull request [#133](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/133))
+    - Added Architecture Component write-up and architecture diagram (Pull requests [#85](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/85), [#89](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/89), [#133](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/133), [#273](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/273))
+    - Added Budget Component write-up and sequence diagram (Pull request [#133](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/133), [#273](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/273))
 
 
 - **Community**:
-  - PRs reviewed (with non-trivial comments): [#27](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/27), [#83](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/83), [#122](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/122), [#201](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/201), [#211](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/211), [#213](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/213) TO-BE-UPDATED
+  - PRs reviewed (with non-trivial comments): [#27](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/27), [#83](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/83), [#122](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/122), [#201](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/201), [#211](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/211), [#213](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/213) 
   - Contributed to the discussion of solutions to PE-D bugs via zoom meetings.

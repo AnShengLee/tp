@@ -55,7 +55,7 @@ public class  StonksXD {
             dataManager.saveAll();
         }
         dataManager.setSettingsToReadOnly();
-        //ui.printBye();
+        ui.printBye();
     }
     
     private void terminateStonksXD() {

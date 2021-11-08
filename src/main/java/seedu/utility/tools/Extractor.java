@@ -179,8 +179,8 @@ public abstract class Extractor {
             throw new InvalidBudgetAmountException(Messages.NON_NUMERIC_AMOUNT_MESSAGE);
         }
 
-        if (budgetAmount < LOAD_AMOUNT_MIN) {
-            throw new InvalidBudgetAmountException(Messages.AMOUNT_BELOW_MIN_MESSAGE);
+        if (budgetAmount < 0) {
+            throw new InvalidBudgetAmountException(Messages.NON_POSITIVE_AMOUNT_MESSAGE);
         } else if (Double.isInfinite(budgetAmount) || Double.isNaN(budgetAmount)) {
             throw new InvalidBudgetAmountException(Messages.NON_NUMERIC_AMOUNT_MESSAGE);
         } else if (budgetAmount > BUDGET_AMOUNT_LIMIT) {

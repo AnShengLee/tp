@@ -59,11 +59,7 @@ public class FinancialTracker {
         if (isOverflowedExpense(expense)) {
             throw new ExpenseOverflowException(Messages.EXPENSE_OVERFLOW_ERROR);
         }
-        //so now each expense/income have their og value&curr stored
-        expense.setCurrentDetails(expense.getValue(), currencyManager.getCurrency());
-
         expenses.add(expense);
-
         assert !expenses.isEmpty();
         assert expenses.size() > expenseSize;
     }

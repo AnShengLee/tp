@@ -18,7 +18,7 @@ so you can use this application anywhere around the world!
 With this guide, you will be able to learn how to use all the functionalities of this application through step-by-step instructions 
 without having to learn how to write a single line of code.
 
-Before you learn how to use the app, take a look at the [Quick Start](#quick-start) guide on how to install and prepare the application for use.
+Before you learn how to use the app, take a look at the [Quick Start](#1-quick-start) guide on how to install and prepare the application for use.
 
 ---
 

@@ -6,6 +6,7 @@ Stonks XD is an expense managing software that aims to simplify the process of k
 The target users for this app are computing students that travels frequently and prefer logging their finances.
 The app is able to track your daily expenses, set and adjust your spending limits and give advice based on daily expenses.
 It is also able to give visual representations of financial data through bar graphs with currency conversion capabilities.
+
 ---
 
 ### Summary of Contributions
@@ -27,7 +28,7 @@ It is also able to give visual representations of financial data through bar gra
   - Justification: Contains all budget and budget reminder methods. Isolates budget operations from other operations in the program.
   - Highlights: The logic behind which budget reminders to give was quite challenging as it contained many scenarios.
 
-- **New Feature** Added 'BudgetReminder' class.
+- **New Feature** Added `BudgetReminder` class.
   - What it does: This class represents all the possible budget reminders given in different scenarios.
   - Justification: Organizes the large number of reminder information in a neat manner.
   - Highlights: The budget reminders had many variations and required much data from various places to print the reminders accurately.

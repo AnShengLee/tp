@@ -60,7 +60,7 @@ Given below are my contributions to the project.
 - **Enhancements to existing features**: 
   - Set limit to the sum of total expense and income to prevent rounding-off error.
   - Set limit to amount user can add for each entry.
-  - Added multiple helper class that 
+  - Added multiple helper classes used within the program.
   - Wrote additional tests for existing features. [#166](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/116), [#202](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/202)
   - Added Categories and Date fields to Expense and Income.[#56](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/56)
   - Added method to get data for printing in graph command. [#66](https://github.com/AY2122S1-CS2113T-T12-3/tp/pull/66)
